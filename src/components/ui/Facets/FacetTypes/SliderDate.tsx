@@ -115,7 +115,7 @@ function SliderDate() {
 			}
 		}
 
-		if (currentMaxValue !== newMaxValue && newMaxValue >= currentMinValue) {
+		if (currentMaxValue !== newMaxValue && newMaxValue >= currentMinValue!) {
 			if (rangeMax !== null && newMaxValue >= rangeMax) {
 				currentMaxValue = rangeMax;
 			} else {

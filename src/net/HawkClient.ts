@@ -35,11 +35,11 @@ class HawkClient {
 			conf => {
 				const accessToken = AuthToken.getTokens().accessToken;
 				if ((conf.url || '').indexOf('refresh-token') !== -1 || !accessToken) {
-					delete conf.headers.common.Authorization;
-					delete conf.headers.common.ClientGuid;
+					delete conf.headers!.common!.Authorization;
+					delete conf.headers!.common!.ClientGuid;
 				} else {
-					conf.headers.Authorization = `Bearer ${accessToken}`;
-					conf.headers.ClientGuid = config.clientGuid;
+					conf.headers!.Authorization = `Bearer ${accessToken}`;
+					conf.headers!.ClientGuid = config.clientGuid;
 				}
 				return conf;
 			},

@@ -28,7 +28,9 @@ function RedirectURLListener({ RedirectAlertMessage }: RedirectURLListenerProps)
 		if (shouldRedirect) {
 			setAlert(false);
 			// NOTE: This will redirect the parent window to the given URL
-			window.top.location.href = redirectURL;
+			if (window.top) {
+				window.top.location.href = redirectURL;
+			}
 		}
 		return () => {
 			setRedirect(false);

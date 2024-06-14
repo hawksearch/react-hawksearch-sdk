@@ -7,7 +7,7 @@ import 'styles/app.scss';
 export { default as tConfig } from 'util/i18n';
 
 // context providers
-export { default as Hawksearch } from 'components/Hawksearch';
+export { default as Hawksearch } from 'components/HawkSearch';
 export { default as ConfigProvider } from 'components/ConfigProvider';
 export { default as StoreProvider } from 'components/StoreProvider';
 

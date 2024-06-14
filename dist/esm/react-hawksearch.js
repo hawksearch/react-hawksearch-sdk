@@ -1,165 +1,105 @@
-import React__default, { useContext, useState, useRef, useEffect, createElement } from 'react';
+import React__default, { createContext, useContext, useState, useRef, useEffect, createElement } from 'react';
 import { useCookies } from 'react-cookie';
 import Downshift from 'downshift';
 
-function _typeof(obj) {
+function _typeof(o) {
   "@babel/helpers - typeof";
 
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof(o);
 }
 
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
+}
+
+function _defineProperty(e, r, t) {
+  return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
+}
+
+function _objectSpread(e) {
+  for (var r = 1; r < arguments.length; r++) {
+    var t = null != arguments[r] ? Object(arguments[r]) : {},
+      o = Object.keys(t);
+    "function" == typeof Object.getOwnPropertySymbols && o.push.apply(o, Object.getOwnPropertySymbols(t).filter(function (e) {
+      return Object.getOwnPropertyDescriptor(t, e).enumerable;
+    })), o.forEach(function (r) {
+      _defineProperty(e, r, t[r]);
     });
-  } else {
-    obj[key] = value;
   }
-
-  return obj;
+  return e;
 }
 
-function _objectSpread(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? Object(arguments[i]) : {};
-    var ownKeys = Object.keys(source);
-
-    if (typeof Object.getOwnPropertySymbols === 'function') {
-      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-      }));
-    }
-
-    ownKeys.forEach(function (key) {
-      _defineProperty(target, key, source[key]);
-    });
-  }
-
-  return target;
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, toPropertyKey(o.key), o);
   }
 }
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+    writable: !1
+  }), e;
 }
 
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
+function _assertThisInitialized(e) {
+  if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  return e;
 }
 
-var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-function commonjsRequire () {
-	throw new Error('Dynamic requires are not currently supported by rollup-plugin-commonjs');
+function _possibleConstructorReturn(t, e) {
+  if (e && ("object" == _typeof(e) || "function" == typeof e)) return e;
+  if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined");
+  return _assertThisInitialized(t);
 }
 
-function unwrapExports (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+function _getPrototypeOf(t) {
+  return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) {
+    return t.__proto__ || Object.getPrototypeOf(t);
+  }, _getPrototypeOf(t);
 }
 
-function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
+function _setPrototypeOf(t, e) {
+  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
+    return t.__proto__ = e, t;
+  }, _setPrototypeOf(t, e);
 }
 
-var _typeof_1 = createCommonjsModule(function (module) {
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    module.exports = _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  } else {
-    module.exports = _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  }
-
-  return _typeof(obj);
-}
-
-module.exports = _typeof;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-
-var _typeof$1 = unwrapExports(_typeof_1);
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof$1(call) === "object" || typeof call === "function")) {
-    return call;
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
+function _inherits(t, e) {
+  if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function");
+  t.prototype = Object.create(e && e.prototype, {
     constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
+      value: t,
+      writable: !0,
+      configurable: !0
     }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
+  }), Object.defineProperty(t, "prototype", {
+    writable: !1
+  }), e && _setPrototypeOf(t, e);
 }
 
 var consoleLogger = {
@@ -2455,113 +2395,169 @@ var I18n = function (_EventEmitter) {
 
 var i18next = new I18n();
 
-var objectWithoutPropertiesLoose = createCommonjsModule(function (module) {
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
+var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
+function commonjsRequire () {
+	throw new Error('Dynamic requires are not currently supported by rollup-plugin-commonjs');
 }
 
-module.exports = _objectWithoutPropertiesLoose;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+function unwrapExports (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var objectWithoutPropertiesLoose = createCommonjsModule(function (module) {
+function _objectWithoutPropertiesLoose(r, e) {
+  if (null == r) return {};
+  var t = {};
+  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
+    if (e.indexOf(n) >= 0) continue;
+    t[n] = r[n];
+  }
+  return t;
+}
+module.exports = _objectWithoutPropertiesLoose, module.exports.__esModule = true, module.exports["default"] = module.exports;
 });
 
 unwrapExports(objectWithoutPropertiesLoose);
 
 var objectWithoutProperties = createCommonjsModule(function (module) {
-function _objectWithoutProperties(source, excluded) {
-  if (source == null) return {};
-  var target = objectWithoutPropertiesLoose(source, excluded);
-  var key, i;
-
+function _objectWithoutProperties(e, t) {
+  if (null == e) return {};
+  var o,
+    r,
+    i = objectWithoutPropertiesLoose(e, t);
   if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
+    var n = Object.getOwnPropertySymbols(e);
+    for (r = 0; r < n.length; r++) o = n[r], t.indexOf(o) >= 0 || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
   }
-
-  return target;
+  return i;
 }
-
-module.exports = _objectWithoutProperties;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _objectWithoutProperties, module.exports.__esModule = true, module.exports["default"] = module.exports;
 });
 
 unwrapExports(objectWithoutProperties);
 
-var defineProperty = createCommonjsModule(function (module) {
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
+var _typeof_1 = createCommonjsModule(function (module) {
+function _typeof(o) {
+  "@babel/helpers - typeof";
 
-  return obj;
+  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
 }
+module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+});
 
-module.exports = _defineProperty;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+unwrapExports(_typeof_1);
+
+var toPrimitive_1 = createCommonjsModule(function (module) {
+var _typeof = _typeof_1["default"];
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+module.exports = toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+});
+
+unwrapExports(toPrimitive_1);
+
+var toPropertyKey_1 = createCommonjsModule(function (module) {
+var _typeof = _typeof_1["default"];
+
+function toPropertyKey(t) {
+  var i = toPrimitive_1(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
+}
+module.exports = toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
+});
+
+unwrapExports(toPropertyKey_1);
+
+var defineProperty = createCommonjsModule(function (module) {
+function _defineProperty(e, r, t) {
+  return (r = toPropertyKey_1(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
+}
+module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
 });
 
 var _defineProperty$1 = unwrapExports(defineProperty);
 
 var classCallCheck = createCommonjsModule(function (module) {
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
-
-module.exports = _classCallCheck;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _classCallCheck, module.exports.__esModule = true, module.exports["default"] = module.exports;
 });
 
 var _classCallCheck$1 = unwrapExports(classCallCheck);
 
 var createClass = createCommonjsModule(function (module) {
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, toPropertyKey_1(o.key), o);
   }
 }
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+    writable: !1
+  }), e;
 }
-
-module.exports = _createClass;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _createClass, module.exports.__esModule = true, module.exports["default"] = module.exports;
 });
 
 var _createClass$1 = unwrapExports(createClass);
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+var matchHtmlEntity = /&(?:amp|#38|lt|#60|gt|#62|apos|#39|quot|#34|nbsp|#160|copy|#169|reg|#174|hellip|#8230|#x2F|#47);/g;
+var htmlEntities = {
+  '&amp;': '&',
+  '&#38;': '&',
+  '&lt;': '<',
+  '&#60;': '<',
+  '&gt;': '>',
+  '&#62;': '>',
+  '&apos;': "'",
+  '&#39;': "'",
+  '&quot;': '"',
+  '&#34;': '"',
+  '&nbsp;': ' ',
+  '&#160;': ' ',
+  '&copy;': '©',
+  '&#169;': '©',
+  '&reg;': '®',
+  '&#174;': '®',
+  '&hellip;': '…',
+  '&#8230;': '…',
+  '&#x2F;': '/',
+  '&#47;': '/'
+};
+
+var unescapeHtmlEntity = function unescapeHtmlEntity(m) {
+  return htmlEntities[m];
+};
+
+var unescape$1 = function unescape(text) {
+  return text.replace(matchHtmlEntity, unescapeHtmlEntity);
+};
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var defaultOptions = {
@@ -2569,11 +2565,13 @@ var defaultOptions = {
   bindI18nStore: '',
   transEmptyNodeValue: '',
   transSupportBasicHtmlNodes: true,
+  transWrapTextNodes: '',
   transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'p'],
-  useSuspense: true
+  useSuspense: true,
+  unescape: unescape$1
 };
 var i18nInstance;
-var I18nContext = React__default.createContext();
+var I18nContext = createContext();
 function setDefaults() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   defaultOptions = _objectSpread$1(_objectSpread$1({}, defaultOptions), options);
@@ -2659,14 +2657,9 @@ function loadNamespaces(i18n, ns, cb) {
     }
   });
 }
-function hasLoadedNamespace(ns, i18n) {
+
+function oldI18nextHasLoadedNamespace(ns, i18n) {
   var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-  if (!i18n.languages || !i18n.languages.length) {
-    warnOnce('i18n.languages were undefined or empty', i18n.languages);
-    return true;
-  }
-
   var lng = i18n.languages[0];
   var fallbackLng = i18n.options ? i18n.options.fallbackLng : false;
   var lastLng = i18n.languages[i18n.languages.length - 1];
@@ -2679,87 +2672,94 @@ function hasLoadedNamespace(ns, i18n) {
 
   if (options.bindI18n && options.bindI18n.indexOf('languageChanging') > -1 && i18n.services.backendConnector.backend && i18n.isLanguageChangingTo && !loadNotPending(i18n.isLanguageChangingTo, ns)) return false;
   if (i18n.hasResourceBundle(lng, ns)) return true;
-  if (!i18n.services.backendConnector.backend) return true;
+  if (!i18n.services.backendConnector.backend || i18n.options.resources && !i18n.options.partialBundledLanguages) return true;
   if (loadNotPending(lng, ns) && (!fallbackLng || loadNotPending(lastLng, ns))) return true;
   return false;
 }
 
-var arrayWithHoles = createCommonjsModule(function (module) {
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
+function hasLoadedNamespace(ns, i18n) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+  if (!i18n.languages || !i18n.languages.length) {
+    warnOnce('i18n.languages were undefined or empty', i18n.languages);
+    return true;
+  }
+
+  var isNewerI18next = i18n.options.ignoreJSONStructure !== undefined;
+
+  if (!isNewerI18next) {
+    return oldI18nextHasLoadedNamespace(ns, i18n, options);
+  }
+
+  return i18n.hasLoadedNamespace(ns, {
+    precheck: function precheck(i18nInstance, loadNotPending) {
+      if (options.bindI18n && options.bindI18n.indexOf('languageChanging') > -1 && i18nInstance.services.backendConnector.backend && i18nInstance.isLanguageChangingTo && !loadNotPending(i18nInstance.isLanguageChangingTo, ns)) return false;
+    }
+  });
 }
 
-module.exports = _arrayWithHoles;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+var arrayWithHoles = createCommonjsModule(function (module) {
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
+}
+module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 });
 
 unwrapExports(arrayWithHoles);
 
 var iterableToArrayLimit = createCommonjsModule(function (module) {
-function _iterableToArrayLimit(arr, i) {
-  var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]);
-
-  if (_i == null) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (_i = _i.call(arr), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
     try {
-      if (!_n && _i["return"] != null) _i["return"]();
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
     } finally {
-      if (_d) throw _e;
+      try {
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
     }
+    return a;
   }
-
-  return _arr;
 }
-
-module.exports = _iterableToArrayLimit;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
 });
 
 unwrapExports(iterableToArrayLimit);
 
 var arrayLikeToArray = createCommonjsModule(function (module) {
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
 }
-
-module.exports = _arrayLikeToArray;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 });
 
 unwrapExports(arrayLikeToArray);
 
 var unsupportedIterableToArray = createCommonjsModule(function (module) {
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? arrayLikeToArray(r, a) : void 0;
+  }
 }
-
-module.exports = _unsupportedIterableToArray;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 });
 
 unwrapExports(unsupportedIterableToArray);
@@ -2768,27 +2768,32 @@ var nonIterableRest = createCommonjsModule(function (module) {
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
-
-module.exports = _nonIterableRest;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
 });
 
 unwrapExports(nonIterableRest);
 
 var slicedToArray = createCommonjsModule(function (module) {
-function _slicedToArray(arr, i) {
-  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+function _slicedToArray(r, e) {
+  return arrayWithHoles(r) || iterableToArrayLimit(r, e) || unsupportedIterableToArray(r, e) || nonIterableRest();
 }
-
-module.exports = _slicedToArray;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 });
 
 var _slicedToArray = unwrapExports(slicedToArray);
 
-function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var usePrevious = function usePrevious(value, ignore) {
+  var ref = useRef();
+  useEffect(function () {
+    ref.current = ignore ? ref.current : value;
+  }, [value, ignore]);
+  return ref.current;
+};
+
 function useTranslation(ns) {
   var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var i18nFromProps = props.i18n;
@@ -2818,7 +2823,8 @@ function useTranslation(ns) {
 
   var i18nOptions = _objectSpread$2(_objectSpread$2(_objectSpread$2({}, getDefaults()), i18n.options.react), props);
 
-  var useSuspense = i18nOptions.useSuspense;
+  var useSuspense = i18nOptions.useSuspense,
+      keyPrefix = i18nOptions.keyPrefix;
   var namespaces = ns || defaultNSFromContext || i18n.options && i18n.options.defaultNS;
   namespaces = typeof namespaces === 'string' ? [namespaces] : namespaces || ['translation'];
   if (i18n.reportNamespaces.addUsedNamespaces) i18n.reportNamespaces.addUsedNamespaces(namespaces);
@@ -2827,7 +2833,7 @@ function useTranslation(ns) {
   });
 
   function getT() {
-    return i18n.getFixedT(null, i18nOptions.nsMode === 'fallback' ? namespaces : namespaces[0]);
+    return i18n.getFixedT(null, i18nOptions.nsMode === 'fallback' ? namespaces : namespaces[0], keyPrefix);
   }
 
   var _useState = useState(getT),
@@ -2835,6 +2841,8 @@ function useTranslation(ns) {
       t = _useState2[0],
       setT = _useState2[1];
 
+  var joinedNS = namespaces.join();
+  var previousJoinedNS = usePrevious(joinedNS);
   var isMounted = useRef(true);
   useEffect(function () {
     var bindI18n = i18nOptions.bindI18n,
@@ -2845,6 +2853,10 @@ function useTranslation(ns) {
       loadNamespaces(i18n, namespaces, function () {
         if (isMounted.current) setT(getT);
       });
+    }
+
+    if (ready && previousJoinedNS && previousJoinedNS !== joinedNS && isMounted.current) {
+      setT(getT);
     }
 
     function boundReset() {
@@ -2862,7 +2874,7 @@ function useTranslation(ns) {
         return i18n.store.off(e, boundReset);
       });
     };
-  }, [i18n, namespaces.join()]);
+  }, [i18n, joinedNS]);
   var isInitial = useRef(true);
   useEffect(function () {
     if (isMounted.current && !isInitial.current) {
@@ -2870,7 +2882,7 @@ function useTranslation(ns) {
     }
 
     isInitial.current = false;
-  }, [i18n]);
+  }, [i18n, keyPrefix]);
   var ret = [t, i18n, ready];
   ret.t = t;
   ret.i18n = i18n;
@@ -2884,14 +2896,13 @@ function useTranslation(ns) {
   });
 }
 
+// the translations
 // TODO: move them in a JSON file and import them
-
 var resources = {};
 i18next.use(initReactI18next) // passes i18n down to react-i18next
 .init({
   interpolation: {
     escapeValue: false // react already safes from xss
-
   },
   keySeparator: false,
   // we do not use keys in form messages.welcome
@@ -2901,934 +2912,485 @@ i18next.use(initReactI18next) // passes i18n down to react-i18next
 
 var ConfigContext = /*#__PURE__*/React__default.createContext({});
 
+// declare webpack's constant to appease typescript
+
 function ConfigProvider(_ref) {
   var config = _ref.config,
-      children = _ref.children;
-
+    children = _ref.children;
   if (config.assetPath) {
-    var path = config.assetPath; // ensure the provided path both starts and ends with a slash
+    var path = config.assetPath;
 
+    // ensure the provided path both starts and ends with a slash
     if (!path.startsWith('/')) {
       path = '/' + path;
     }
-
     if (!path.endsWith('/')) {
       path = path + '/';
-    } // allow consumers to tell webpack where to load code split/lazy loaded files from, as they may not be
+    }
+
+    // allow consumers to tell webpack where to load code split/lazy loaded files from, as they may not be
     // hosting our JS from /assets/ (the default path)
-
-
     __webpack_public_path__ = path;
   }
-
   return /*#__PURE__*/React__default.createElement(ConfigContext.Provider, {
     value: {
       config: config
     }
   }, children);
 }
-
 function useHawkConfig() {
   var context = useContext(ConfigContext);
-
   if (!context.config) {
     throw new Error('No HawksearchConfig is available, did you forget to wrap your components in a ConfigProvider component?');
   }
-
   return context;
 }
 
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
 }
 
-function _iterableToArrayLimit(arr, i) {
-  var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]);
-
-  if (_i == null) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (_i = _i.call(arr), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
     try {
-      if (!_n && _i["return"] != null) _i["return"]();
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
     } finally {
-      if (_d) throw _e;
+      try {
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
     }
+    return a;
   }
-
-  return _arr;
 }
 
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
 }
 
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+  }
 }
 
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
-function _slicedToArray$1(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+function _slicedToArray$1(r, e) {
+  return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest();
 }
 
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+function _arrayWithoutHoles(r) {
+  if (Array.isArray(r)) return _arrayLikeToArray(r);
 }
 
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+function _iterableToArray(r) {
+  if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
 }
 
 function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+function _toConsumableArray(r) {
+  return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
 }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+function asyncGeneratorStep(n, t, e, r, o, a, c) {
   try {
-    var info = gen[key](arg);
-    var value = info.value;
-  } catch (error) {
-    reject(error);
-    return;
+    var i = n[a](c),
+      u = i.value;
+  } catch (n) {
+    return void e(n);
   }
-
-  if (info.done) {
-    resolve(value);
-  } else {
-    Promise.resolve(value).then(_next, _throw);
-  }
+  i.done ? t(u) : Promise.resolve(u).then(r, o);
 }
-
-function _asyncToGenerator(fn) {
+function _asyncToGenerator(n) {
   return function () {
-    var self = this,
-        args = arguments;
-    return new Promise(function (resolve, reject) {
-      var gen = fn.apply(self, args);
-
-      function _next(value) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+    var t = this,
+      e = arguments;
+    return new Promise(function (r, o) {
+      var a = n.apply(t, e);
+      function _next(n) {
+        asyncGeneratorStep(a, r, o, _next, _throw, "next", n);
       }
-
-      function _throw(err) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      function _throw(n) {
+        asyncGeneratorStep(a, r, o, _next, _throw, "throw", n);
       }
-
-      _next(undefined);
+      _next(void 0);
     });
   };
 }
 
-var runtime_1 = createCommonjsModule(function (module) {
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-var runtime = (function (exports) {
-
-  var Op = Object.prototype;
-  var hasOwn = Op.hasOwnProperty;
-  var undefined$1; // More compressible than void 0.
-  var $Symbol = typeof Symbol === "function" ? Symbol : {};
-  var iteratorSymbol = $Symbol.iterator || "@@iterator";
-  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
-  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
-
-  function define(obj, key, value) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-    return obj[key];
+var regeneratorRuntime$1 = createCommonjsModule(function (module) {
+var _typeof = _typeof_1["default"];
+function _regeneratorRuntime() {
+  module.exports = _regeneratorRuntime = function _regeneratorRuntime() {
+    return e;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports;
+  var t,
+    e = {},
+    r = Object.prototype,
+    n = r.hasOwnProperty,
+    o = Object.defineProperty || function (t, e, r) {
+      t[e] = r.value;
+    },
+    i = "function" == typeof Symbol ? Symbol : {},
+    a = i.iterator || "@@iterator",
+    c = i.asyncIterator || "@@asyncIterator",
+    u = i.toStringTag || "@@toStringTag";
+  function define(t, e, r) {
+    return Object.defineProperty(t, e, {
+      value: r,
+      enumerable: !0,
+      configurable: !0,
+      writable: !0
+    }), t[e];
   }
   try {
-    // IE 8 has a broken Object.defineProperty that only works on DOM objects.
     define({}, "");
-  } catch (err) {
-    define = function(obj, key, value) {
-      return obj[key] = value;
+  } catch (t) {
+    define = function define(t, e, r) {
+      return t[e] = r;
     };
   }
-
-  function wrap(innerFn, outerFn, self, tryLocsList) {
-    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
-    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
-    var generator = Object.create(protoGenerator.prototype);
-    var context = new Context(tryLocsList || []);
-
-    // The ._invoke method unifies the implementations of the .next,
-    // .throw, and .return methods.
-    generator._invoke = makeInvokeMethod(innerFn, self, context);
-
-    return generator;
+  function wrap(t, e, r, n) {
+    var i = e && e.prototype instanceof Generator ? e : Generator,
+      a = Object.create(i.prototype),
+      c = new Context(n || []);
+    return o(a, "_invoke", {
+      value: makeInvokeMethod(t, r, c)
+    }), a;
   }
-  exports.wrap = wrap;
-
-  // Try/catch helper to minimize deoptimizations. Returns a completion
-  // record like context.tryEntries[i].completion. This interface could
-  // have been (and was previously) designed to take a closure to be
-  // invoked without arguments, but in all the cases we care about we
-  // already have an existing method we want to call, so there's no need
-  // to create a new function object. We can even get away with assuming
-  // the method takes exactly one argument, since that happens to be true
-  // in every case, so we don't have to touch the arguments object. The
-  // only additional allocation required is the completion record, which
-  // has a stable shape and so hopefully should be cheap to allocate.
-  function tryCatch(fn, obj, arg) {
+  function tryCatch(t, e, r) {
     try {
-      return { type: "normal", arg: fn.call(obj, arg) };
-    } catch (err) {
-      return { type: "throw", arg: err };
+      return {
+        type: "normal",
+        arg: t.call(e, r)
+      };
+    } catch (t) {
+      return {
+        type: "throw",
+        arg: t
+      };
     }
   }
-
-  var GenStateSuspendedStart = "suspendedStart";
-  var GenStateSuspendedYield = "suspendedYield";
-  var GenStateExecuting = "executing";
-  var GenStateCompleted = "completed";
-
-  // Returning this object from the innerFn has the same effect as
-  // breaking out of the dispatch switch statement.
-  var ContinueSentinel = {};
-
-  // Dummy constructor functions that we use as the .constructor and
-  // .constructor.prototype properties for functions that return Generator
-  // objects. For full spec compliance, you may wish to configure your
-  // minifier not to mangle the names of these two functions.
+  e.wrap = wrap;
+  var h = "suspendedStart",
+    l = "suspendedYield",
+    f = "executing",
+    s = "completed",
+    y = {};
   function Generator() {}
   function GeneratorFunction() {}
   function GeneratorFunctionPrototype() {}
-
-  // This is a polyfill for %IteratorPrototype% for environments that
-  // don't natively support it.
-  var IteratorPrototype = {};
-  IteratorPrototype[iteratorSymbol] = function () {
+  var p = {};
+  define(p, a, function () {
     return this;
-  };
-
-  var getProto = Object.getPrototypeOf;
-  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
-  if (NativeIteratorPrototype &&
-      NativeIteratorPrototype !== Op &&
-      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
-    // This environment has a native %IteratorPrototype%; use it instead
-    // of the polyfill.
-    IteratorPrototype = NativeIteratorPrototype;
-  }
-
-  var Gp = GeneratorFunctionPrototype.prototype =
-    Generator.prototype = Object.create(IteratorPrototype);
-  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
-  GeneratorFunctionPrototype.constructor = GeneratorFunction;
-  GeneratorFunction.displayName = define(
-    GeneratorFunctionPrototype,
-    toStringTagSymbol,
-    "GeneratorFunction"
-  );
-
-  // Helper for defining the .next, .throw, and .return methods of the
-  // Iterator interface in terms of a single ._invoke method.
-  function defineIteratorMethods(prototype) {
-    ["next", "throw", "return"].forEach(function(method) {
-      define(prototype, method, function(arg) {
-        return this._invoke(method, arg);
+  });
+  var d = Object.getPrototypeOf,
+    v = d && d(d(values([])));
+  v && v !== r && n.call(v, a) && (p = v);
+  var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p);
+  function defineIteratorMethods(t) {
+    ["next", "throw", "return"].forEach(function (e) {
+      define(t, e, function (t) {
+        return this._invoke(e, t);
       });
     });
   }
-
-  exports.isGeneratorFunction = function(genFun) {
-    var ctor = typeof genFun === "function" && genFun.constructor;
-    return ctor
-      ? ctor === GeneratorFunction ||
-        // For the native GeneratorFunction constructor, the best we can
-        // do is to check its .name property.
-        (ctor.displayName || ctor.name) === "GeneratorFunction"
-      : false;
-  };
-
-  exports.mark = function(genFun) {
-    if (Object.setPrototypeOf) {
-      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
-    } else {
-      genFun.__proto__ = GeneratorFunctionPrototype;
-      define(genFun, toStringTagSymbol, "GeneratorFunction");
+  function AsyncIterator(t, e) {
+    function invoke(r, o, i, a) {
+      var c = tryCatch(t[r], t, o);
+      if ("throw" !== c.type) {
+        var u = c.arg,
+          h = u.value;
+        return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) {
+          invoke("next", t, i, a);
+        }, function (t) {
+          invoke("throw", t, i, a);
+        }) : e.resolve(h).then(function (t) {
+          u.value = t, i(u);
+        }, function (t) {
+          return invoke("throw", t, i, a);
+        });
+      }
+      a(c.arg);
     }
-    genFun.prototype = Object.create(Gp);
-    return genFun;
-  };
-
-  // Within the body of any async function, `await x` is transformed to
-  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
-  // `hasOwn.call(value, "__await")` to determine if the yielded value is
-  // meant to be awaited.
-  exports.awrap = function(arg) {
-    return { __await: arg };
-  };
-
-  function AsyncIterator(generator, PromiseImpl) {
-    function invoke(method, arg, resolve, reject) {
-      var record = tryCatch(generator[method], generator, arg);
-      if (record.type === "throw") {
-        reject(record.arg);
-      } else {
-        var result = record.arg;
-        var value = result.value;
-        if (value &&
-            typeof value === "object" &&
-            hasOwn.call(value, "__await")) {
-          return PromiseImpl.resolve(value.__await).then(function(value) {
-            invoke("next", value, resolve, reject);
-          }, function(err) {
-            invoke("throw", err, resolve, reject);
+    var r;
+    o(this, "_invoke", {
+      value: function value(t, n) {
+        function callInvokeWithMethodAndArg() {
+          return new e(function (e, r) {
+            invoke(t, n, e, r);
           });
         }
-
-        return PromiseImpl.resolve(value).then(function(unwrapped) {
-          // When a yielded Promise is resolved, its final value becomes
-          // the .value of the Promise<{value,done}> result for the
-          // current iteration.
-          result.value = unwrapped;
-          resolve(result);
-        }, function(error) {
-          // If a rejected Promise was yielded, throw the rejection back
-          // into the async generator function so it can be handled there.
-          return invoke("throw", error, resolve, reject);
-        });
+        return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
       }
-    }
-
-    var previousPromise;
-
-    function enqueue(method, arg) {
-      function callInvokeWithMethodAndArg() {
-        return new PromiseImpl(function(resolve, reject) {
-          invoke(method, arg, resolve, reject);
-        });
-      }
-
-      return previousPromise =
-        // If enqueue has been called before, then we want to wait until
-        // all previous Promises have been resolved before calling invoke,
-        // so that results are always delivered in the correct order. If
-        // enqueue has not been called before, then it is important to
-        // call invoke immediately, without waiting on a callback to fire,
-        // so that the async generator function has the opportunity to do
-        // any necessary setup in a predictable way. This predictability
-        // is why the Promise constructor synchronously invokes its
-        // executor callback, and why async functions synchronously
-        // execute code before the first await. Since we implement simple
-        // async functions in terms of async generators, it is especially
-        // important to get this right, even though it requires care.
-        previousPromise ? previousPromise.then(
-          callInvokeWithMethodAndArg,
-          // Avoid propagating failures to Promises returned by later
-          // invocations of the iterator.
-          callInvokeWithMethodAndArg
-        ) : callInvokeWithMethodAndArg();
-    }
-
-    // Define the unified helper method that is used to implement .next,
-    // .throw, and .return (see defineIteratorMethods).
-    this._invoke = enqueue;
+    });
   }
-
-  defineIteratorMethods(AsyncIterator.prototype);
-  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
-    return this;
-  };
-  exports.AsyncIterator = AsyncIterator;
-
-  // Note that simple async functions are implemented on top of
-  // AsyncIterator objects; they just return a Promise for the value of
-  // the final result produced by the iterator.
-  exports.async = function(innerFn, outerFn, self, tryLocsList, PromiseImpl) {
-    if (PromiseImpl === void 0) PromiseImpl = Promise;
-
-    var iter = new AsyncIterator(
-      wrap(innerFn, outerFn, self, tryLocsList),
-      PromiseImpl
-    );
-
-    return exports.isGeneratorFunction(outerFn)
-      ? iter // If outerFn is a generator, return the full iterator.
-      : iter.next().then(function(result) {
-          return result.done ? result.value : iter.next();
-        });
-  };
-
-  function makeInvokeMethod(innerFn, self, context) {
-    var state = GenStateSuspendedStart;
-
-    return function invoke(method, arg) {
-      if (state === GenStateExecuting) {
-        throw new Error("Generator is already running");
-      }
-
-      if (state === GenStateCompleted) {
-        if (method === "throw") {
-          throw arg;
-        }
-
-        // Be forgiving, per 25.3.3.3.3 of the spec:
-        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
-        return doneResult();
-      }
-
-      context.method = method;
-      context.arg = arg;
-
-      while (true) {
-        var delegate = context.delegate;
-        if (delegate) {
-          var delegateResult = maybeInvokeDelegate(delegate, context);
-          if (delegateResult) {
-            if (delegateResult === ContinueSentinel) continue;
-            return delegateResult;
-          }
-        }
-
-        if (context.method === "next") {
-          // Setting context._sent for legacy support of Babel's
-          // function.sent implementation.
-          context.sent = context._sent = context.arg;
-
-        } else if (context.method === "throw") {
-          if (state === GenStateSuspendedStart) {
-            state = GenStateCompleted;
-            throw context.arg;
-          }
-
-          context.dispatchException(context.arg);
-
-        } else if (context.method === "return") {
-          context.abrupt("return", context.arg);
-        }
-
-        state = GenStateExecuting;
-
-        var record = tryCatch(innerFn, self, context);
-        if (record.type === "normal") {
-          // If an exception is thrown from innerFn, we leave state ===
-          // GenStateExecuting and loop back for another invocation.
-          state = context.done
-            ? GenStateCompleted
-            : GenStateSuspendedYield;
-
-          if (record.arg === ContinueSentinel) {
-            continue;
-          }
-
-          return {
-            value: record.arg,
-            done: context.done
-          };
-
-        } else if (record.type === "throw") {
-          state = GenStateCompleted;
-          // Dispatch the exception by looping back around to the
-          // context.dispatchException(context.arg) call above.
-          context.method = "throw";
-          context.arg = record.arg;
-        }
-      }
-    };
-  }
-
-  // Call delegate.iterator[context.method](context.arg) and handle the
-  // result, either by returning a { value, done } result from the
-  // delegate iterator, or by modifying context.method and context.arg,
-  // setting context.delegate to null, and returning the ContinueSentinel.
-  function maybeInvokeDelegate(delegate, context) {
-    var method = delegate.iterator[context.method];
-    if (method === undefined$1) {
-      // A .throw or .return when the delegate iterator has no .throw
-      // method always terminates the yield* loop.
-      context.delegate = null;
-
-      if (context.method === "throw") {
-        // Note: ["return"] must be used for ES3 parsing compatibility.
-        if (delegate.iterator["return"]) {
-          // If the delegate iterator has a return method, give it a
-          // chance to clean up.
-          context.method = "return";
-          context.arg = undefined$1;
-          maybeInvokeDelegate(delegate, context);
-
-          if (context.method === "throw") {
-            // If maybeInvokeDelegate(context) changed context.method from
-            // "return" to "throw", let that override the TypeError below.
-            return ContinueSentinel;
-          }
-        }
-
-        context.method = "throw";
-        context.arg = new TypeError(
-          "The iterator does not provide a 'throw' method");
-      }
-
-      return ContinueSentinel;
-    }
-
-    var record = tryCatch(method, delegate.iterator, context.arg);
-
-    if (record.type === "throw") {
-      context.method = "throw";
-      context.arg = record.arg;
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    var info = record.arg;
-
-    if (! info) {
-      context.method = "throw";
-      context.arg = new TypeError("iterator result is not an object");
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    if (info.done) {
-      // Assign the result of the finished delegate to the temporary
-      // variable specified by delegate.resultName (see delegateYield).
-      context[delegate.resultName] = info.value;
-
-      // Resume execution at the desired location (see delegateYield).
-      context.next = delegate.nextLoc;
-
-      // If context.method was "throw" but the delegate handled the
-      // exception, let the outer generator proceed normally. If
-      // context.method was "next", forget context.arg since it has been
-      // "consumed" by the delegate iterator. If context.method was
-      // "return", allow the original .return call to continue in the
-      // outer generator.
-      if (context.method !== "return") {
-        context.method = "next";
-        context.arg = undefined$1;
-      }
-
-    } else {
-      // Re-yield the result returned by the delegate method.
-      return info;
-    }
-
-    // The delegate iterator is finished, so forget it and continue with
-    // the outer generator.
-    context.delegate = null;
-    return ContinueSentinel;
-  }
-
-  // Define Generator.prototype.{next,throw,return} in terms of the
-  // unified ._invoke helper method.
-  defineIteratorMethods(Gp);
-
-  define(Gp, toStringTagSymbol, "Generator");
-
-  // A Generator should always return itself as the iterator object when the
-  // @@iterator function is called on it. Some browsers' implementations of the
-  // iterator prototype chain incorrectly implement this, causing the Generator
-  // object to not be returned from this call. This ensures that doesn't happen.
-  // See https://github.com/facebook/regenerator/issues/274 for more details.
-  Gp[iteratorSymbol] = function() {
-    return this;
-  };
-
-  Gp.toString = function() {
-    return "[object Generator]";
-  };
-
-  function pushTryEntry(locs) {
-    var entry = { tryLoc: locs[0] };
-
-    if (1 in locs) {
-      entry.catchLoc = locs[1];
-    }
-
-    if (2 in locs) {
-      entry.finallyLoc = locs[2];
-      entry.afterLoc = locs[3];
-    }
-
-    this.tryEntries.push(entry);
-  }
-
-  function resetTryEntry(entry) {
-    var record = entry.completion || {};
-    record.type = "normal";
-    delete record.arg;
-    entry.completion = record;
-  }
-
-  function Context(tryLocsList) {
-    // The root entry object (effectively a try statement without a catch
-    // or a finally block) gives us a place to store values thrown from
-    // locations where there is no enclosing try statement.
-    this.tryEntries = [{ tryLoc: "root" }];
-    tryLocsList.forEach(pushTryEntry, this);
-    this.reset(true);
-  }
-
-  exports.keys = function(object) {
-    var keys = [];
-    for (var key in object) {
-      keys.push(key);
-    }
-    keys.reverse();
-
-    // Rather than returning an object with a next method, we keep
-    // things simple and return the next function itself.
-    return function next() {
-      while (keys.length) {
-        var key = keys.pop();
-        if (key in object) {
-          next.value = key;
-          next.done = false;
-          return next;
-        }
-      }
-
-      // To avoid creating an additional object, we just hang the .value
-      // and .done properties off the next function object itself. This
-      // also ensures that the minifier will not anonymize the function.
-      next.done = true;
-      return next;
-    };
-  };
-
-  function values(iterable) {
-    if (iterable) {
-      var iteratorMethod = iterable[iteratorSymbol];
-      if (iteratorMethod) {
-        return iteratorMethod.call(iterable);
-      }
-
-      if (typeof iterable.next === "function") {
-        return iterable;
-      }
-
-      if (!isNaN(iterable.length)) {
-        var i = -1, next = function next() {
-          while (++i < iterable.length) {
-            if (hasOwn.call(iterable, i)) {
-              next.value = iterable[i];
-              next.done = false;
-              return next;
-            }
-          }
-
-          next.value = undefined$1;
-          next.done = true;
-
-          return next;
+  function makeInvokeMethod(e, r, n) {
+    var o = h;
+    return function (i, a) {
+      if (o === f) throw Error("Generator is already running");
+      if (o === s) {
+        if ("throw" === i) throw a;
+        return {
+          value: t,
+          done: !0
         };
-
-        return next.next = next;
       }
-    }
-
-    // Return an iterator with no values.
-    return { next: doneResult };
-  }
-  exports.values = values;
-
-  function doneResult() {
-    return { value: undefined$1, done: true };
-  }
-
-  Context.prototype = {
-    constructor: Context,
-
-    reset: function(skipTempReset) {
-      this.prev = 0;
-      this.next = 0;
-      // Resetting context._sent for legacy support of Babel's
-      // function.sent implementation.
-      this.sent = this._sent = undefined$1;
-      this.done = false;
-      this.delegate = null;
-
-      this.method = "next";
-      this.arg = undefined$1;
-
-      this.tryEntries.forEach(resetTryEntry);
-
-      if (!skipTempReset) {
-        for (var name in this) {
-          // Not sure about the optimal order of these conditions:
-          if (name.charAt(0) === "t" &&
-              hasOwn.call(this, name) &&
-              !isNaN(+name.slice(1))) {
-            this[name] = undefined$1;
+      for (n.method = i, n.arg = a;;) {
+        var c = n.delegate;
+        if (c) {
+          var u = maybeInvokeDelegate(c, n);
+          if (u) {
+            if (u === y) continue;
+            return u;
           }
         }
+        if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) {
+          if (o === h) throw o = s, n.arg;
+          n.dispatchException(n.arg);
+        } else "return" === n.method && n.abrupt("return", n.arg);
+        o = f;
+        var p = tryCatch(e, r, n);
+        if ("normal" === p.type) {
+          if (o = n.done ? s : l, p.arg === y) continue;
+          return {
+            value: p.arg,
+            done: n.done
+          };
+        }
+        "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg);
       }
+    };
+  }
+  function maybeInvokeDelegate(e, r) {
+    var n = r.method,
+      o = e.iterator[n];
+    if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y;
+    var i = tryCatch(o, e.iterator, r.arg);
+    if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y;
+    var a = i.arg;
+    return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y);
+  }
+  function pushTryEntry(t) {
+    var e = {
+      tryLoc: t[0]
+    };
+    1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e);
+  }
+  function resetTryEntry(t) {
+    var e = t.completion || {};
+    e.type = "normal", delete e.arg, t.completion = e;
+  }
+  function Context(t) {
+    this.tryEntries = [{
+      tryLoc: "root"
+    }], t.forEach(pushTryEntry, this), this.reset(!0);
+  }
+  function values(e) {
+    if (e || "" === e) {
+      var r = e[a];
+      if (r) return r.call(e);
+      if ("function" == typeof e.next) return e;
+      if (!isNaN(e.length)) {
+        var o = -1,
+          i = function next() {
+            for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next;
+            return next.value = t, next.done = !0, next;
+          };
+        return i.next = i;
+      }
+    }
+    throw new TypeError(_typeof(e) + " is not iterable");
+  }
+  return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", {
+    value: GeneratorFunctionPrototype,
+    configurable: !0
+  }), o(GeneratorFunctionPrototype, "constructor", {
+    value: GeneratorFunction,
+    configurable: !0
+  }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) {
+    var e = "function" == typeof t && t.constructor;
+    return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name));
+  }, e.mark = function (t) {
+    return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t;
+  }, e.awrap = function (t) {
+    return {
+      __await: t
+    };
+  }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () {
+    return this;
+  }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) {
+    void 0 === i && (i = Promise);
+    var a = new AsyncIterator(wrap(t, r, n, o), i);
+    return e.isGeneratorFunction(r) ? a : a.next().then(function (t) {
+      return t.done ? t.value : a.next();
+    });
+  }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () {
+    return this;
+  }), define(g, "toString", function () {
+    return "[object Generator]";
+  }), e.keys = function (t) {
+    var e = Object(t),
+      r = [];
+    for (var n in e) r.push(n);
+    return r.reverse(), function next() {
+      for (; r.length;) {
+        var t = r.pop();
+        if (t in e) return next.value = t, next.done = !1, next;
+      }
+      return next.done = !0, next;
+    };
+  }, e.values = values, Context.prototype = {
+    constructor: Context,
+    reset: function reset(e) {
+      if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t);
     },
-
-    stop: function() {
-      this.done = true;
-
-      var rootEntry = this.tryEntries[0];
-      var rootRecord = rootEntry.completion;
-      if (rootRecord.type === "throw") {
-        throw rootRecord.arg;
-      }
-
+    stop: function stop() {
+      this.done = !0;
+      var t = this.tryEntries[0].completion;
+      if ("throw" === t.type) throw t.arg;
       return this.rval;
     },
-
-    dispatchException: function(exception) {
-      if (this.done) {
-        throw exception;
+    dispatchException: function dispatchException(e) {
+      if (this.done) throw e;
+      var r = this;
+      function handle(n, o) {
+        return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o;
       }
-
-      var context = this;
-      function handle(loc, caught) {
-        record.type = "throw";
-        record.arg = exception;
-        context.next = loc;
-
-        if (caught) {
-          // If the dispatched exception was caught by a catch block,
-          // then let that catch block handle the exception normally.
-          context.method = "next";
-          context.arg = undefined$1;
-        }
-
-        return !! caught;
-      }
-
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        var record = entry.completion;
-
-        if (entry.tryLoc === "root") {
-          // Exception thrown outside of any try block that could handle
-          // it, so set the completion value of the entire function to
-          // throw the exception.
-          return handle("end");
-        }
-
-        if (entry.tryLoc <= this.prev) {
-          var hasCatch = hasOwn.call(entry, "catchLoc");
-          var hasFinally = hasOwn.call(entry, "finallyLoc");
-
-          if (hasCatch && hasFinally) {
-            if (this.prev < entry.catchLoc) {
-              return handle(entry.catchLoc, true);
-            } else if (this.prev < entry.finallyLoc) {
-              return handle(entry.finallyLoc);
-            }
-
-          } else if (hasCatch) {
-            if (this.prev < entry.catchLoc) {
-              return handle(entry.catchLoc, true);
-            }
-
-          } else if (hasFinally) {
-            if (this.prev < entry.finallyLoc) {
-              return handle(entry.finallyLoc);
-            }
-
+      for (var o = this.tryEntries.length - 1; o >= 0; --o) {
+        var i = this.tryEntries[o],
+          a = i.completion;
+        if ("root" === i.tryLoc) return handle("end");
+        if (i.tryLoc <= this.prev) {
+          var c = n.call(i, "catchLoc"),
+            u = n.call(i, "finallyLoc");
+          if (c && u) {
+            if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
+            if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
+          } else if (c) {
+            if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
           } else {
-            throw new Error("try statement without catch or finally");
+            if (!u) throw Error("try statement without catch or finally");
+            if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
           }
         }
       }
     },
-
-    abrupt: function(type, arg) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.tryLoc <= this.prev &&
-            hasOwn.call(entry, "finallyLoc") &&
-            this.prev < entry.finallyLoc) {
-          var finallyEntry = entry;
+    abrupt: function abrupt(t, e) {
+      for (var r = this.tryEntries.length - 1; r >= 0; --r) {
+        var o = this.tryEntries[r];
+        if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) {
+          var i = o;
           break;
         }
       }
-
-      if (finallyEntry &&
-          (type === "break" ||
-           type === "continue") &&
-          finallyEntry.tryLoc <= arg &&
-          arg <= finallyEntry.finallyLoc) {
-        // Ignore the finally entry if control is not jumping to a
-        // location outside the try/catch block.
-        finallyEntry = null;
-      }
-
-      var record = finallyEntry ? finallyEntry.completion : {};
-      record.type = type;
-      record.arg = arg;
-
-      if (finallyEntry) {
-        this.method = "next";
-        this.next = finallyEntry.finallyLoc;
-        return ContinueSentinel;
-      }
-
-      return this.complete(record);
+      i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null);
+      var a = i ? i.completion : {};
+      return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a);
     },
-
-    complete: function(record, afterLoc) {
-      if (record.type === "throw") {
-        throw record.arg;
-      }
-
-      if (record.type === "break" ||
-          record.type === "continue") {
-        this.next = record.arg;
-      } else if (record.type === "return") {
-        this.rval = this.arg = record.arg;
-        this.method = "return";
-        this.next = "end";
-      } else if (record.type === "normal" && afterLoc) {
-        this.next = afterLoc;
-      }
-
-      return ContinueSentinel;
+    complete: function complete(t, e) {
+      if ("throw" === t.type) throw t.arg;
+      return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y;
     },
-
-    finish: function(finallyLoc) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.finallyLoc === finallyLoc) {
-          this.complete(entry.completion, entry.afterLoc);
-          resetTryEntry(entry);
-          return ContinueSentinel;
-        }
+    finish: function finish(t) {
+      for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+        var r = this.tryEntries[e];
+        if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y;
       }
     },
-
-    "catch": function(tryLoc) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.tryLoc === tryLoc) {
-          var record = entry.completion;
-          if (record.type === "throw") {
-            var thrown = record.arg;
-            resetTryEntry(entry);
+    "catch": function _catch(t) {
+      for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+        var r = this.tryEntries[e];
+        if (r.tryLoc === t) {
+          var n = r.completion;
+          if ("throw" === n.type) {
+            var o = n.arg;
+            resetTryEntry(r);
           }
-          return thrown;
+          return o;
         }
       }
-
-      // The context.catch method must only be called with a location
-      // argument that corresponds to a known catch block.
-      throw new Error("illegal catch attempt");
+      throw Error("illegal catch attempt");
     },
-
-    delegateYield: function(iterable, resultName, nextLoc) {
-      this.delegate = {
-        iterator: values(iterable),
-        resultName: resultName,
-        nextLoc: nextLoc
-      };
-
-      if (this.method === "next") {
-        // Deliberately forget the last sent value so that we don't
-        // accidentally pass it on to the delegate.
-        this.arg = undefined$1;
-      }
-
-      return ContinueSentinel;
+    delegateYield: function delegateYield(e, r, n) {
+      return this.delegate = {
+        iterator: values(e),
+        resultName: r,
+        nextLoc: n
+      }, "next" === this.method && (this.arg = t), y;
     }
-  };
+  }, e;
+}
+module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
+});
 
-  // Regardless of whether this script is executing as a CommonJS module
-  // or not, return the runtime object so that we can declare the variable
-  // regeneratorRuntime in the outer scope, which allows this module to be
-  // injected easily by `bin/regenerator --include-runtime script.js`.
-  return exports;
+unwrapExports(regeneratorRuntime$1);
 
-}(
-  // If this script is executing as a CommonJS module, use module.exports
-  // as the regeneratorRuntime namespace. Otherwise create a new empty
-  // object. Either way, the resulting object will be used to initialize
-  // the regeneratorRuntime variable at the top of this file.
-   module.exports 
-));
+// TODO(Babel 8): Remove this file.
 
+var runtime = regeneratorRuntime$1();
+var regenerator = runtime;
+
+// Copied from https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js#L736=
 try {
   regeneratorRuntime = runtime;
 } catch (accidentalStrictMode) {
-  // This module should not be running in strict mode, so the above
-  // assignment should always work unless something is misconfigured. Just
-  // in case runtime.js accidentally runs in strict mode, we can escape
-  // strict mode using a global Function call. This could conceivably fail
-  // if a Content Security Policy forbids using Function, but in that case
-  // the proper solution is to fix the accidental strict mode problem. If
-  // you've misconfigured your bundler to force strict mode and applied a
-  // CSP to forbid Function, and you're not willing to fix either of those
-  // problems, please detail your unique predicament in a GitHub issue.
-  Function("r", "regeneratorRuntime = r")(runtime);
+  if (typeof globalThis === "object") {
+    globalThis.regeneratorRuntime = runtime;
+  } else {
+    Function("r", "regeneratorRuntime = r")(runtime);
+  }
 }
-});
-
-var regenerator = runtime_1;
 
 var bind = function bind(fn, thisArg) {
   return function wrap() {
-    var args = new Array(arguments.length);
-    for (var i = 0; i < args.length; i++) {
-      args[i] = arguments[i];
-    }
-    return fn.apply(thisArg, args);
+    return fn.apply(thisArg, arguments);
   };
 };
-
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-
-var isBuffer = function isBuffer (obj) {
-  return obj != null && obj.constructor != null &&
-    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-};
-
-/*global toString:true*/
 
 // utils is a library of generic helper functions non-specific to axios
 
 var toString = Object.prototype.toString;
+
+// eslint-disable-next-line func-names
+var kindOf = (function(cache) {
+  // eslint-disable-next-line func-names
+  return function(thing) {
+    var str = toString.call(thing);
+    return cache[str] || (cache[str] = str.slice(8, -1).toLowerCase());
+  };
+})(Object.create(null));
+
+function kindOfTest(type) {
+  type = type.toLowerCase();
+  return function isKindOf(thing) {
+    return kindOf(thing) === type;
+  };
+}
 
 /**
  * Determine if a value is an Array
@@ -3837,28 +3399,39 @@ var toString = Object.prototype.toString;
  * @returns {boolean} True if value is an Array, otherwise false
  */
 function isArray(val) {
-  return toString.call(val) === '[object Array]';
+  return Array.isArray(val);
+}
+
+/**
+ * Determine if a value is undefined
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if the value is undefined, otherwise false
+ */
+function isUndefined(val) {
+  return typeof val === 'undefined';
+}
+
+/**
+ * Determine if a value is a Buffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Buffer, otherwise false
+ */
+function isBuffer(val) {
+  return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor)
+    && typeof val.constructor.isBuffer === 'function' && val.constructor.isBuffer(val);
 }
 
 /**
  * Determine if a value is an ArrayBuffer
  *
+ * @function
  * @param {Object} val The value to test
  * @returns {boolean} True if value is an ArrayBuffer, otherwise false
  */
-function isArrayBuffer(val) {
-  return toString.call(val) === '[object ArrayBuffer]';
-}
+var isArrayBuffer = kindOfTest('ArrayBuffer');
 
-/**
- * Determine if a value is a FormData
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an FormData, otherwise false
- */
-function isFormData(val) {
-  return (typeof FormData !== 'undefined') && (val instanceof FormData);
-}
 
 /**
  * Determine if a value is a view on an ArrayBuffer
@@ -3871,7 +3444,7 @@ function isArrayBufferView(val) {
   if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
     result = ArrayBuffer.isView(val);
   } else {
-    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+    result = (val) && (val.buffer) && (isArrayBuffer(val.buffer));
   }
   return result;
 }
@@ -3897,16 +3470,6 @@ function isNumber(val) {
 }
 
 /**
- * Determine if a value is undefined
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if the value is undefined, otherwise false
- */
-function isUndefined(val) {
-  return typeof val === 'undefined';
-}
-
-/**
  * Determine if a value is an Object
  *
  * @param {Object} val The value to test
@@ -3917,34 +3480,65 @@ function isObject(val) {
 }
 
 /**
+ * Determine if a value is a plain Object
+ *
+ * @param {Object} val The value to test
+ * @return {boolean} True if value is a plain Object, otherwise false
+ */
+function isPlainObject(val) {
+  if (kindOf(val) !== 'object') {
+    return false;
+  }
+
+  var prototype = Object.getPrototypeOf(val);
+  return prototype === null || prototype === Object.prototype;
+}
+
+/**
+ * Determine if a value is a empty Object
+ *
+ * @param {Object} val The value to test
+ * @return {boolean} True if value is a empty Object, otherwise false
+ */
+function isEmptyObject(val) {
+  return val && Object.keys(val).length === 0 && Object.getPrototypeOf(val) === Object.prototype;
+}
+
+/**
  * Determine if a value is a Date
  *
+ * @function
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a Date, otherwise false
  */
-function isDate(val) {
-  return toString.call(val) === '[object Date]';
-}
+var isDate = kindOfTest('Date');
 
 /**
  * Determine if a value is a File
  *
+ * @function
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a File, otherwise false
  */
-function isFile(val) {
-  return toString.call(val) === '[object File]';
-}
+var isFile = kindOfTest('File');
 
 /**
  * Determine if a value is a Blob
  *
+ * @function
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a Blob, otherwise false
  */
-function isBlob(val) {
-  return toString.call(val) === '[object Blob]';
-}
+var isBlob = kindOfTest('Blob');
+
+/**
+ * Determine if a value is a FileList
+ *
+ * @function
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a File, otherwise false
+ */
+var isFileList = kindOfTest('FileList');
 
 /**
  * Determine if a value is a Function
@@ -3967,14 +3561,27 @@ function isStream(val) {
 }
 
 /**
- * Determine if a value is a URLSearchParams object
+ * Determine if a value is a FormData
  *
+ * @param {Object} thing The value to test
+ * @returns {boolean} True if value is an FormData, otherwise false
+ */
+function isFormData(thing) {
+  var pattern = '[object FormData]';
+  return thing && (
+    (typeof FormData === 'function' && thing instanceof FormData) ||
+    toString.call(thing) === pattern ||
+    (isFunction(thing.toString) && thing.toString() === pattern)
+  );
+}
+
+/**
+ * Determine if a value is a URLSearchParams object
+ * @function
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a URLSearchParams object, otherwise false
  */
-function isURLSearchParams(val) {
-  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
-}
+var isURLSearchParams = kindOfTest('URLSearchParams');
 
 /**
  * Trim excess whitespace off the beginning and end of a string
@@ -3983,7 +3590,7 @@ function isURLSearchParams(val) {
  * @returns {String} The String freed of excess whitespace
  */
 function trim(str) {
-  return str.replace(/^\s*/, '').replace(/\s*$/, '');
+  return str.trim ? str.trim() : str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
 }
 
 /**
@@ -3998,15 +3605,20 @@ function trim(str) {
  *
  * react-native:
  *  navigator.product -> 'ReactNative'
+ * nativescript
+ *  navigator.product -> 'NativeScript' or 'NS'
  */
 function isStandardBrowserEnv() {
-  if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
+  var product;
+  if (typeof navigator !== 'undefined' && (
+    (product = navigator.product) === 'ReactNative' ||
+    product === 'NativeScript' ||
+    product === 'NS')
+  ) {
     return false;
   }
-  return (
-    typeof window !== 'undefined' &&
-    typeof document !== 'undefined'
-  );
+
+  return typeof window !== 'undefined' && typeof document !== 'undefined';
 }
 
 /**
@@ -4068,8 +3680,12 @@ function forEach(obj, fn) {
 function merge(/* obj1, obj2, obj3, ... */) {
   var result = {};
   function assignValue(val, key) {
-    if (typeof result[key] === 'object' && typeof val === 'object') {
+    if (isPlainObject(result[key]) && isPlainObject(val)) {
       result[key] = merge(result[key], val);
+    } else if (isPlainObject(val)) {
+      result[key] = merge({}, val);
+    } else if (isArray(val)) {
+      result[key] = val.slice();
     } else {
       result[key] = val;
     }
@@ -4100,6 +3716,143 @@ function extend(a, b, thisArg) {
   return a;
 }
 
+/**
+ * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
+ *
+ * @param {string} content with BOM
+ * @return {string} content value without BOM
+ */
+function stripBOM(content) {
+  if (content.charCodeAt(0) === 0xFEFF) {
+    content = content.slice(1);
+  }
+  return content;
+}
+
+/**
+ * Inherit the prototype methods from one constructor into another
+ * @param {function} constructor
+ * @param {function} superConstructor
+ * @param {object} [props]
+ * @param {object} [descriptors]
+ */
+
+function inherits(constructor, superConstructor, props, descriptors) {
+  constructor.prototype = Object.create(superConstructor.prototype, descriptors);
+  constructor.prototype.constructor = constructor;
+  props && Object.assign(constructor.prototype, props);
+}
+
+/**
+ * Resolve object with deep prototype chain to a flat object
+ * @param {Object} sourceObj source object
+ * @param {Object} [destObj]
+ * @param {Function|Boolean} [filter]
+ * @param {Function} [propFilter]
+ * @returns {Object}
+ */
+
+function toFlatObject(sourceObj, destObj, filter, propFilter) {
+  var props;
+  var i;
+  var prop;
+  var merged = {};
+
+  destObj = destObj || {};
+  // eslint-disable-next-line no-eq-null,eqeqeq
+  if (sourceObj == null) return destObj;
+
+  do {
+    props = Object.getOwnPropertyNames(sourceObj);
+    i = props.length;
+    while (i-- > 0) {
+      prop = props[i];
+      if ((!propFilter || propFilter(prop, sourceObj, destObj)) && !merged[prop]) {
+        destObj[prop] = sourceObj[prop];
+        merged[prop] = true;
+      }
+    }
+    sourceObj = filter !== false && Object.getPrototypeOf(sourceObj);
+  } while (sourceObj && (!filter || filter(sourceObj, destObj)) && sourceObj !== Object.prototype);
+
+  return destObj;
+}
+
+/*
+ * determines whether a string ends with the characters of a specified string
+ * @param {String} str
+ * @param {String} searchString
+ * @param {Number} [position= 0]
+ * @returns {boolean}
+ */
+function endsWith(str, searchString, position) {
+  str = String(str);
+  if (position === undefined || position > str.length) {
+    position = str.length;
+  }
+  position -= searchString.length;
+  var lastIndex = str.indexOf(searchString, position);
+  return lastIndex !== -1 && lastIndex === position;
+}
+
+
+/**
+ * Returns new array from array like object or null if failed
+ * @param {*} [thing]
+ * @returns {?Array}
+ */
+function toArray(thing) {
+  if (!thing) return null;
+  if (isArray(thing)) return thing;
+  var i = thing.length;
+  if (!isNumber(i)) return null;
+  var arr = new Array(i);
+  while (i-- > 0) {
+    arr[i] = thing[i];
+  }
+  return arr;
+}
+
+// eslint-disable-next-line func-names
+var isTypedArray = (function(TypedArray) {
+  // eslint-disable-next-line func-names
+  return function(thing) {
+    return TypedArray && thing instanceof TypedArray;
+  };
+})(typeof Uint8Array !== 'undefined' && Object.getPrototypeOf(Uint8Array));
+
+function forEachEntry(obj, fn) {
+  var generator = obj && obj[Symbol.iterator];
+
+  var iterator = generator.call(obj);
+
+  var result;
+
+  while ((result = iterator.next()) && !result.done) {
+    var pair = result.value;
+    fn.call(obj, pair[0], pair[1]);
+  }
+}
+
+function matchAll(regExp, str) {
+  var matches;
+  var arr = [];
+
+  while ((matches = regExp.exec(str)) !== null) {
+    arr.push(matches);
+  }
+
+  return arr;
+}
+
+var isHTMLForm = kindOfTest('HTMLFormElement');
+
+var hasOwnProperty = (function resolver(_hasOwnProperty) {
+  return function(obj, prop) {
+    return _hasOwnProperty.call(obj, prop);
+  };
+})(Object.prototype.hasOwnProperty);
+
 var utils = {
   isArray: isArray,
   isArrayBuffer: isArrayBuffer,
@@ -4109,6 +3862,8 @@ var utils = {
   isString: isString,
   isNumber: isNumber,
   isObject: isObject,
+  isPlainObject: isPlainObject,
+  isEmptyObject: isEmptyObject,
   isUndefined: isUndefined,
   isDate: isDate,
   isFile: isFile,
@@ -4120,79 +3875,337 @@ var utils = {
   forEach: forEach,
   merge: merge,
   extend: extend,
-  trim: trim
-};
-
-var normalizeHeaderName = function normalizeHeaderName(headers, normalizedName) {
-  utils.forEach(headers, function processHeader(value, name) {
-    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
-      headers[normalizedName] = value;
-      delete headers[name];
-    }
-  });
-};
-
-/**
- * Update an Error with the specified config, error code, and response.
- *
- * @param {Error} error The error to update.
- * @param {Object} config The config.
- * @param {string} [code] The error code (for example, 'ECONNABORTED').
- * @param {Object} [request] The request.
- * @param {Object} [response] The response.
- * @returns {Error} The error.
- */
-var enhanceError = function enhanceError(error, config, code, request, response) {
-  error.config = config;
-  if (code) {
-    error.code = code;
-  }
-  error.request = request;
-  error.response = response;
-  return error;
+  trim: trim,
+  stripBOM: stripBOM,
+  inherits: inherits,
+  toFlatObject: toFlatObject,
+  kindOf: kindOf,
+  kindOfTest: kindOfTest,
+  endsWith: endsWith,
+  toArray: toArray,
+  isTypedArray: isTypedArray,
+  isFileList: isFileList,
+  forEachEntry: forEachEntry,
+  matchAll: matchAll,
+  isHTMLForm: isHTMLForm,
+  hasOwnProperty: hasOwnProperty
 };
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
  *
  * @param {string} message The error message.
- * @param {Object} config The config.
  * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [config] The config.
  * @param {Object} [request] The request.
  * @param {Object} [response] The response.
  * @returns {Error} The created error.
  */
-var createError = function createError(message, config, code, request, response) {
-  var error = new Error(message);
-  return enhanceError(error, config, code, request, response);
+function AxiosError(message, code, config, request, response) {
+  Error.call(this);
+
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(this, this.constructor);
+  } else {
+    this.stack = (new Error()).stack;
+  }
+
+  this.message = message;
+  this.name = 'AxiosError';
+  code && (this.code = code);
+  config && (this.config = config);
+  request && (this.request = request);
+  response && (this.response = response);
+}
+
+utils.inherits(AxiosError, Error, {
+  toJSON: function toJSON() {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: this.config,
+      code: this.code,
+      status: this.response && this.response.status ? this.response.status : null
+    };
+  }
+});
+
+var prototype = AxiosError.prototype;
+var descriptors = {};
+
+[
+  'ERR_BAD_OPTION_VALUE',
+  'ERR_BAD_OPTION',
+  'ECONNABORTED',
+  'ETIMEDOUT',
+  'ERR_NETWORK',
+  'ERR_FR_TOO_MANY_REDIRECTS',
+  'ERR_DEPRECATED',
+  'ERR_BAD_RESPONSE',
+  'ERR_BAD_REQUEST',
+  'ERR_CANCELED',
+  'ERR_NOT_SUPPORT',
+  'ERR_INVALID_URL'
+// eslint-disable-next-line func-names
+].forEach(function(code) {
+  descriptors[code] = {value: code};
+});
+
+Object.defineProperties(AxiosError, descriptors);
+Object.defineProperty(prototype, 'isAxiosError', {value: true});
+
+// eslint-disable-next-line func-names
+AxiosError.from = function(error, code, config, request, response, customProps) {
+  var axiosError = Object.create(prototype);
+
+  utils.toFlatObject(error, axiosError, function filter(obj) {
+    return obj !== Error.prototype;
+  });
+
+  AxiosError.call(axiosError, error.message, code, config, request, response);
+
+  axiosError.cause = error;
+
+  axiosError.name = error.name;
+
+  customProps && Object.assign(axiosError, customProps);
+
+  return axiosError;
 };
+
+var AxiosError_1 = AxiosError;
+
+/* eslint-env browser */
+var browser = typeof self == 'object' ? self.FormData : window.FormData;
+
+// eslint-disable-next-line strict
+var FormData$1 = browser;
+
+function isVisitable(thing) {
+  return utils.isPlainObject(thing) || utils.isArray(thing);
+}
+
+function removeBrackets(key) {
+  return utils.endsWith(key, '[]') ? key.slice(0, -2) : key;
+}
+
+function renderKey(path, key, dots) {
+  if (!path) return key;
+  return path.concat(key).map(function each(token, i) {
+    // eslint-disable-next-line no-param-reassign
+    token = removeBrackets(token);
+    return !dots && i ? '[' + token + ']' : token;
+  }).join(dots ? '.' : '');
+}
+
+function isFlatArray(arr) {
+  return utils.isArray(arr) && !arr.some(isVisitable);
+}
+
+var predicates = utils.toFlatObject(utils, {}, null, function filter(prop) {
+  return /^is[A-Z]/.test(prop);
+});
+
+function isSpecCompliant(thing) {
+  return thing && utils.isFunction(thing.append) && thing[Symbol.toStringTag] === 'FormData' && thing[Symbol.iterator];
+}
 
 /**
- * Resolve or reject a Promise based on response status.
- *
- * @param {Function} resolve A function that resolves the promise.
- * @param {Function} reject A function that rejects the promise.
- * @param {object} response The response.
- */
-var settle = function settle(resolve, reject, response) {
-  var validateStatus = response.config.validateStatus;
-  // Note: status is not exposed by XDomainRequest
-  if (!response.status || !validateStatus || validateStatus(response.status)) {
-    resolve(response);
-  } else {
-    reject(createError(
-      'Request failed with status code ' + response.status,
-      response.config,
-      null,
-      response.request,
-      response
-    ));
+ * Convert a data object to FormData
+ * @param {Object} obj
+ * @param {?Object} [formData]
+ * @param {?Object} [options]
+ * @param {Function} [options.visitor]
+ * @param {Boolean} [options.metaTokens = true]
+ * @param {Boolean} [options.dots = false]
+ * @param {?Boolean} [options.indexes = false]
+ * @returns {Object}
+ **/
+
+function toFormData(obj, formData, options) {
+  if (!utils.isObject(obj)) {
+    throw new TypeError('target must be an object');
   }
+
+  // eslint-disable-next-line no-param-reassign
+  formData = formData || new (FormData$1 || FormData)();
+
+  // eslint-disable-next-line no-param-reassign
+  options = utils.toFlatObject(options, {
+    metaTokens: true,
+    dots: false,
+    indexes: false
+  }, false, function defined(option, source) {
+    // eslint-disable-next-line no-eq-null,eqeqeq
+    return !utils.isUndefined(source[option]);
+  });
+
+  var metaTokens = options.metaTokens;
+  // eslint-disable-next-line no-use-before-define
+  var visitor = options.visitor || defaultVisitor;
+  var dots = options.dots;
+  var indexes = options.indexes;
+  var _Blob = options.Blob || typeof Blob !== 'undefined' && Blob;
+  var useBlob = _Blob && isSpecCompliant(formData);
+
+  if (!utils.isFunction(visitor)) {
+    throw new TypeError('visitor must be a function');
+  }
+
+  function convertValue(value) {
+    if (value === null) return '';
+
+    if (utils.isDate(value)) {
+      return value.toISOString();
+    }
+
+    if (!useBlob && utils.isBlob(value)) {
+      throw new AxiosError_1('Blob is not supported. Use a Buffer instead.');
+    }
+
+    if (utils.isArrayBuffer(value) || utils.isTypedArray(value)) {
+      return useBlob && typeof Blob === 'function' ? new Blob([value]) : Buffer.from(value);
+    }
+
+    return value;
+  }
+
+  /**
+   *
+   * @param {*} value
+   * @param {String|Number} key
+   * @param {Array<String|Number>} path
+   * @this {FormData}
+   * @returns {boolean} return true to visit the each prop of the value recursively
+   */
+  function defaultVisitor(value, key, path) {
+    var arr = value;
+
+    if (value && !path && typeof value === 'object') {
+      if (utils.endsWith(key, '{}')) {
+        // eslint-disable-next-line no-param-reassign
+        key = metaTokens ? key : key.slice(0, -2);
+        // eslint-disable-next-line no-param-reassign
+        value = JSON.stringify(value);
+      } else if (
+        (utils.isArray(value) && isFlatArray(value)) ||
+        (utils.isFileList(value) || utils.endsWith(key, '[]') && (arr = utils.toArray(value))
+        )) {
+        // eslint-disable-next-line no-param-reassign
+        key = removeBrackets(key);
+
+        arr.forEach(function each(el, index) {
+          !utils.isUndefined(el) && formData.append(
+            // eslint-disable-next-line no-nested-ternary
+            indexes === true ? renderKey([key], index, dots) : (indexes === null ? key : key + '[]'),
+            convertValue(el)
+          );
+        });
+        return false;
+      }
+    }
+
+    if (isVisitable(value)) {
+      return true;
+    }
+
+    formData.append(renderKey(path, key, dots), convertValue(value));
+
+    return false;
+  }
+
+  var stack = [];
+
+  var exposedHelpers = Object.assign(predicates, {
+    defaultVisitor: defaultVisitor,
+    convertValue: convertValue,
+    isVisitable: isVisitable
+  });
+
+  function build(value, path) {
+    if (utils.isUndefined(value)) return;
+
+    if (stack.indexOf(value) !== -1) {
+      throw Error('Circular reference detected in ' + path.join('.'));
+    }
+
+    stack.push(value);
+
+    utils.forEach(value, function each(el, key) {
+      var result = !utils.isUndefined(el) && visitor.call(
+        formData, el, utils.isString(key) ? key.trim() : key, path, exposedHelpers
+      );
+
+      if (result === true) {
+        build(el, path ? path.concat(key) : [key]);
+      }
+    });
+
+    stack.pop();
+  }
+
+  if (!utils.isObject(obj)) {
+    throw new TypeError('data must be an object');
+  }
+
+  build(obj);
+
+  return formData;
+}
+
+var toFormData_1 = toFormData;
+
+function encode(str) {
+  var charMap = {
+    '!': '%21',
+    "'": '%27',
+    '(': '%28',
+    ')': '%29',
+    '~': '%7E',
+    '%20': '+',
+    '%00': '\x00'
+  };
+  return encodeURIComponent(str).replace(/[!'\(\)~]|%20|%00/g, function replacer(match) {
+    return charMap[match];
+  });
+}
+
+function AxiosURLSearchParams(params, options) {
+  this._pairs = [];
+
+  params && toFormData_1(params, this, options);
+}
+
+var prototype$1 = AxiosURLSearchParams.prototype;
+
+prototype$1.append = function append(name, value) {
+  this._pairs.push([name, value]);
 };
 
-function encode(val) {
+prototype$1.toString = function toString(encoder) {
+  var _encode = encoder ? function(value) {
+    return encoder.call(this, value, encode);
+  } : encode;
+
+  return this._pairs.map(function each(pair) {
+    return _encode(pair[0]) + '=' + _encode(pair[1]);
+  }, '').join('&');
+};
+
+var AxiosURLSearchParams_1 = AxiosURLSearchParams;
+
+function encode$1(val) {
   return encodeURIComponent(val).
-    replace(/%40/gi, '@').
     replace(/%3A/gi, ':').
     replace(/%24/g, '$').
     replace(/%2C/gi, ',').
@@ -4206,44 +4219,33 @@ function encode(val) {
  *
  * @param {string} url The base of the url (e.g., http://www.google.com)
  * @param {object} [params] The params to be appended
+ * @param {?object} options
  * @returns {string} The formatted url
  */
-var buildURL = function buildURL(url, params, paramsSerializer) {
+var buildURL = function buildURL(url, params, options) {
   /*eslint no-param-reassign:0*/
   if (!params) {
     return url;
   }
 
+  var hashmarkIndex = url.indexOf('#');
+
+  if (hashmarkIndex !== -1) {
+    url = url.slice(0, hashmarkIndex);
+  }
+
+  var _encode = options && options.encode || encode$1;
+
+  var serializeFn = options && options.serialize;
+
   var serializedParams;
-  if (paramsSerializer) {
-    serializedParams = paramsSerializer(params);
-  } else if (utils.isURLSearchParams(params)) {
-    serializedParams = params.toString();
+
+  if (serializeFn) {
+    serializedParams = serializeFn(params, options);
   } else {
-    var parts = [];
-
-    utils.forEach(params, function serialize(val, key) {
-      if (val === null || typeof val === 'undefined') {
-        return;
-      }
-
-      if (utils.isArray(val)) {
-        key = key + '[]';
-      } else {
-        val = [val];
-      }
-
-      utils.forEach(val, function parseValue(v) {
-        if (utils.isDate(v)) {
-          v = v.toISOString();
-        } else if (utils.isObject(v)) {
-          v = JSON.stringify(v);
-        }
-        parts.push(encode(key) + '=' + encode(v));
-      });
-    });
-
-    serializedParams = parts.join('&');
+    serializedParams = utils.isURLSearchParams(params) ?
+      params.toString() :
+      new AxiosURLSearchParams_1(params, options).toString(_encode);
   }
 
   if (serializedParams) {
@@ -4251,6 +4253,288 @@ var buildURL = function buildURL(url, params, paramsSerializer) {
   }
 
   return url;
+};
+
+function InterceptorManager() {
+  this.handlers = [];
+}
+
+/**
+ * Add a new interceptor to the stack
+ *
+ * @param {Function} fulfilled The function to handle `then` for a `Promise`
+ * @param {Function} rejected The function to handle `reject` for a `Promise`
+ *
+ * @return {Number} An ID used to remove interceptor later
+ */
+InterceptorManager.prototype.use = function use(fulfilled, rejected, options) {
+  this.handlers.push({
+    fulfilled: fulfilled,
+    rejected: rejected,
+    synchronous: options ? options.synchronous : false,
+    runWhen: options ? options.runWhen : null
+  });
+  return this.handlers.length - 1;
+};
+
+/**
+ * Remove an interceptor from the stack
+ *
+ * @param {Number} id The ID that was returned by `use`
+ */
+InterceptorManager.prototype.eject = function eject(id) {
+  if (this.handlers[id]) {
+    this.handlers[id] = null;
+  }
+};
+
+/**
+ * Clear all interceptors from the stack
+ */
+InterceptorManager.prototype.clear = function clear() {
+  if (this.handlers) {
+    this.handlers = [];
+  }
+};
+
+/**
+ * Iterate over all the registered interceptors
+ *
+ * This method is particularly useful for skipping over any
+ * interceptors that may have become `null` calling `eject`.
+ *
+ * @param {Function} fn The function to call for each interceptor
+ */
+InterceptorManager.prototype.forEach = function forEach(fn) {
+  utils.forEach(this.handlers, function forEachHandler(h) {
+    if (h !== null) {
+      fn(h);
+    }
+  });
+};
+
+var InterceptorManager_1 = InterceptorManager;
+
+var normalizeHeaderName = function normalizeHeaderName(headers, normalizedName) {
+  utils.forEach(headers, function processHeader(value, name) {
+    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+      headers[normalizedName] = value;
+      delete headers[name];
+    }
+  });
+};
+
+var transitional = {
+  silentJSONParsing: true,
+  forcedJSONParsing: true,
+  clarifyTimeoutError: false
+};
+
+var URLSearchParams_1 = typeof URLSearchParams !== 'undefined' ? URLSearchParams : AxiosURLSearchParams_1;
+
+var FormData_1 = FormData;
+
+var browser$1 = {
+  isBrowser: true,
+  classes: {
+    URLSearchParams: URLSearchParams_1,
+    FormData: FormData_1,
+    Blob: Blob
+  },
+  protocols: ['http', 'https', 'file', 'blob', 'url', 'data']
+};
+
+var platform = browser$1;
+
+var toURLEncodedForm = function toURLEncodedForm(data, options) {
+  return toFormData_1(data, new platform.classes.URLSearchParams(), Object.assign({
+    visitor: function(value, key, path, helpers) {
+
+      return helpers.defaultVisitor.apply(this, arguments);
+    }
+  }, options));
+};
+
+function parsePropPath(name) {
+  // foo[x][y][z]
+  // foo.x.y.z
+  // foo-x-y-z
+  // foo x y z
+  return utils.matchAll(/\w+|\[(\w*)]/g, name).map(function(match) {
+    return match[0] === '[]' ? '' : match[1] || match[0];
+  });
+}
+
+function arrayToObject(arr) {
+  var obj = {};
+  var keys = Object.keys(arr);
+  var i;
+  var len = keys.length;
+  var key;
+  for (i = 0; i < len; i++) {
+    key = keys[i];
+    obj[key] = arr[key];
+  }
+  return obj;
+}
+
+function formDataToJSON(formData) {
+  function buildPath(path, value, target, index) {
+    var name = path[index++];
+    var isNumericKey = Number.isFinite(+name);
+    var isLast = index >= path.length;
+    name = !name && utils.isArray(target) ? target.length : name;
+
+    if (isLast) {
+      if (utils.hasOwnProperty(target, name)) {
+        target[name] = [target[name], value];
+      } else {
+        target[name] = value;
+      }
+
+      return !isNumericKey;
+    }
+
+    if (!target[name] || !utils.isObject(target[name])) {
+      target[name] = [];
+    }
+
+    var result = buildPath(path, value, target[name], index);
+
+    if (result && utils.isArray(target[name])) {
+      target[name] = arrayToObject(target[name]);
+    }
+
+    return !isNumericKey;
+  }
+
+  if (utils.isFormData(formData) && utils.isFunction(formData.entries)) {
+    var obj = {};
+
+    utils.forEachEntry(formData, function(name, value) {
+      buildPath(parsePropPath(name), value, obj, 0);
+    });
+
+    return obj;
+  }
+
+  return null;
+}
+
+var formDataToJSON_1 = formDataToJSON;
+
+/**
+ * Resolve or reject a Promise based on response status.
+ *
+ * @param {Function} resolve A function that resolves the promise.
+ * @param {Function} reject A function that rejects the promise.
+ * @param {object} response The response.
+ */
+var settle = function settle(resolve, reject, response) {
+  var validateStatus = response.config.validateStatus;
+  if (!response.status || !validateStatus || validateStatus(response.status)) {
+    resolve(response);
+  } else {
+    reject(new AxiosError_1(
+      'Request failed with status code ' + response.status,
+      [AxiosError_1.ERR_BAD_REQUEST, AxiosError_1.ERR_BAD_RESPONSE][Math.floor(response.status / 100) - 4],
+      response.config,
+      response.request,
+      response
+    ));
+  }
+};
+
+var cookies = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs support document.cookie
+    (function standardBrowserEnv() {
+      return {
+        write: function write(name, value, expires, path, domain, secure) {
+          var cookie = [];
+          cookie.push(name + '=' + encodeURIComponent(value));
+
+          if (utils.isNumber(expires)) {
+            cookie.push('expires=' + new Date(expires).toGMTString());
+          }
+
+          if (utils.isString(path)) {
+            cookie.push('path=' + path);
+          }
+
+          if (utils.isString(domain)) {
+            cookie.push('domain=' + domain);
+          }
+
+          if (secure === true) {
+            cookie.push('secure');
+          }
+
+          document.cookie = cookie.join('; ');
+        },
+
+        read: function read(name) {
+          var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+          return (match ? decodeURIComponent(match[3]) : null);
+        },
+
+        remove: function remove(name) {
+          this.write(name, '', Date.now() - 86400000);
+        }
+      };
+    })() :
+
+  // Non standard browser env (web workers, react-native) lack needed support.
+    (function nonStandardBrowserEnv() {
+      return {
+        write: function write() {},
+        read: function read() { return null; },
+        remove: function remove() {}
+      };
+    })()
+);
+
+/**
+ * Determines whether the specified URL is absolute
+ *
+ * @param {string} url The URL to test
+ * @returns {boolean} True if the specified URL is absolute, otherwise false
+ */
+var isAbsoluteURL = function isAbsoluteURL(url) {
+  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+  // by any combination of letters, digits, plus, period, or hyphen.
+  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
+};
+
+/**
+ * Creates a new URL by combining the specified URLs
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} relativeURL The relative URL
+ * @returns {string} The combined URL
+ */
+var combineURLs = function combineURLs(baseURL, relativeURL) {
+  return relativeURL
+    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
+    : baseURL;
+};
+
+/**
+ * Creates a new URL by combining the baseURL with the requestedURL,
+ * only when the requestedURL is not already an absolute URL.
+ * If the requestURL is absolute, this function returns the requestedURL untouched.
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} requestedURL Absolute or relative URL to combine
+ * @returns {string} The combined full path
+ */
+var buildFullPath = function buildFullPath(baseURL, requestedURL) {
+  if (baseURL && !isAbsoluteURL(requestedURL)) {
+    return combineURLs(baseURL, requestedURL);
+  }
+  return requestedURL;
 };
 
 // Headers whose duplicates are ignored by node
@@ -4285,8 +4569,8 @@ var parseHeaders = function parseHeaders(headers) {
 
   utils.forEach(headers.split('\n'), function parser(line) {
     i = line.indexOf(':');
-    key = utils.trim(line.substr(0, i)).toLowerCase();
-    val = utils.trim(line.substr(i + 1));
+    key = utils.trim(line.slice(0, i)).toLowerCase();
+    val = utils.trim(line.slice(i + 1));
 
     if (key) {
       if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
@@ -4308,122 +4592,109 @@ var isURLSameOrigin = (
 
   // Standard browser envs have full support of the APIs needed to test
   // whether the request URL is of the same origin as current location.
-  (function standardBrowserEnv() {
-    var msie = /(msie|trident)/i.test(navigator.userAgent);
-    var urlParsingNode = document.createElement('a');
-    var originURL;
+    (function standardBrowserEnv() {
+      var msie = /(msie|trident)/i.test(navigator.userAgent);
+      var urlParsingNode = document.createElement('a');
+      var originURL;
 
-    /**
-    * Parse a URL to discover it's components
-    *
-    * @param {String} url The URL to be parsed
-    * @returns {Object}
-    */
-    function resolveURL(url) {
-      var href = url;
+      /**
+      * Parse a URL to discover it's components
+      *
+      * @param {String} url The URL to be parsed
+      * @returns {Object}
+      */
+      function resolveURL(url) {
+        var href = url;
 
-      if (msie) {
-        // IE needs attribute set twice to normalize properties
+        if (msie) {
+          // IE needs attribute set twice to normalize properties
+          urlParsingNode.setAttribute('href', href);
+          href = urlParsingNode.href;
+        }
+
         urlParsingNode.setAttribute('href', href);
-        href = urlParsingNode.href;
+
+        // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+        return {
+          href: urlParsingNode.href,
+          protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+          host: urlParsingNode.host,
+          search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+          hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+          hostname: urlParsingNode.hostname,
+          port: urlParsingNode.port,
+          pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
+            urlParsingNode.pathname :
+            '/' + urlParsingNode.pathname
+        };
       }
 
-      urlParsingNode.setAttribute('href', href);
+      originURL = resolveURL(window.location.href);
 
-      // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
-      return {
-        href: urlParsingNode.href,
-        protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
-        host: urlParsingNode.host,
-        search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
-        hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
-        hostname: urlParsingNode.hostname,
-        port: urlParsingNode.port,
-        pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
-                  urlParsingNode.pathname :
-                  '/' + urlParsingNode.pathname
-      };
-    }
-
-    originURL = resolveURL(window.location.href);
-
-    /**
-    * Determine if a URL shares the same origin as the current location
-    *
-    * @param {String} requestURL The URL to test
-    * @returns {boolean} True if URL shares the same origin, otherwise false
-    */
-    return function isURLSameOrigin(requestURL) {
-      var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
-      return (parsed.protocol === originURL.protocol &&
+      /**
+      * Determine if a URL shares the same origin as the current location
+      *
+      * @param {String} requestURL The URL to test
+      * @returns {boolean} True if URL shares the same origin, otherwise false
+      */
+      return function isURLSameOrigin(requestURL) {
+        var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
+        return (parsed.protocol === originURL.protocol &&
             parsed.host === originURL.host);
-    };
-  })() :
+      };
+    })() :
 
-  // Non standard browser envs (web workers, react-native) lack needed support.
-  (function nonStandardBrowserEnv() {
-    return function isURLSameOrigin() {
-      return true;
-    };
-  })()
+    // Non standard browser envs (web workers, react-native) lack needed support.
+    (function nonStandardBrowserEnv() {
+      return function isURLSameOrigin() {
+        return true;
+      };
+    })()
 );
 
-var cookies = (
-  utils.isStandardBrowserEnv() ?
+/**
+ * A `CanceledError` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ * @param {Object=} config The config.
+ * @param {Object=} request The request.
+ */
+function CanceledError(message, config, request) {
+  // eslint-disable-next-line no-eq-null,eqeqeq
+  AxiosError_1.call(this, message == null ? 'canceled' : message, AxiosError_1.ERR_CANCELED, config, request);
+  this.name = 'CanceledError';
+}
 
-  // Standard browser envs support document.cookie
-  (function standardBrowserEnv() {
-    return {
-      write: function write(name, value, expires, path, domain, secure) {
-        var cookie = [];
-        cookie.push(name + '=' + encodeURIComponent(value));
+utils.inherits(CanceledError, AxiosError_1, {
+  __CANCEL__: true
+});
 
-        if (utils.isNumber(expires)) {
-          cookie.push('expires=' + new Date(expires).toGMTString());
-        }
+var CanceledError_1 = CanceledError;
 
-        if (utils.isString(path)) {
-          cookie.push('path=' + path);
-        }
-
-        if (utils.isString(domain)) {
-          cookie.push('domain=' + domain);
-        }
-
-        if (secure === true) {
-          cookie.push('secure');
-        }
-
-        document.cookie = cookie.join('; ');
-      },
-
-      read: function read(name) {
-        var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
-        return (match ? decodeURIComponent(match[3]) : null);
-      },
-
-      remove: function remove(name) {
-        this.write(name, '', Date.now() - 86400000);
-      }
-    };
-  })() :
-
-  // Non standard browser env (web workers, react-native) lack needed support.
-  (function nonStandardBrowserEnv() {
-    return {
-      write: function write() {},
-      read: function read() { return null; },
-      remove: function remove() {}
-    };
-  })()
-);
+var parseProtocol = function parseProtocol(url) {
+  var match = /^([-+\w]{1,25})(:?\/\/|:)/.exec(url);
+  return match && match[1] || '';
+};
 
 var xhr = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
     var requestData = config.data;
     var requestHeaders = config.headers;
+    var responseType = config.responseType;
+    var withXSRFToken = config.withXSRFToken;
+    var onCanceled;
+    function done() {
+      if (config.cancelToken) {
+        config.cancelToken.unsubscribe(onCanceled);
+      }
 
-    if (utils.isFormData(requestData)) {
+      if (config.signal) {
+        config.signal.removeEventListener('abort', onCanceled);
+      }
+    }
+
+    if (utils.isFormData(requestData) && utils.isStandardBrowserEnv()) {
       delete requestHeaders['Content-Type']; // Let the browser set it
     }
 
@@ -4432,32 +4703,25 @@ var xhr = function xhrAdapter(config) {
     // HTTP basic authentication
     if (config.auth) {
       var username = config.auth.username || '';
-      var password = config.auth.password || '';
+      var password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : '';
       requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
     }
 
-    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
+    var fullPath = buildFullPath(config.baseURL, config.url);
+
+    request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true);
 
     // Set the request timeout in MS
     request.timeout = config.timeout;
 
-    // Listen for ready state
-    request.onreadystatechange = function handleLoad() {
-      if (!request || request.readyState !== 4) {
+    function onloadend() {
+      if (!request) {
         return;
       }
-
-      // The request errored out and we didn't get a response, this will be
-      // handled by onerror instead
-      // With one exception: request that using file: protocol, most browsers
-      // will return status as 0 even though it's a successful request
-      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
-        return;
-      }
-
       // Prepare the response
       var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
-      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
+      var responseData = !responseType || responseType === 'text' ||  responseType === 'json' ?
+        request.responseText : request.response;
       var response = {
         data: responseData,
         status: request.status,
@@ -4467,7 +4731,48 @@ var xhr = function xhrAdapter(config) {
         request: request
       };
 
-      settle(resolve, reject, response);
+      settle(function _resolve(value) {
+        resolve(value);
+        done();
+      }, function _reject(err) {
+        reject(err);
+        done();
+      }, response);
+
+      // Clean up request
+      request = null;
+    }
+
+    if ('onloadend' in request) {
+      // Use onloadend if available
+      request.onloadend = onloadend;
+    } else {
+      // Listen for ready state to emulate onloadend
+      request.onreadystatechange = function handleLoad() {
+        if (!request || request.readyState !== 4) {
+          return;
+        }
+
+        // The request errored out and we didn't get a response, this will be
+        // handled by onerror instead
+        // With one exception: request that using file: protocol, most browsers
+        // will return status as 0 even though it's a successful request
+        if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+          return;
+        }
+        // readystate handler is calling before onerror or ontimeout handlers,
+        // so we should call onloadend on the next 'tick'
+        setTimeout(onloadend);
+      };
+    }
+
+    // Handle browser request cancellation (as opposed to a manual cancellation)
+    request.onabort = function handleAbort() {
+      if (!request) {
+        return;
+      }
+
+      reject(new AxiosError_1('Request aborted', AxiosError_1.ECONNABORTED, config, request));
 
       // Clean up request
       request = null;
@@ -4477,7 +4782,7 @@ var xhr = function xhrAdapter(config) {
     request.onerror = function handleError() {
       // Real errors are hidden from us by the browser
       // onerror should only fire if it's a network error
-      reject(createError('Network Error', config, null, request));
+      reject(new AxiosError_1('Network Error', AxiosError_1.ERR_NETWORK, config, request));
 
       // Clean up request
       request = null;
@@ -4485,7 +4790,15 @@ var xhr = function xhrAdapter(config) {
 
     // Handle timeout
     request.ontimeout = function handleTimeout() {
-      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED',
+      var timeoutErrorMessage = config.timeout ? 'timeout of ' + config.timeout + 'ms exceeded' : 'timeout exceeded';
+      var transitional$1 = config.transitional || transitional;
+      if (config.timeoutErrorMessage) {
+        timeoutErrorMessage = config.timeoutErrorMessage;
+      }
+      reject(new AxiosError_1(
+        timeoutErrorMessage,
+        transitional$1.clarifyTimeoutError ? AxiosError_1.ETIMEDOUT : AxiosError_1.ECONNABORTED,
+        config,
         request));
 
       // Clean up request
@@ -4496,15 +4809,14 @@ var xhr = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies$1 = cookies;
-
       // Add xsrf header
-      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
-          cookies$1.read(config.xsrfCookieName) :
-          undefined;
-
-      if (xsrfValue) {
-        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+      withXSRFToken && utils.isFunction(withXSRFToken) && (withXSRFToken = withXSRFToken(config));
+      if (withXSRFToken || (withXSRFToken !== false && isURLSameOrigin(fullPath))) {
+        // Add xsrf header
+        var xsrfValue = config.xsrfHeaderName && config.xsrfCookieName && cookies.read(config.xsrfCookieName);
+        if (xsrfValue) {
+          requestHeaders[config.xsrfHeaderName] = xsrfValue;
+        }
       }
     }
 
@@ -4522,21 +4834,13 @@ var xhr = function xhrAdapter(config) {
     }
 
     // Add withCredentials to request if needed
-    if (config.withCredentials) {
-      request.withCredentials = true;
+    if (!utils.isUndefined(config.withCredentials)) {
+      request.withCredentials = !!config.withCredentials;
     }
 
     // Add responseType to request if needed
-    if (config.responseType) {
-      try {
-        request.responseType = config.responseType;
-      } catch (e) {
-        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
-        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
-        if (config.responseType !== 'json') {
-          throw e;
-        }
-      }
+    if (responseType && responseType !== 'json') {
+      request.responseType = config.responseType;
     }
 
     // Handle progress if needed
@@ -4549,23 +4853,36 @@ var xhr = function xhrAdapter(config) {
       request.upload.addEventListener('progress', config.onUploadProgress);
     }
 
-    if (config.cancelToken) {
+    if (config.cancelToken || config.signal) {
       // Handle cancellation
-      config.cancelToken.promise.then(function onCanceled(cancel) {
+      // eslint-disable-next-line func-names
+      onCanceled = function(cancel) {
         if (!request) {
           return;
         }
-
+        reject(!cancel || cancel.type ? new CanceledError_1(null, config, request) : cancel);
         request.abort();
-        reject(cancel);
-        // Clean up request
         request = null;
-      });
+      };
+
+      config.cancelToken && config.cancelToken.subscribe(onCanceled);
+      if (config.signal) {
+        config.signal.aborted ? onCanceled() : config.signal.addEventListener('abort', onCanceled);
+      }
     }
 
-    if (requestData === undefined) {
+    // false, 0 (zero number), and '' (empty string) are valid JSON values
+    if (!requestData && requestData !== false && requestData !== 0 && requestData !== '') {
       requestData = null;
     }
+
+    var protocol = parseProtocol(fullPath);
+
+    if (protocol && platform.protocols.indexOf(protocol) === -1) {
+      reject(new AxiosError_1('Unsupported protocol ' + protocol + ':', AxiosError_1.ERR_BAD_REQUEST, config));
+      return;
+    }
+
 
     // Send the request
     request.send(requestData);
@@ -4587,20 +4904,53 @@ function getDefaultAdapter() {
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
     adapter = xhr;
-  } else if (typeof process !== 'undefined') {
+  } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
     // For node use HTTP adapter
     adapter = xhr;
   }
   return adapter;
 }
 
+function stringifySafely(rawValue, parser, encoder) {
+  if (utils.isString(rawValue)) {
+    try {
+      (parser || JSON.parse)(rawValue);
+      return utils.trim(rawValue);
+    } catch (e) {
+      if (e.name !== 'SyntaxError') {
+        throw e;
+      }
+    }
+  }
+
+  return (encoder || JSON.stringify)(rawValue);
+}
+
 var defaults = {
+
+  transitional: transitional,
+
   adapter: getDefaultAdapter(),
 
   transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Accept');
     normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
+
+    var contentType = headers && headers['Content-Type'] || '';
+    var hasJSONContentType = contentType.indexOf('application/json') > -1;
+    var isObjectPayload = utils.isObject(data);
+
+    if (isObjectPayload && utils.isHTMLForm(data)) {
+      data = new FormData(data);
+    }
+
+    var isFormData = utils.isFormData(data);
+
+    if (isFormData) {
+      return hasJSONContentType ? JSON.stringify(formDataToJSON_1(data)) : data;
+    }
+
+    if (utils.isArrayBuffer(data) ||
       utils.isBuffer(data) ||
       utils.isStream(data) ||
       utils.isFile(data) ||
@@ -4615,20 +4965,54 @@ var defaults = {
       setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
       return data.toString();
     }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
+
+    var isFileList;
+
+    if (isObjectPayload) {
+      if (contentType.indexOf('application/x-www-form-urlencoded') !== -1) {
+        return toURLEncodedForm(data, this.formSerializer).toString();
+      }
+
+      if ((isFileList = utils.isFileList(data)) || contentType.indexOf('multipart/form-data') > -1) {
+        var _FormData = this.env && this.env.FormData;
+
+        return toFormData_1(
+          isFileList ? {'files[]': data} : data,
+          _FormData && new _FormData(),
+          this.formSerializer
+        );
+      }
     }
+
+    if (isObjectPayload || hasJSONContentType ) {
+      setContentTypeIfUnset(headers, 'application/json');
+      return stringifySafely(data);
+    }
+
     return data;
   }],
 
   transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
+    var transitional = this.transitional || defaults.transitional;
+    var forcedJSONParsing = transitional && transitional.forcedJSONParsing;
+    var JSONRequested = this.responseType === 'json';
+
+    if (data && utils.isString(data) && ((forcedJSONParsing && !this.responseType) || JSONRequested)) {
+      var silentJSONParsing = transitional && transitional.silentJSONParsing;
+      var strictJSONParsing = !silentJSONParsing && JSONRequested;
+
       try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
+        return JSON.parse(data);
+      } catch (e) {
+        if (strictJSONParsing) {
+          if (e.name === 'SyntaxError') {
+            throw AxiosError_1.from(e, AxiosError_1.ERR_BAD_RESPONSE, this, null, this.response);
+          }
+          throw e;
+        }
+      }
     }
+
     return data;
   }],
 
@@ -4642,15 +5026,21 @@ var defaults = {
   xsrfHeaderName: 'X-XSRF-TOKEN',
 
   maxContentLength: -1,
+  maxBodyLength: -1,
+
+  env: {
+    FormData: platform.classes.FormData,
+    Blob: platform.classes.Blob
+  },
 
   validateStatus: function validateStatus(status) {
     return status >= 200 && status < 300;
-  }
-};
+  },
 
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
+  headers: {
+    common: {
+      'Accept': 'application/json, text/plain, */*'
+    }
   }
 };
 
@@ -4664,67 +5054,20 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 var defaults_1 = defaults;
 
-function InterceptorManager() {
-  this.handlers = [];
-}
-
-/**
- * Add a new interceptor to the stack
- *
- * @param {Function} fulfilled The function to handle `then` for a `Promise`
- * @param {Function} rejected The function to handle `reject` for a `Promise`
- *
- * @return {Number} An ID used to remove interceptor later
- */
-InterceptorManager.prototype.use = function use(fulfilled, rejected) {
-  this.handlers.push({
-    fulfilled: fulfilled,
-    rejected: rejected
-  });
-  return this.handlers.length - 1;
-};
-
-/**
- * Remove an interceptor from the stack
- *
- * @param {Number} id The ID that was returned by `use`
- */
-InterceptorManager.prototype.eject = function eject(id) {
-  if (this.handlers[id]) {
-    this.handlers[id] = null;
-  }
-};
-
-/**
- * Iterate over all the registered interceptors
- *
- * This method is particularly useful for skipping over any
- * interceptors that may have become `null` calling `eject`.
- *
- * @param {Function} fn The function to call for each interceptor
- */
-InterceptorManager.prototype.forEach = function forEach(fn) {
-  utils.forEach(this.handlers, function forEachHandler(h) {
-    if (h !== null) {
-      fn(h);
-    }
-  });
-};
-
-var InterceptorManager_1 = InterceptorManager;
-
 /**
  * Transform the data for a request or a response
  *
  * @param {Object|String} data The data to be transformed
  * @param {Array} headers The headers for the request or response
+ * @param {Number} status HTTP status code
  * @param {Array|Function} fns A single function or Array of functions
  * @returns {*} The resulting transformed data
  */
-var transformData = function transformData(data, headers, fns) {
+var transformData = function transformData(data, headers, status, fns) {
+  var context = this || defaults_1;
   /*eslint no-param-reassign:0*/
   utils.forEach(fns, function transform(fn) {
-    data = fn(data, headers);
+    data = fn.call(context, data, headers, status);
   });
 
   return data;
@@ -4735,37 +5078,15 @@ var isCancel = function isCancel(value) {
 };
 
 /**
- * Determines whether the specified URL is absolute
- *
- * @param {string} url The URL to test
- * @returns {boolean} True if the specified URL is absolute, otherwise false
- */
-var isAbsoluteURL = function isAbsoluteURL(url) {
-  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
-  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
-  // by any combination of letters, digits, plus, period, or hyphen.
-  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
-};
-
-/**
- * Creates a new URL by combining the specified URLs
- *
- * @param {string} baseURL The base URL
- * @param {string} relativeURL The relative URL
- * @returns {string} The combined URL
- */
-var combineURLs = function combineURLs(baseURL, relativeURL) {
-  return relativeURL
-    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
-    : baseURL;
-};
-
-/**
- * Throws a `Cancel` if cancellation has been requested.
+ * Throws a `CanceledError` if cancellation has been requested.
  */
 function throwIfCancellationRequested(config) {
   if (config.cancelToken) {
     config.cancelToken.throwIfRequested();
+  }
+
+  if (config.signal && config.signal.aborted) {
+    throw new CanceledError_1();
   }
 }
 
@@ -4778,26 +5099,26 @@ function throwIfCancellationRequested(config) {
 var dispatchRequest = function dispatchRequest(config) {
   throwIfCancellationRequested(config);
 
-  // Support baseURL config
-  if (config.baseURL && !isAbsoluteURL(config.url)) {
-    config.url = combineURLs(config.baseURL, config.url);
-  }
-
   // Ensure headers exist
   config.headers = config.headers || {};
 
   // Transform request data
-  config.data = transformData(
+  config.data = transformData.call(
+    config,
     config.data,
     config.headers,
+    null,
     config.transformRequest
   );
+
+  normalizeHeaderName(config.headers, 'Accept');
+  normalizeHeaderName(config.headers, 'Content-Type');
 
   // Flatten headers
   config.headers = utils.merge(
     config.headers.common || {},
     config.headers[config.method] || {},
-    config.headers || {}
+    config.headers
   );
 
   utils.forEach(
@@ -4813,9 +5134,11 @@ var dispatchRequest = function dispatchRequest(config) {
     throwIfCancellationRequested(config);
 
     // Transform response data
-    response.data = transformData(
+    response.data = transformData.call(
+      config,
       response.data,
       response.headers,
+      response.status,
       config.transformResponse
     );
 
@@ -4826,9 +5149,11 @@ var dispatchRequest = function dispatchRequest(config) {
 
       // Transform response data
       if (reason && reason.response) {
-        reason.response.data = transformData(
+        reason.response.data = transformData.call(
+          config,
           reason.response.data,
           reason.response.headers,
+          reason.response.status,
           config.transformResponse
         );
       }
@@ -4838,6 +5163,196 @@ var dispatchRequest = function dispatchRequest(config) {
   });
 };
 
+/**
+ * Config-specific merge-function which creates a new config-object
+ * by merging two configuration objects together.
+ *
+ * @param {Object} config1
+ * @param {Object} config2
+ * @returns {Object} New object resulting from merging config2 to config1
+ */
+var mergeConfig = function mergeConfig(config1, config2) {
+  // eslint-disable-next-line no-param-reassign
+  config2 = config2 || {};
+  var config = {};
+
+  function getMergedValue(target, source) {
+    if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
+      return utils.merge(target, source);
+    } else if (utils.isEmptyObject(source)) {
+      return utils.merge({}, target);
+    } else if (utils.isPlainObject(source)) {
+      return utils.merge({}, source);
+    } else if (utils.isArray(source)) {
+      return source.slice();
+    }
+    return source;
+  }
+
+  // eslint-disable-next-line consistent-return
+  function mergeDeepProperties(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      return getMergedValue(config1[prop], config2[prop]);
+    } else if (!utils.isUndefined(config1[prop])) {
+      return getMergedValue(undefined, config1[prop]);
+    }
+  }
+
+  // eslint-disable-next-line consistent-return
+  function valueFromConfig2(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      return getMergedValue(undefined, config2[prop]);
+    }
+  }
+
+  // eslint-disable-next-line consistent-return
+  function defaultToConfig2(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      return getMergedValue(undefined, config2[prop]);
+    } else if (!utils.isUndefined(config1[prop])) {
+      return getMergedValue(undefined, config1[prop]);
+    }
+  }
+
+  // eslint-disable-next-line consistent-return
+  function mergeDirectKeys(prop) {
+    if (prop in config2) {
+      return getMergedValue(config1[prop], config2[prop]);
+    } else if (prop in config1) {
+      return getMergedValue(undefined, config1[prop]);
+    }
+  }
+
+  var mergeMap = {
+    'url': valueFromConfig2,
+    'method': valueFromConfig2,
+    'data': valueFromConfig2,
+    'baseURL': defaultToConfig2,
+    'transformRequest': defaultToConfig2,
+    'transformResponse': defaultToConfig2,
+    'paramsSerializer': defaultToConfig2,
+    'timeout': defaultToConfig2,
+    'timeoutMessage': defaultToConfig2,
+    'withCredentials': defaultToConfig2,
+    'withXSRFToken': defaultToConfig2,
+    'adapter': defaultToConfig2,
+    'responseType': defaultToConfig2,
+    'xsrfCookieName': defaultToConfig2,
+    'xsrfHeaderName': defaultToConfig2,
+    'onUploadProgress': defaultToConfig2,
+    'onDownloadProgress': defaultToConfig2,
+    'decompress': defaultToConfig2,
+    'maxContentLength': defaultToConfig2,
+    'maxBodyLength': defaultToConfig2,
+    'beforeRedirect': defaultToConfig2,
+    'transport': defaultToConfig2,
+    'httpAgent': defaultToConfig2,
+    'httpsAgent': defaultToConfig2,
+    'cancelToken': defaultToConfig2,
+    'socketPath': defaultToConfig2,
+    'responseEncoding': defaultToConfig2,
+    'validateStatus': mergeDirectKeys
+  };
+
+  utils.forEach(Object.keys(config1).concat(Object.keys(config2)), function computeConfigValue(prop) {
+    var merge = mergeMap[prop] || mergeDeepProperties;
+    var configValue = merge(prop);
+    (utils.isUndefined(configValue) && merge !== mergeDirectKeys) || (config[prop] = configValue);
+  });
+
+  return config;
+};
+
+var data = {
+  "version": "0.28.1"
+};
+
+var VERSION = data.version;
+
+
+var validators = {};
+
+// eslint-disable-next-line func-names
+['object', 'boolean', 'number', 'function', 'string', 'symbol'].forEach(function(type, i) {
+  validators[type] = function validator(thing) {
+    return typeof thing === type || 'a' + (i < 1 ? 'n ' : ' ') + type;
+  };
+});
+
+var deprecatedWarnings = {};
+
+/**
+ * Transitional option validator
+ * @param {function|boolean?} validator - set to false if the transitional option has been removed
+ * @param {string?} version - deprecated version / removed since version
+ * @param {string?} message - some message with additional info
+ * @returns {function}
+ */
+validators.transitional = function transitional(validator, version, message) {
+  function formatMessage(opt, desc) {
+    return '[Axios v' + VERSION + '] Transitional option \'' + opt + '\'' + desc + (message ? '. ' + message : '');
+  }
+
+  // eslint-disable-next-line func-names
+  return function(value, opt, opts) {
+    if (validator === false) {
+      throw new AxiosError_1(
+        formatMessage(opt, ' has been removed' + (version ? ' in ' + version : '')),
+        AxiosError_1.ERR_DEPRECATED
+      );
+    }
+
+    if (version && !deprecatedWarnings[opt]) {
+      deprecatedWarnings[opt] = true;
+      // eslint-disable-next-line no-console
+      console.warn(
+        formatMessage(
+          opt,
+          ' has been deprecated since v' + version + ' and will be removed in the near future'
+        )
+      );
+    }
+
+    return validator ? validator(value, opt, opts) : true;
+  };
+};
+
+/**
+ * Assert object's properties type
+ * @param {object} options
+ * @param {object} schema
+ * @param {boolean?} allowUnknown
+ */
+
+function assertOptions(options, schema, allowUnknown) {
+  if (typeof options !== 'object') {
+    throw new AxiosError_1('options must be an object', AxiosError_1.ERR_BAD_OPTION_VALUE);
+  }
+  var keys = Object.keys(options);
+  var i = keys.length;
+  while (i-- > 0) {
+    var opt = keys[i];
+    var validator = schema[opt];
+    if (validator) {
+      var value = options[opt];
+      var result = value === undefined || validator(value, opt, options);
+      if (result !== true) {
+        throw new AxiosError_1('option ' + opt + ' must be ' + result, AxiosError_1.ERR_BAD_OPTION_VALUE);
+      }
+      continue;
+    }
+    if (allowUnknown !== true) {
+      throw new AxiosError_1('Unknown option ' + opt, AxiosError_1.ERR_BAD_OPTION);
+    }
+  }
+}
+
+var validator = {
+  assertOptions: assertOptions,
+  validators: validators
+};
+
+var validators$1 = validator.validators;
 /**
  * Create a new instance of Axios
  *
@@ -4854,80 +5369,151 @@ function Axios(instanceConfig) {
 /**
  * Dispatch a request
  *
- * @param {Object} config The config specific for this request (merged with this.defaults)
+ * @param {String|Object} configOrUrl The config specific for this request (merged with this.defaults)
+ * @param {?Object} config
  */
-Axios.prototype.request = function request(config) {
+Axios.prototype.request = function request(configOrUrl, config) {
   /*eslint no-param-reassign:0*/
   // Allow for axios('example/url'[, config]) a la fetch API
-  if (typeof config === 'string') {
-    config = utils.merge({
-      url: arguments[0]
-    }, arguments[1]);
+  if (typeof configOrUrl === 'string') {
+    config = config || {};
+    config.url = configOrUrl;
+  } else {
+    config = configOrUrl || {};
   }
 
-  config = utils.merge(defaults_1, {method: 'get'}, this.defaults, config);
-  config.method = config.method.toLowerCase();
+  config = mergeConfig(this.defaults, config);
 
-  // Hook up interceptors middleware
-  var chain = [dispatchRequest, undefined];
-  var promise = Promise.resolve(config);
+  // Set config.method
+  if (config.method) {
+    config.method = config.method.toLowerCase();
+  } else if (this.defaults.method) {
+    config.method = this.defaults.method.toLowerCase();
+  } else {
+    config.method = 'get';
+  }
 
+  var transitional = config.transitional;
+
+  if (transitional !== undefined) {
+    validator.assertOptions(transitional, {
+      silentJSONParsing: validators$1.transitional(validators$1.boolean),
+      forcedJSONParsing: validators$1.transitional(validators$1.boolean),
+      clarifyTimeoutError: validators$1.transitional(validators$1.boolean)
+    }, false);
+  }
+
+  var paramsSerializer = config.paramsSerializer;
+
+  if (paramsSerializer !== undefined) {
+    validator.assertOptions(paramsSerializer, {
+      encode: validators$1.function,
+      serialize: validators$1.function
+    }, true);
+  }
+
+  utils.isFunction(paramsSerializer) && (config.paramsSerializer = {serialize: paramsSerializer});
+
+  // filter out skipped interceptors
+  var requestInterceptorChain = [];
+  var synchronousRequestInterceptors = true;
   this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
-    chain.unshift(interceptor.fulfilled, interceptor.rejected);
+    if (typeof interceptor.runWhen === 'function' && interceptor.runWhen(config) === false) {
+      return;
+    }
+
+    synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
+
+    requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
   });
 
+  var responseInterceptorChain = [];
   this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
-    chain.push(interceptor.fulfilled, interceptor.rejected);
+    responseInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
   });
 
-  while (chain.length) {
-    promise = promise.then(chain.shift(), chain.shift());
+  var promise;
+
+  if (!synchronousRequestInterceptors) {
+    var chain = [dispatchRequest, undefined];
+
+    Array.prototype.unshift.apply(chain, requestInterceptorChain);
+    chain = chain.concat(responseInterceptorChain);
+
+    promise = Promise.resolve(config);
+    while (chain.length) {
+      promise = promise.then(chain.shift(), chain.shift());
+    }
+
+    return promise;
+  }
+
+
+  var newConfig = config;
+  while (requestInterceptorChain.length) {
+    var onFulfilled = requestInterceptorChain.shift();
+    var onRejected = requestInterceptorChain.shift();
+    try {
+      newConfig = onFulfilled(newConfig);
+    } catch (error) {
+      onRejected(error);
+      break;
+    }
+  }
+
+  try {
+    promise = dispatchRequest(newConfig);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+
+  while (responseInterceptorChain.length) {
+    promise = promise.then(responseInterceptorChain.shift(), responseInterceptorChain.shift());
   }
 
   return promise;
+};
+
+Axios.prototype.getUri = function getUri(config) {
+  config = mergeConfig(this.defaults, config);
+  var fullPath = buildFullPath(config.baseURL, config.url);
+  return buildURL(fullPath, config.params, config.paramsSerializer);
 };
 
 // Provide aliases for supported request methods
 utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
   /*eslint func-names:0*/
   Axios.prototype[method] = function(url, config) {
-    return this.request(utils.merge(config || {}, {
+    return this.request(mergeConfig(config || {}, {
       method: method,
-      url: url
+      url: url,
+      data: (config || {}).data
     }));
   };
 });
 
 utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
   /*eslint func-names:0*/
-  Axios.prototype[method] = function(url, data, config) {
-    return this.request(utils.merge(config || {}, {
-      method: method,
-      url: url,
-      data: data
-    }));
-  };
+
+  function generateHTTPMethod(isForm) {
+    return function httpMethod(url, data, config) {
+      return this.request(mergeConfig(config || {}, {
+        method: method,
+        headers: isForm ? {
+          'Content-Type': 'multipart/form-data'
+        } : {},
+        url: url,
+        data: data
+      }));
+    };
+  }
+
+  Axios.prototype[method] = generateHTTPMethod();
+
+  Axios.prototype[method + 'Form'] = generateHTTPMethod(true);
 });
 
 var Axios_1 = Axios;
-
-/**
- * A `Cancel` is an object that is thrown when an operation is canceled.
- *
- * @class
- * @param {string=} message The message.
- */
-function Cancel(message) {
-  this.message = message;
-}
-
-Cancel.prototype.toString = function toString() {
-  return 'Cancel' + (this.message ? ': ' + this.message : '');
-};
-
-Cancel.prototype.__CANCEL__ = true;
-
-var Cancel_1 = Cancel;
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -4941,28 +5527,89 @@ function CancelToken(executor) {
   }
 
   var resolvePromise;
+
   this.promise = new Promise(function promiseExecutor(resolve) {
     resolvePromise = resolve;
   });
 
   var token = this;
-  executor(function cancel(message) {
+
+  // eslint-disable-next-line func-names
+  this.promise.then(function(cancel) {
+    if (!token._listeners) return;
+
+    var i = token._listeners.length;
+
+    while (i-- > 0) {
+      token._listeners[i](cancel);
+    }
+    token._listeners = null;
+  });
+
+  // eslint-disable-next-line func-names
+  this.promise.then = function(onfulfilled) {
+    var _resolve;
+    // eslint-disable-next-line func-names
+    var promise = new Promise(function(resolve) {
+      token.subscribe(resolve);
+      _resolve = resolve;
+    }).then(onfulfilled);
+
+    promise.cancel = function reject() {
+      token.unsubscribe(_resolve);
+    };
+
+    return promise;
+  };
+
+  executor(function cancel(message, config, request) {
     if (token.reason) {
       // Cancellation has already been requested
       return;
     }
 
-    token.reason = new Cancel_1(message);
+    token.reason = new CanceledError_1(message, config, request);
     resolvePromise(token.reason);
   });
 }
 
 /**
- * Throws a `Cancel` if cancellation has been requested.
+ * Throws a `CanceledError` if cancellation has been requested.
  */
 CancelToken.prototype.throwIfRequested = function throwIfRequested() {
   if (this.reason) {
     throw this.reason;
+  }
+};
+
+/**
+ * Subscribe to the cancel signal
+ */
+
+CancelToken.prototype.subscribe = function subscribe(listener) {
+  if (this.reason) {
+    listener(this.reason);
+    return;
+  }
+
+  if (this._listeners) {
+    this._listeners.push(listener);
+  } else {
+    this._listeners = [listener];
+  }
+};
+
+/**
+ * Unsubscribe from the cancel signal
+ */
+
+CancelToken.prototype.unsubscribe = function unsubscribe(listener) {
+  if (!this._listeners) {
+    return;
+  }
+  var index = this._listeners.indexOf(listener);
+  if (index !== -1) {
+    this._listeners.splice(index, 1);
   }
 };
 
@@ -5010,6 +5657,16 @@ var spread = function spread(callback) {
 };
 
 /**
+ * Determines whether the payload is an error thrown by Axios
+ *
+ * @param {*} payload The value to test
+ * @returns {boolean} True if the payload is an error thrown by Axios, otherwise false
+ */
+var isAxiosError = function isAxiosError(payload) {
+  return utils.isObject(payload) && (payload.isAxiosError === true);
+};
+
+/**
  * Create an instance of Axios
  *
  * @param {Object} defaultConfig The default config for the instance
@@ -5025,6 +5682,11 @@ function createInstance(defaultConfig) {
   // Copy context to instance
   utils.extend(instance, context);
 
+  // Factory for creating new instances
+  instance.create = function create(instanceConfig) {
+    return createInstance(mergeConfig(defaultConfig, instanceConfig));
+  };
+
   return instance;
 }
 
@@ -5034,21 +5696,31 @@ var axios = createInstance(defaults_1);
 // Expose Axios class to allow class inheritance
 axios.Axios = Axios_1;
 
-// Factory for creating new instances
-axios.create = function create(instanceConfig) {
-  return createInstance(utils.merge(defaults_1, instanceConfig));
-};
-
 // Expose Cancel & CancelToken
-axios.Cancel = Cancel_1;
+axios.CanceledError = CanceledError_1;
 axios.CancelToken = CancelToken_1;
 axios.isCancel = isCancel;
+axios.VERSION = data.version;
+axios.toFormData = toFormData_1;
+
+// Expose AxiosError class
+axios.AxiosError = AxiosError_1;
+
+// alias for CanceledError for backward compatibility
+axios.Cancel = axios.CanceledError;
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
 axios.spread = spread;
+
+// Expose isAxiosError
+axios.isAxiosError = isAxiosError;
+
+axios.formToJSON = function(thing) {
+  return formDataToJSON_1(utils.isHTMLForm(thing) ? new FormData(thing) : thing);
+};
 
 var axios_1 = axios;
 
@@ -5058,70 +5730,51 @@ axios_1.default = default_1;
 
 var axios$1 = axios_1;
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray$1(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$1(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen); }
-
-function _arrayLikeToArray$1(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-var FacetSelectionState;
-
-(function (FacetSelectionState) {
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray$1(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray$1(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray$1(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray$1(r, a) : void 0; } }
+function _arrayLikeToArray$1(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+var FacetSelectionState = /*#__PURE__*/function (FacetSelectionState) {
   FacetSelectionState[FacetSelectionState["NotSelected"] = 0] = "NotSelected";
   FacetSelectionState[FacetSelectionState["Selected"] = 1] = "Selected";
   FacetSelectionState[FacetSelectionState["Negated"] = 2] = "Negated";
-})(FacetSelectionState || (FacetSelectionState = {}));
-
+  return FacetSelectionState;
+}({});
 var SearchStore = /*#__PURE__*/function () {
-  /** This represents the next search request that will be executed. */
-
-  /**
-   * Whether or not the next search request will perform history actions (pushing the search into browser
-   * history).
-   */
-
-  /** Whether or not a search request is waiting for completion. */
-
-  /** The results of the last search request, if one has been performed. Otherwise, `undefined`. */
   function SearchStore(initial) {
     _classCallCheck(this, SearchStore);
-
+    /** This represents the next search request that will be executed. */
     _defineProperty(this, "pendingSearch", void 0);
-
+    /**
+     * Whether or not the next search request will perform history actions (pushing the search into browser
+     * history).
+     */
     _defineProperty(this, "doHistory", void 0);
-
+    /** Whether or not a search request is waiting for completion. */
     _defineProperty(this, "isLoading", void 0);
-
     _defineProperty(this, "itemsToCompare", void 0);
-
     _defineProperty(this, "itemsToCompareIds", void 0);
-
     _defineProperty(this, "comparedResults", void 0);
-
     _defineProperty(this, "productDetails", void 0);
-
+    /** The results of the last search request, if one has been performed. Otherwise, `undefined`. */
     _defineProperty(this, "searchResults", void 0);
-
     _defineProperty(this, "requestError", void 0);
-
     Object.assign(this, initial);
   }
+
   /**
    * Returns whether or not this is the initial load of the search results.
    */
-
-
-  _createClass(SearchStore, [{
+  return _createClass(SearchStore, [{
     key: "isInitialLoad",
     get: function get() {
       return this.isLoading && !this.searchResults;
     }
+
     /**
      * Determines whether or not the given facet and facet value is selected, and returns info regarding the selection.
      * @param facet The facet for which the facet value will be checked for selection.
      * @param facetValue The facet value that will be checked for selection.
      */
-
   }, {
     key: "isFacetSelected",
     value: function isFacetSelected(facet, facetValue) {
@@ -5129,25 +5782,20 @@ var SearchStore = /*#__PURE__*/function () {
       var facetField = typeof facet === 'string' ? facet : facet.selectionField;
       var valueValue = typeof facetValue === 'string' ? facetValue : facetValue.Value;
       var valueLabel = typeof facetValue === 'string' ? facetValue : facetValue.Label;
-
       if (!valueValue) {
         console.error("Facet ".concat(facetName, " (").concat(facetField, ") has no facet value for ").concat(valueLabel));
         return {
           state: FacetSelectionState.NotSelected
         };
       }
-
       var facetSelections = this.pendingSearch.FacetSelections;
-
       if (!facetSelections || !facetSelections[facetField]) {
         return {
           state: FacetSelectionState.NotSelected
         };
       }
-
       var selectionIdx = facetSelections[facetField].indexOf(valueValue);
       var negationIdx = facetSelections[facetField].indexOf("-".concat(valueValue));
-
       if (selectionIdx !== -1) {
         // if the exact facet value exists, then we're normally selected
         return {
@@ -5163,52 +5811,48 @@ var SearchStore = /*#__PURE__*/function () {
           selectionIndex: negationIdx
         };
       }
-
       return {
         state: FacetSelectionState.NotSelected
       };
     }
+
     /**
      * Returns an object containing the selections that have been made in both the next search request and also
      * in the previous search request. This should be used when iterating selections instead of pulling the values
      * out from the search result or pending search - as this will merge the values together and provide an accurate
      * view of all facet selections.
      */
-
   }, {
     key: "facetSelections",
     get: function get() {
       var _this = this;
-
       var _this$pendingSearch = this.pendingSearch,
-          clientSelections = _this$pendingSearch.FacetSelections,
-          SearchWithin = _this$pendingSearch.SearchWithin,
-          searchResults = this.searchResults;
+        clientSelections = _this$pendingSearch.FacetSelections,
+        SearchWithin = _this$pendingSearch.SearchWithin,
+        searchResults = this.searchResults;
       var selections = {};
-
       if (!clientSelections && !SearchWithin) {
         return selections;
-      } // if we've made selections on the client, transform these into more detailed selections.
+      }
+
+      // if we've made selections on the client, transform these into more detailed selections.
       // the client-side selections are just facet fields and values without any labels - so we
       // need to combine this information with the list of facets received from the server in the
       // previous search in order to return a rich list of selections
 
-
       var facets = searchResults ? searchResults.Facets : null;
-
       if (!facets) {
         // but we can only do this if we've received facet information from the server. without this
         // info we can't determine what labels should be used
         return selections;
-      } // manually handle the `searchWithin` selection, as this doesn't usually behave like a normal facet selection
+      }
+
+      // manually handle the `searchWithin` selection, as this doesn't usually behave like a normal facet selection
       // but instead a field on the search request
-
-
       if (SearchWithin) {
         var facet = facets.find(function (f) {
           return f.selectionField === 'searchWithin';
         });
-
         if (facet) {
           selections.searchWithin = {
             facet: facet,
@@ -5220,33 +5864,27 @@ var SearchStore = /*#__PURE__*/function () {
           };
         }
       }
-
       if (!clientSelections) {
         return selections;
       }
-
       Object.keys(clientSelections).forEach(function (fieldName) {
         var selectionValues = clientSelections[fieldName];
-
         if (!selectionValues) {
           // if this selection has no values, it's not really selected
           return;
         }
-
         var facet = facets.find(function (f) {
           return f.selectionField === fieldName;
         });
-
         if (!facet) {
           // if there's no matching facet from the server, we can't show this since we'll have no labels
           return;
         }
-
         var items = [];
-
         if (facet.FieldType === 'range') {
           // if the facet this selection is for is a range, there won't be a matching value and thus there won't be a label.
           // so because of this we'll just use the selection value as the label
+
           selectionValues.forEach(function (selectionValue) {
             items.push({
               label: selectionValue,
@@ -5258,22 +5896,20 @@ var SearchStore = /*#__PURE__*/function () {
           return;
         } else {
           // for other types of facets, try to find a matching value
+
           selectionValues.forEach(function (selectionValue) {
             var matchingVal = _this.findMatchingValue(selectionValue, facet.Values);
-
             if (!matchingVal || !matchingVal.Label) {
               // if there's no matching value from the server, we cannot display because there would
               // be no label - same if there's no label at all
               return;
             }
-
             items.push({
               label: matchingVal.Label,
               value: selectionValue
             });
           });
         }
-
         selections[fieldName] = {
           facet: facet,
           label: facet.Name,
@@ -5286,25 +5922,21 @@ var SearchStore = /*#__PURE__*/function () {
     key: "findMatchingValue",
     value: function findMatchingValue(selectionValue, facetValues) {
       var matchingValue = null;
-
       if (!facetValues || facetValues.length === 0) {
         return null;
       }
-
       var _iterator = _createForOfIteratorHelper(facetValues),
-          _step;
-
+        _step;
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var facetValue = _step.value;
-          var isMatchingVal = facetValue.Value === selectionValue || "-".concat(facetValue.Value) === selectionValue; // loop through children
-
+          var isMatchingVal = facetValue.Value === selectionValue || "-".concat(facetValue.Value) === selectionValue;
+          // loop through children
           if (!isMatchingVal) {
             matchingValue = this.findMatchingValue(selectionValue, facetValue.Children);
           } else {
             matchingValue = facetValue;
           }
-
           if (matchingValue) {
             return matchingValue;
           }
@@ -5314,96 +5946,62 @@ var SearchStore = /*#__PURE__*/function () {
       } finally {
         _iterator.f();
       }
-
       return matchingValue;
     }
   }]);
-
-  return SearchStore;
 }();
 
-var Pagination =
-/** Number of total items in the result set. */
-
-/** The page number returned. */
-
-/** The number of items returned for the page. */
-
-/** The total number of pages for the result set - with the current @see MaxPerPage. */
-
-/** Set of pagination options */
-function Pagination(init) {
+var Pagination = /*#__PURE__*/_createClass(function Pagination(init) {
   _classCallCheck(this, Pagination);
-
+  /** Number of total items in the result set. */
   _defineProperty(this, "NofResults", void 0);
-
+  /** The page number returned. */
   _defineProperty(this, "CurrentPage", void 0);
-
+  /** The number of items returned for the page. */
   _defineProperty(this, "MaxPerPage", void 0);
-
+  /** The total number of pages for the result set - with the current @see MaxPerPage. */
   _defineProperty(this, "NofPages", void 0);
-
+  /** Set of pagination options */
   _defineProperty(this, "Items", void 0);
-
   Object.assign(this, init);
   this.Items = init.Items.map(function (i) {
     return new PaginationItem(i);
   });
-};
-var PaginationItem =
-/** Display label for user's pagination option (i.e. 24 per page). */
-
-/** The maximum number of items that will be returned per page when this option is selected. */
-
-/** Indicates if this is the option selected. Only one pagination item will have this set to `true`. */
-
-/** Indicates if this is the default option. Only one pagination item will have this set to `true`. */
-function PaginationItem(init) {
+});
+var PaginationItem = /*#__PURE__*/_createClass(function PaginationItem(init) {
   _classCallCheck(this, PaginationItem);
-
+  /** Display label for user's pagination option (i.e. 24 per page). */
   _defineProperty(this, "Label", void 0);
-
+  /** The maximum number of items that will be returned per page when this option is selected. */
   _defineProperty(this, "PageSize", void 0);
-
+  /** Indicates if this is the option selected. Only one pagination item will have this set to `true`. */
   _defineProperty(this, "Selected", void 0);
-
+  /** Indicates if this is the default option. Only one pagination item will have this set to `true`. */
   _defineProperty(this, "Default", void 0);
-
   Object.assign(this, init);
-};
+});
 
 var Result = /*#__PURE__*/function () {
   function Result(init) {
     _classCallCheck(this, Result);
-
-    _defineProperty(this, "DocId", void 0);
-
-    _defineProperty(this, "Score", void 0);
-
-    _defineProperty(this, "Document", void 0);
-
-    _defineProperty(this, "Explain", void 0);
-
-    _defineProperty(this, "IsPin", void 0);
-
-    _defineProperty(this, "BestFragment", void 0);
-
-    Object.assign(this, init);
-  }
-
-  _createClass(Result, [{
-    key: "getDocumentValue",
-    value:
     /** Unique identifier for this search result item. */
-
+    _defineProperty(this, "DocId", void 0);
     /** Calculated relevancy score. */
-
+    _defineProperty(this, "Score", void 0);
     /**
      * Contains the fields for the search result item, as an object of string keys to an array
      * of string values. The keys correspond to the name of the field within the hawk dashboard,
      * and the value of the map is an array of strings for each of the values for that field.
      */
-
+    _defineProperty(this, "Document", void 0);
+    _defineProperty(this, "Explain", void 0);
+    _defineProperty(this, "IsPin", void 0);
+    _defineProperty(this, "BestFragment", void 0);
+    Object.assign(this, init);
+  }
+  return _createClass(Result, [{
+    key: "getDocumentValue",
+    value:
     /**
      * Returns a single document value, by the given field name. If the field does not exist in
      * the document, or has no values, then `undefined` is returned instead.
@@ -5412,285 +6010,238 @@ var Result = /*#__PURE__*/function () {
     function getDocumentValue(field) {
       if (this.Document) {
         var values = this.Document[field];
-
         if (values && values.length > 0) {
           return values[0];
         }
       }
-
       return undefined;
     }
   }]);
-
-  return Result;
 }();
 
-var Sorting =
-/** The sorting items. */
-function Sorting(init) {
+var Sorting = /*#__PURE__*/_createClass(function Sorting(init) {
   _classCallCheck(this, Sorting);
-
+  /** The sorting items. */
   _defineProperty(this, "Items", void 0);
-
   Object.assign(this, init);
   this.Items = init.Items.map(function (i) {
     return new SortingItem(i);
   });
-};
-var SortingItem =
-/** Name of the sorting option. This is the label to display to users. */
-
-/**
- * The value to be used to specify the sort order once user selects it. This value is passed in the @see Request.SortBy
- * field in the @see Request object.
- */
-
-/** Indicates if this sorting option was configured to be the default. */
-
-/** Indicates if this sorting option is currently being used for the current result set. */
-function SortingItem(init) {
+});
+var SortingItem = /*#__PURE__*/_createClass(function SortingItem(init) {
   _classCallCheck(this, SortingItem);
-
+  /** Name of the sorting option. This is the label to display to users. */
   _defineProperty(this, "Label", void 0);
-
+  /**
+   * The value to be used to specify the sort order once user selects it. This value is passed in the @see Request.SortBy
+   * field in the @see Request object.
+   */
   _defineProperty(this, "Value", void 0);
-
+  /** Indicates if this sorting option was configured to be the default. */
   _defineProperty(this, "IsDefault", void 0);
-
+  /** Indicates if this sorting option is currently being used for the current result set. */
   _defineProperty(this, "Selected", void 0);
-
   Object.assign(this, init);
-};
+});
 
-var Selections = function Selections(init) {
+var Selections = /*#__PURE__*/_createClass(function Selections(init) {
   var _this = this;
-
   _classCallCheck(this, Selections);
-
   Object.assign(this, init);
   Object.keys(init).forEach(function (key) {
     var selFacet = init[key];
     _this[key] = new SelectionFacet(selFacet);
   });
-};
-var SelectionFacet =
-/** Display name for facet. */
-
-/** Will contain an entry for each selection made within the facet. */
-function SelectionFacet(init) {
+});
+var SelectionFacet = /*#__PURE__*/_createClass(function SelectionFacet(init) {
   _classCallCheck(this, SelectionFacet);
-
+  /** Display name for facet. */
   _defineProperty(this, "Label", void 0);
-
+  /** Will contain an entry for each selection made within the facet. */
   _defineProperty(this, "Items", void 0);
-
   Object.assign(this, init);
   this.Items = init.Items.map(function (i) {
     return new SelectionFacetValue(i);
   });
-};
-var SelectionFacetValue =
-/** Display label for facet value. */
-
-/** Value for facet value. */
-function SelectionFacetValue(init) {
+});
+var SelectionFacetValue = /*#__PURE__*/_createClass(function SelectionFacetValue(init) {
   _classCallCheck(this, SelectionFacetValue);
-
+  /** Display label for facet value. */
   _defineProperty(this, "Label", void 0);
-
+  /** Value for facet value. */
   _defineProperty(this, "Value", void 0);
-
   Object.assign(this, init);
-};
+});
 
-var Value =
-/** Label of the value to display. */
-
-/** Value to use when setting the facet value selection. */
-
-/** Number of results in current set that have this facet value. */
-
-/** Indicates if this facet value has been selected. */
-
-/**
- * Used for displaying the slider facet. @see RangeStart indicates what the starting point of the range
- * to display, either on basis of what the user selected by sliding the slider, or if they have no
- * selection it reflects the lowest price product.
- */
-
-/**
- * Used for displaying the slider facet. @see RangeEnd indicates what the end point of the range to
- * display is, either on basis of what the user selected by sliding the slider, or if they have no
- * selection, it reflects the highest price product.
- */
-
-/**
- * Used for displaying the slider facet. @see RangeMin indicates lowest value for the range in the list
- * of products displayed.
- */
-
-/**
- * Used for displaying the slider facet. @see RangeMax indicates highest value for the range in the list
- * of products displayed.
- */
-
-/** Used for nested facets. */
-
-/** Set of pagination options */
-function Value(init) {
+var Value = /*#__PURE__*/_createClass(function Value(init) {
   _classCallCheck(this, Value);
-
+  /** Label of the value to display. */
   _defineProperty(this, "Label", void 0);
-
+  /** Value to use when setting the facet value selection. */
   _defineProperty(this, "Value", void 0);
-
+  /** Number of results in current set that have this facet value. */
   _defineProperty(this, "Count", void 0);
-
+  /** Indicates if this facet value has been selected. */
   _defineProperty(this, "Selected", void 0);
-
+  /**
+   * Used for displaying the slider facet. @see RangeStart indicates what the starting point of the range
+   * to display, either on basis of what the user selected by sliding the slider, or if they have no
+   * selection it reflects the lowest price product.
+   */
   _defineProperty(this, "RangeStart", void 0);
-
+  /**
+   * Used for displaying the slider facet. @see RangeEnd indicates what the end point of the range to
+   * display is, either on basis of what the user selected by sliding the slider, or if they have no
+   * selection, it reflects the highest price product.
+   */
   _defineProperty(this, "RangeEnd", void 0);
-
+  /**
+   * Used for displaying the slider facet. @see RangeMin indicates lowest value for the range in the list
+   * of products displayed.
+   */
   _defineProperty(this, "RangeMin", void 0);
-
+  /**
+   * Used for displaying the slider facet. @see RangeMax indicates highest value for the range in the list
+   * of products displayed.
+   */
   _defineProperty(this, "RangeMax", void 0);
-
+  /** Used for nested facets. */
   _defineProperty(this, "Path", void 0);
-
+  /** Set of pagination options */
   _defineProperty(this, "Children", void 0);
-
   _defineProperty(this, "Level", void 0);
-
   Object.assign(this, init);
-};
+});
 
-var Swatch =
-/** Match this value to the @see Value object in the @see Values array of @see Facet. */
-
-/** Name of the asset. */
-
-/** URL of the asset. */
-
-/** Indicates if value is the default. */
-
-/** Color of the asset. */
-function Swatch(init) {
+var Swatch = /*#__PURE__*/_createClass(function Swatch(init) {
   _classCallCheck(this, Swatch);
-
+  /** Match this value to the @see Value object in the @see Values array of @see Facet. */
   _defineProperty(this, "Value", void 0);
-
+  /** Name of the asset. */
   _defineProperty(this, "AssetName", void 0);
-
+  /** URL of the asset. */
   _defineProperty(this, "AssetUrl", void 0);
-
+  /** Indicates if value is the default. */
   _defineProperty(this, "IsDefault", void 0);
-
+  /** Color of the asset. */
   _defineProperty(this, "Color", void 0);
-
   Object.assign(this, init);
-};
+});
 
-var Range =
-/** Label of the value to display. */
-
-/** Value to use when setting the facet value selection. */
-
-/** Indicates if the values are numeric. */
-
-/** Lower value of the range. */
-
-/** Upper value of the range. */
-
-/** Asset Url */
-function Range(init) {
+var Range = /*#__PURE__*/_createClass(function Range(init) {
   _classCallCheck(this, Range);
-
+  /** Label of the value to display. */
   _defineProperty(this, "Label", void 0);
-
+  /** Value to use when setting the facet value selection. */
   _defineProperty(this, "Value", void 0);
-
+  /** Indicates if the values are numeric. */
   _defineProperty(this, "IsNumeric", void 0);
-
+  /** Lower value of the range. */
   _defineProperty(this, "LBound", void 0);
-
+  /** Upper value of the range. */
   _defineProperty(this, "UBound", void 0);
-
+  /** Asset Url */
   _defineProperty(this, "AssetFullUrl", void 0);
-
   Object.assign(this, init);
-};
+});
 
 var Facet = /*#__PURE__*/function () {
   function Facet(init) {
     _classCallCheck(this, Facet);
-
+    /** Unique identifier of the facet. */
     _defineProperty(this, "FacetId", void 0);
-
+    /** Display name of the facet. */
     _defineProperty(this, "Name", void 0);
-
+    /** The name of the field that is linked to this facet. */
     _defineProperty(this, "Field", void 0);
-
     _defineProperty(this, "FieldType", void 0);
-
     _defineProperty(this, "FacetType", void 0);
-
     _defineProperty(this, "DisplayType", void 0);
-
+    /** Indicates the maximum number of facet values that are returned. */
     _defineProperty(this, "MaxCount", void 0);
-
+    /** Indicates the minimum number of results each facet value needs to have in order to be returned. */
     _defineProperty(this, "MinHitCount", void 0);
-
+    /**
+     * If this is set, it is to be used as the facet name if passed in the `FacetSelections`. If not set,
+     * the value of the Field object would be used. (This is only applicable when a slider and range
+     * facets are both configured for the same field.)
+     */
     _defineProperty(this, "ParamName", void 0);
-
+    /**
+     * Indicates the sorting logic that is used for this facet’s values. The possible values for this
+     * are the parameters for sorting set options that are configured in "Workbench > Data Configuration
+     * > Sorting/Pagination".
+     */
     _defineProperty(this, "SortBy", void 0);
-
+    /** Indicates if the user should be able to apply more than one filter value from this facet. */
     _defineProperty(this, "ExpandSelection", void 0);
-
+    /** Indicates if facet values are numeric. */
     _defineProperty(this, "IsNumeric", void 0);
-
+    /** Indicates if facet values are currency (and should be displayed appropriately). */
     _defineProperty(this, "IsCurrency", void 0);
-
+    /** Indicates currency symbol in case of currency type facets */
     _defineProperty(this, "CurrencySymbol", void 0);
-
+    /** Indicates if the facet can be collapsed and expanded by the user. */
     _defineProperty(this, "IsCollapsible", void 0);
-
+    /** If @see IsCollapsible is `true`, this indicates if the facet should initially be collapsed or expanded. */
     _defineProperty(this, "IsCollapsedDefault", void 0);
-
+    /** Indicates if the facet is set to be visible. */
     _defineProperty(this, "IsVisible", void 0);
-
+    /**
+     * Indicates if search is enabled for this facet. If it is enabled, a search box should be available for
+     * users to filter the facet values by typing in the search box.
+     */
     _defineProperty(this, "IsSearch", void 0);
-
+    /**
+     * If facet display type is Scrolling, this value is the height in pixels for the window inside scroll box.
+     * Only to be used if @see DisplayType is `"scrolling"`.
+     */
     _defineProperty(this, "ScrollHeight", void 0);
-
+    /**
+     * If the number of facet values exceeds this number and @see DisplayType is `"scrolling"`, then the facet
+     * should be displayed as scrolling list; if not, display as `"default"`.
+     */
     _defineProperty(this, "ScrollThreshold", void 0);
-
+    /**
+     * If the number of facet values exceeds this number and @see DisplayType is `"truncate"`, then the facet
+     * should be displayed as truncated list; if not, display as `"default"`.
+     */
     _defineProperty(this, "TruncateThreshold", void 0);
-
+    /**
+     * To be used if @see IsSearch is `true`. The number of facet values must be this number or higher for the
+     * facet search box to display.
+     */
     _defineProperty(this, "SearchThreshold", void 0);
-
+    /** Text to display when user hovers over a help icon. */
     _defineProperty(this, "Tooltip", void 0);
-
+    /**
+     * If `false`, indicates that sometimes this facet will not be returned. The conditions that trigger its
+     * display are maintained in the Workbench.
+     */
     _defineProperty(this, "AlwaysVisible", void 0);
-
+    /**
+     * The display order of the facet in the facet list.
+     */
     _defineProperty(this, "SortOrder", void 0);
-
+    /** This is maximum number of values that could be returned for the facet. */
     _defineProperty(this, "NofVisible", void 0);
-
+    /** Will be included if @see FacetType is `"swatch"`. */
     _defineProperty(this, "SwatchData", void 0);
-
+    /** Indicates type of facet range display. */
     _defineProperty(this, "FacetRangeDisplayType", void 0);
-
+    /** Indicates if setting in Workbench is set to On or Off. */
     _defineProperty(this, "PreloadChildren", void 0);
-
+    /**
+     * To be used if @see FacetType is `"slider"`. If @see ShowSliderInputs is `true`, input boxes should be
+     * available for user to enter values.
+     */
     _defineProperty(this, "ShowSliderInputs", void 0);
-
+    /** Always present, but will only be populated if the facet is numeric and not a slider. */
     _defineProperty(this, "Ranges", void 0);
-
+    /** The values for this facet. */
     _defineProperty(this, "Values", void 0);
-
+    // Data type for datetime facet type
     _defineProperty(this, "DataType", void 0);
-
     Object.assign(this, init);
     this.SwatchData = init.SwatchData.map(function (s) {
       return new Swatch(s);
@@ -5702,107 +6253,14 @@ var Facet = /*#__PURE__*/function () {
       return new Value(v);
     });
   }
-
-  _createClass(Facet, [{
+  return _createClass(Facet, [{
     key: "shouldTruncate",
-    get:
-    /** Unique identifier of the facet. */
-
-    /** Display name of the facet. */
-
-    /** The name of the field that is linked to this facet. */
-
-    /** Indicates the maximum number of facet values that are returned. */
-
-    /** Indicates the minimum number of results each facet value needs to have in order to be returned. */
-
-    /**
-     * If this is set, it is to be used as the facet name if passed in the `FacetSelections`. If not set,
-     * the value of the Field object would be used. (This is only applicable when a slider and range
-     * facets are both configured for the same field.)
-     */
-
-    /**
-     * Indicates the sorting logic that is used for this facet’s values. The possible values for this
-     * are the parameters for sorting set options that are configured in "Workbench > Data Configuration
-     * > Sorting/Pagination".
-     */
-
-    /** Indicates if the user should be able to apply more than one filter value from this facet. */
-
-    /** Indicates if facet values are numeric. */
-
-    /** Indicates if facet values are currency (and should be displayed appropriately). */
-
-    /** Indicates currency symbol in case of currency type facets */
-
-    /** Indicates if the facet can be collapsed and expanded by the user. */
-
-    /** If @see IsCollapsible is `true`, this indicates if the facet should initially be collapsed or expanded. */
-
-    /** Indicates if the facet is set to be visible. */
-
-    /**
-     * Indicates if search is enabled for this facet. If it is enabled, a search box should be available for
-     * users to filter the facet values by typing in the search box.
-     */
-
-    /**
-     * If facet display type is Scrolling, this value is the height in pixels for the window inside scroll box.
-     * Only to be used if @see DisplayType is `"scrolling"`.
-     */
-
-    /**
-     * If the number of facet values exceeds this number and @see DisplayType is `"scrolling"`, then the facet
-     * should be displayed as scrolling list; if not, display as `"default"`.
-     */
-
-    /**
-     * If the number of facet values exceeds this number and @see DisplayType is `"truncate"`, then the facet
-     * should be displayed as truncated list; if not, display as `"default"`.
-     */
-
-    /**
-     * To be used if @see IsSearch is `true`. The number of facet values must be this number or higher for the
-     * facet search box to display.
-     */
-
-    /** Text to display when user hovers over a help icon. */
-
-    /**
-     * If `false`, indicates that sometimes this facet will not be returned. The conditions that trigger its
-     * display are maintained in the Workbench.
-     */
-
-    /**
-     * The display order of the facet in the facet list.
-     */
-
-    /** This is maximum number of values that could be returned for the facet. */
-
-    /** Will be included if @see FacetType is `"swatch"`. */
-
-    /** Indicates type of facet range display. */
-
-    /** Indicates if setting in Workbench is set to On or Off. */
-
-    /**
-     * To be used if @see FacetType is `"slider"`. If @see ShowSliderInputs is `true`, input boxes should be
-     * available for user to enter values.
-     */
-
-    /** Always present, but will only be populated if the facet is numeric and not a slider. */
-
-    /** The values for this facet. */
-    // Data type for datetime facet type
-
-    /** Whether or not the facet should be rendered as truncated. */
+    get: /** Whether or not the facet should be rendered as truncated. */
     function get() {
       // the facet does truncated listing of values if configured for truncating and we have too many facets
       return this.DisplayType === 'truncating' && this.Values.length > this.TruncateThreshold;
     }
     /** Whether or not the facet should have a quick lookup search input. */
-
   }, {
     key: "shouldSearch",
     get: function get() {
@@ -5810,337 +6268,225 @@ var Facet = /*#__PURE__*/function () {
       // than the threshold
       return this.IsSearch && this.Values.length > this.SearchThreshold;
     }
+
     /**
      * Returns the name of the key when using this facet for a selection. This will take into consideration
      * @see ParamName and @see Field in determining which value should be returned.
      */
-
   }, {
     key: "selectionField",
     get: function get() {
       return this.ParamName ? this.ParamName : this.Field;
     }
   }]);
-
-  return Facet;
 }();
 
-var Rule = function Rule(init) {
+var Rule = /*#__PURE__*/_createClass(function Rule(init) {
   _classCallCheck(this, Rule);
-
   _defineProperty(this, "RuleType", void 0);
-
   _defineProperty(this, "Field", void 0);
-
   _defineProperty(this, "Condition", void 0);
-
   _defineProperty(this, "Value", void 0);
-
   _defineProperty(this, "Operator", void 0);
-
   _defineProperty(this, "Rules", void 0);
-
   _defineProperty(this, "Parent", void 0);
-
   Object.assign(this, init);
-
   if (init.Parent) {
     this.Parent = new Rule(init.Parent);
   }
-
   this.Rules = init.Rules ? init.Rules.map(function (i) {
     return new Rule(i);
   }) : [];
-};
-var RuleType;
-
-(function (RuleType) {
+});
+var RuleType = /*#__PURE__*/function (RuleType) {
   RuleType[RuleType["Group"] = 0] = "Group";
   RuleType[RuleType["Eval"] = 1] = "Eval";
-})(RuleType || (RuleType = {}));
-
-var RuleOperatorType;
-
-(function (RuleOperatorType) {
+  return RuleType;
+}({});
+var RuleOperatorType = /*#__PURE__*/function (RuleOperatorType) {
   RuleOperatorType[RuleOperatorType["All"] = 0] = "All";
   RuleOperatorType[RuleOperatorType["Any"] = 1] = "Any";
   RuleOperatorType[RuleOperatorType["None"] = 2] = "None";
-})(RuleOperatorType || (RuleOperatorType = {}));
+  return RuleOperatorType;
+}({});
 
-var BannerTrigger = function BannerTrigger(init) {
+var BannerTrigger = /*#__PURE__*/_createClass(function BannerTrigger(init) {
   _classCallCheck(this, BannerTrigger);
-
   _defineProperty(this, "BannerGroupId", void 0);
-
   _defineProperty(this, "Name", void 0);
-
   _defineProperty(this, "SortOrder", void 0);
-
   _defineProperty(this, "Rule", void 0);
-
   Object.assign(this, init);
   this.Rule = new Rule(this.Rule);
-};
+});
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-var FeaturedItems = function FeaturedItems(init) {
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+var FeaturedItems = /*#__PURE__*/_createClass(function FeaturedItems(init) {
   _classCallCheck(this, FeaturedItems);
-
   _defineProperty(this, "Items", void 0);
-
   Object.assign(this, init);
-
   if (init && init.Items) {
     this.Items = init.Items.map(function (i) {
       return new FeaturedItem(i);
     });
   }
-};
-var Merchandising = function Merchandising(init) {
+});
+var Merchandising = /*#__PURE__*/_createClass(function Merchandising(init) {
   _classCallCheck(this, Merchandising);
-
   _defineProperty(this, "Items", void 0);
-
   Object.assign(this, init);
-
   if (init && init.Items) {
     this.Items = init.Items.map(function (i) {
       return new MerchandisingItem(i);
     });
   }
-};
-var PageContentItem = function PageContentItem(init) {
+});
+var PageContentItem = /*#__PURE__*/_createClass(function PageContentItem(init) {
   _classCallCheck(this, PageContentItem);
-
   _defineProperty(this, "Zone", void 0);
-
   _defineProperty(this, "ContentType", void 0);
-
   _defineProperty(this, "ImageUrl", void 0);
-
   _defineProperty(this, "AltTag", void 0);
-
   _defineProperty(this, "ForwardUrl", void 0);
-
   _defineProperty(this, "Output", void 0);
-
   _defineProperty(this, "WidgetArgs", void 0);
-
   _defineProperty(this, "Title", void 0);
-
   _defineProperty(this, "Name", void 0);
-
   _defineProperty(this, "DateFrom", void 0);
-
   _defineProperty(this, "DateTo", void 0);
-
   _defineProperty(this, "IsMobile", void 0);
-
   _defineProperty(this, "MobileContentType", void 0);
-
   _defineProperty(this, "MobileImageUrl", void 0);
-
   _defineProperty(this, "MobileOutput", void 0);
-
   _defineProperty(this, "MobileWidgetArgs", void 0);
-
   _defineProperty(this, "IsTrackingEnabled", void 0);
-
   _defineProperty(this, "MobileIsTrackingEnabled", void 0);
-
   _defineProperty(this, "FeaturedItems", void 0);
-
   _defineProperty(this, "Items", void 0);
-
   _defineProperty(this, "Target", void 0);
-
   _defineProperty(this, "MobileTarget", void 0);
-
   _defineProperty(this, "MobileAltTag", void 0);
-
   _defineProperty(this, "MobileForwardUrl", void 0);
-
   _defineProperty(this, "MobileWidth", void 0);
-
   _defineProperty(this, "MobileHeight", void 0);
-
   _defineProperty(this, "Trigger", void 0);
-
   Object.assign(this, init);
-
   if (init.FeaturedItems) {
     this.FeaturedItems = init.FeaturedItems.map(function (i) {
       return new Result(i);
     });
   }
-
   if (init.Trigger) {
     this.Trigger = new BannerTrigger(init.Trigger);
   }
-};
-var FeaturedItem = /*#__PURE__*/function (_PageContentItem) {
-  _inherits(FeaturedItem, _PageContentItem);
-
-  var _super = _createSuper(FeaturedItem);
-
+});
+var FeaturedItem = /*#__PURE__*/function (_PageContentItem2) {
   function FeaturedItem(init) {
     var _this;
-
     _classCallCheck(this, FeaturedItem);
-
-    _this = _super.call(this, init);
-
-    _defineProperty(_assertThisInitialized(_this), "Items", void 0);
-
-    Object.assign(_assertThisInitialized(_this), init);
+    _this = _callSuper(this, FeaturedItem, [init]);
+    _defineProperty(_this, "Items", void 0);
+    Object.assign(_this, init);
     _this.Items = init.Items.map(function (i) {
       return new Result(i);
     });
     return _this;
   }
-
-  return FeaturedItem;
+  _inherits(FeaturedItem, _PageContentItem2);
+  return _createClass(FeaturedItem);
 }(PageContentItem);
-var MerchandisingItem = /*#__PURE__*/function (_PageContentItem2) {
-  _inherits(MerchandisingItem, _PageContentItem2);
-
-  var _super2 = _createSuper(MerchandisingItem);
-
+var MerchandisingItem = /*#__PURE__*/function (_PageContentItem3) {
   function MerchandisingItem(init) {
     var _this2;
-
     _classCallCheck(this, MerchandisingItem);
-
-    _this2 = _super2.call(this, init);
-    Object.assign(_assertThisInitialized(_this2), init);
+    _this2 = _callSuper(this, MerchandisingItem, [init]);
+    Object.assign(_this2, init);
     return _this2;
   }
-
-  return MerchandisingItem;
+  _inherits(MerchandisingItem, _PageContentItem3);
+  return _createClass(MerchandisingItem);
 }(PageContentItem);
 
-var PageContent = function PageContent(init) {
+var PageContent = /*#__PURE__*/_createClass(function PageContent(init) {
   _classCallCheck(this, PageContent);
-
   _defineProperty(this, "ZoneName", void 0);
-
   _defineProperty(this, "Items", void 0);
-
   Object.assign(this, init);
   this.Items = init.Items.map(function (i) {
     return new PageContentItem(i);
   });
-};
+});
 
-var Response =
-/** Indicates if request was successful. */
-
-/** Summary of pagination details and a set of pagination options. */
-
-/**
- * The Keyword value that was sent to Hawksearch in the request. If no Keyword was set in the
- * request, the value will be empty.
- */
-
-/**
- * If this is populated, it indicates that the Keyword value returned 0 results, but the results
- * in this response are from this AdjustedKeyword.  A message should be displayed to the user
- * informing them that their search was corrected to this string.
- *
- * This is the result of Auto Correct, which is configured in the Workbench > Keyword Search >
- * Did You Mean.
- */
-
-/** An entry in the array for each item returned in search results. */
-
-/**
- * Will contain an entry for each facet that has one or more selections. Will be empty if no facet
- * selections have been made.
- */
-
-/**
- * If any strings are returned in the array, they should be displayed to the user as suggested
- * search terms.
- *
- * This is the result of Did You Mean, which is configured in the Workbench > Keyword Search >
- * Did You Mean.
- */
-
-/**
- * Merchandising can be placed by using Campaigns in the Hawksearch Workbench. The Campaign will
- * determine if the content should appear and in what zone.
- */
-// TODO: merchandising object
-// TODO: featured items object
-
-/**
- * Properties that gets populated when user requests landing page related results
- *
- */
+var Response = /*#__PURE__*/_createClass(
 // end of landing page related fields
 function Response(init) {
   _classCallCheck(this, Response);
-
+  /** Indicates if request was successful. */
   _defineProperty(this, "Success", void 0);
-
+  /** Summary of pagination details and a set of pagination options. */
   _defineProperty(this, "Pagination", void 0);
-
+  /**
+   * The Keyword value that was sent to Hawksearch in the request. If no Keyword was set in the
+   * request, the value will be empty.
+   */
   _defineProperty(this, "Keyword", void 0);
-
+  /**
+   * If this is populated, it indicates that the Keyword value returned 0 results, but the results
+   * in this response are from this AdjustedKeyword.  A message should be displayed to the user
+   * informing them that their search was corrected to this string.
+   *
+   * This is the result of Auto Correct, which is configured in the Workbench > Keyword Search >
+   * Did You Mean.
+   */
   _defineProperty(this, "AdjustedKeyword", void 0);
-
+  /** An entry in the array for each item returned in search results. */
   _defineProperty(this, "Results", void 0);
-
   _defineProperty(this, "Facets", void 0);
-
+  /**
+   * Will contain an entry for each facet that has one or more selections. Will be empty if no facet
+   * selections have been made.
+   */
   _defineProperty(this, "Selections", void 0);
-
   _defineProperty(this, "Sorting", void 0);
-
+  /**
+   * If any strings are returned in the array, they should be displayed to the user as suggested
+   * search terms.
+   *
+   * This is the result of Did You Mean, which is configured in the Workbench > Keyword Search >
+   * Did You Mean.
+   */
   _defineProperty(this, "DidYouMean", void 0);
-
+  /**
+   * Merchandising can be placed by using Campaigns in the Hawksearch Workbench. The Campaign will
+   * determine if the content should appear and in what zone.
+   */
   _defineProperty(this, "Merchandising", void 0);
-
+  // TODO: merchandising object
   _defineProperty(this, "FeaturedItems", void 0);
-
+  // TODO: featured items object
   _defineProperty(this, "SearchDuration", void 0);
-
   _defineProperty(this, "DocExplain", void 0);
-
+  /**
+   * Properties that gets populated when user requests landing page related results
+   *
+   */
   _defineProperty(this, "Breadcrumb", void 0);
-
   _defineProperty(this, "CustomHtml", void 0);
-
   _defineProperty(this, "HeaderTitle", void 0);
-
   _defineProperty(this, "MetaDescription", void 0);
-
   _defineProperty(this, "MetaKeywords", void 0);
-
   _defineProperty(this, "MetaRobots", void 0);
-
   _defineProperty(this, "Name", void 0);
-
   _defineProperty(this, "Next", void 0);
-
   _defineProperty(this, "Prev", void 0);
-
   _defineProperty(this, "PageHeading", void 0);
-
   _defineProperty(this, "PageContent", void 0);
-
   _defineProperty(this, "RelCanonical", void 0);
-
   _defineProperty(this, "PageLayoutId", void 0);
-
   _defineProperty(this, "TrackingId", void 0);
-
   _defineProperty(this, "VisitorTargets", void 0);
-
   _defineProperty(this, "Redirect", void 0);
-
   Object.assign(this, init);
   this.Pagination = new Pagination(init.Pagination);
   this.Merchandising = new Merchandising(init.Merchandising);
@@ -6156,17 +6502,16 @@ function Response(init) {
   }) : [];
   this.Selections = new Selections(init.Selections);
   this.Sorting = new Sorting(init.Sorting);
-};
+});
 
-var ContentType;
-
-(function (ContentType) {
+var ContentType = /*#__PURE__*/function (ContentType) {
   ContentType["Image"] = "image";
   ContentType["Widget"] = "widget";
   ContentType["Featured"] = "featured";
   ContentType["Custom"] = "custom";
   ContentType["LandingPage"] = "landingPage";
-})(ContentType || (ContentType = {}));
+  return ContentType;
+}({});
 
 var AuthToken = /*#__PURE__*/function () {
   /**
@@ -6175,20 +6520,17 @@ var AuthToken = /*#__PURE__*/function () {
    */
   function AuthToken() {
     _classCallCheck(this, AuthToken);
-
     _defineProperty(this, "refreshToken", void 0);
-
     _defineProperty(this, "accessToken", void 0);
   }
+
   /**
    * The static method that controls the access to the singleton instance.
    *
    * This implementation let you subclass the Singleton class while keeping
    * just one instance of each subclass around.
    */
-
-
-  _createClass(AuthToken, [{
+  return _createClass(AuthToken, [{
     key: "setTokens",
     value: function setTokens(accessToken, refreshToken) {
       this.refreshToken = refreshToken;
@@ -6208,46 +6550,28 @@ var AuthToken = /*#__PURE__*/function () {
       if (!AuthToken.instance) {
         AuthToken.instance = new AuthToken();
       }
-
       return AuthToken.instance;
     }
   }]);
-
-  return AuthToken;
 }();
-
 _defineProperty(AuthToken, "instance", void 0);
-
 var AuthToken$1 = AuthToken.getInstance();
 
 var HawkClient = /*#__PURE__*/function () {
   function HawkClient(config) {
     var _this = this;
-
     _classCallCheck(this, HawkClient);
-
     _defineProperty(this, "baseUrl", void 0);
-
     _defineProperty(this, "searchUrl", void 0);
-
     _defineProperty(this, "dashboardUrl", void 0);
-
     _defineProperty(this, "autocompleteUrl", void 0);
-
     _defineProperty(this, "compareItemsURL", void 0);
-
     _defineProperty(this, "refreshTokenURL", void 0);
-
     _defineProperty(this, "pinItemURL", void 0);
-
     _defineProperty(this, "updatePinOrderURL", void 0);
-
     _defineProperty(this, "rebuildIndexURL", void 0);
-
     _defineProperty(this, "productDetailsURL", void 0);
-
     _defineProperty(this, "axiosInstance", axios$1.create());
-
     this.baseUrl = config.apiUrl || 'https://searchapi-dev.hawksearch.net';
     this.dashboardUrl = config.dashboardUrl || 'http://test.hawksearch.net/';
     this.searchUrl = config.searchUrl || '/api/v2/search';
@@ -6258,7 +6582,6 @@ var HawkClient = /*#__PURE__*/function () {
     this.productDetailsURL = config.productDetailsURL || '/api/internal-preview/item-detail';
     this.axiosInstance.interceptors.request.use(function (conf) {
       var accessToken = AuthToken$1.getTokens().accessToken;
-
       if ((conf.url || '').indexOf('refresh-token') !== -1 || !accessToken) {
         delete conf.headers.common.Authorization;
         delete conf.headers.common.ClientGuid;
@@ -6266,7 +6589,6 @@ var HawkClient = /*#__PURE__*/function () {
         conf.headers.Authorization = "Bearer ".concat(accessToken);
         conf.headers.ClientGuid = config.clientGuid;
       }
-
       return conf;
     }, function (error) {
       Promise.reject(error);
@@ -6275,7 +6597,6 @@ var HawkClient = /*#__PURE__*/function () {
       return response;
     }, function (error) {
       var originalRequest = error.config;
-
       if (error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
         var token = AuthToken$1.getTokens();
@@ -6289,46 +6610,37 @@ var HawkClient = /*#__PURE__*/function () {
             _this.axiosInstance.defaults.headers.common.Authorization = 'Bearer ' + res.data.Token;
             return _this.axiosInstance(originalRequest);
           }
-
           return;
         });
       }
-
       return Promise.reject(error);
     });
     this.compareItemsURL = config.compareItemsURL || '/api/compare';
   }
-
-  _createClass(HawkClient, [{
+  return _createClass(HawkClient, [{
     key: "pinItem",
     value: function () {
       var _pinItem = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(request, cancellationToken) {
         var result;
         return regenerator.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return this.axiosInstance.post(new URL(this.pinItemURL, this.baseUrl).href, request, {
-                  cancelToken: cancellationToken
-                });
-
-              case 2:
-                result = _context.sent;
-                return _context.abrupt("return", result.data);
-
-              case 4:
-              case "end":
-                return _context.stop();
-            }
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return this.axiosInstance.post(new URL(this.pinItemURL, this.baseUrl).href, request, {
+                cancelToken: cancellationToken
+              });
+            case 2:
+              result = _context.sent;
+              return _context.abrupt("return", result.data);
+            case 4:
+            case "end":
+              return _context.stop();
           }
         }, _callee, this);
       }));
-
       function pinItem(_x, _x2) {
         return _pinItem.apply(this, arguments);
       }
-
       return pinItem;
     }()
   }, {
@@ -6337,30 +6649,24 @@ var HawkClient = /*#__PURE__*/function () {
       var _updatePinOrder = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(request, cancellationToken) {
         var result;
         return regenerator.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return this.axiosInstance.post(new URL(this.updatePinOrderURL, this.baseUrl).href, request, {
-                  cancelToken: cancellationToken
-                });
-
-              case 2:
-                result = _context2.sent;
-                return _context2.abrupt("return", result.data);
-
-              case 4:
-              case "end":
-                return _context2.stop();
-            }
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return this.axiosInstance.post(new URL(this.updatePinOrderURL, this.baseUrl).href, request, {
+                cancelToken: cancellationToken
+              });
+            case 2:
+              result = _context2.sent;
+              return _context2.abrupt("return", result.data);
+            case 4:
+            case "end":
+              return _context2.stop();
           }
         }, _callee2, this);
       }));
-
       function updatePinOrder(_x3, _x4) {
         return _updatePinOrder.apply(this, arguments);
       }
-
       return updatePinOrder;
     }()
   }, {
@@ -6369,30 +6675,24 @@ var HawkClient = /*#__PURE__*/function () {
       var _search = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(request, cancellationToken) {
         var result;
         return regenerator.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.next = 2;
-                return this.axiosInstance.post(new URL(this.searchUrl, this.baseUrl).href, request, {
-                  cancelToken: cancellationToken
-                });
-
-              case 2:
-                result = _context3.sent;
-                return _context3.abrupt("return", result.data);
-
-              case 4:
-              case "end":
-                return _context3.stop();
-            }
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return this.axiosInstance.post(new URL(this.searchUrl, this.baseUrl).href, request, {
+                cancelToken: cancellationToken
+              });
+            case 2:
+              result = _context3.sent;
+              return _context3.abrupt("return", result.data);
+            case 4:
+            case "end":
+              return _context3.stop();
           }
         }, _callee3, this);
       }));
-
       function search(_x5, _x6) {
         return _search.apply(this, arguments);
       }
-
       return search;
     }()
   }, {
@@ -6401,30 +6701,24 @@ var HawkClient = /*#__PURE__*/function () {
       var _autocomplete = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(request, cancellationToken) {
         var result;
         return regenerator.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                _context4.next = 2;
-                return axios$1.post(new URL(this.autocompleteUrl, this.baseUrl).href, request, {
-                  cancelToken: cancellationToken
-                });
-
-              case 2:
-                result = _context4.sent;
-                return _context4.abrupt("return", result.data);
-
-              case 4:
-              case "end":
-                return _context4.stop();
-            }
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return axios$1.post(new URL(this.autocompleteUrl, this.baseUrl).href, request, {
+                cancelToken: cancellationToken
+              });
+            case 2:
+              result = _context4.sent;
+              return _context4.abrupt("return", result.data);
+            case 4:
+            case "end":
+              return _context4.stop();
           }
         }, _callee4, this);
       }));
-
       function autocomplete(_x7, _x8) {
         return _autocomplete.apply(this, arguments);
       }
-
       return autocomplete;
     }()
   }, {
@@ -6433,30 +6727,24 @@ var HawkClient = /*#__PURE__*/function () {
       var _getComparedItems = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(request, cancellationToken) {
         var result;
         return regenerator.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                _context5.next = 2;
-                return axios$1.post(new URL(this.compareItemsURL, this.baseUrl).href, request, {
-                  cancelToken: cancellationToken
-                });
-
-              case 2:
-                result = _context5.sent;
-                return _context5.abrupt("return", result.data);
-
-              case 4:
-              case "end":
-                return _context5.stop();
-            }
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return axios$1.post(new URL(this.compareItemsURL, this.baseUrl).href, request, {
+                cancelToken: cancellationToken
+              });
+            case 2:
+              result = _context5.sent;
+              return _context5.abrupt("return", result.data);
+            case 4:
+            case "end":
+              return _context5.stop();
           }
         }, _callee5, this);
       }));
-
       function getComparedItems(_x9, _x10) {
         return _getComparedItems.apply(this, arguments);
       }
-
       return getComparedItems;
     }()
   }, {
@@ -6465,130 +6753,110 @@ var HawkClient = /*#__PURE__*/function () {
       var _getProductDetails = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(request, cancellationToken) {
         var result;
         return regenerator.wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                _context6.next = 2;
-                return axios$1.post(new URL(this.productDetailsURL, this.baseUrl).href, request, {
-                  cancelToken: cancellationToken
-                });
-
-              case 2:
-                result = _context6.sent;
-                return _context6.abrupt("return", new Result(result.data));
-
-              case 4:
-              case "end":
-                return _context6.stop();
-            }
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.next = 2;
+              return axios$1.post(new URL(this.productDetailsURL, this.baseUrl).href, request, {
+                cancelToken: cancellationToken
+              });
+            case 2:
+              result = _context6.sent;
+              return _context6.abrupt("return", new Result(result.data));
+            case 4:
+            case "end":
+              return _context6.stop();
           }
         }, _callee6, this);
       }));
-
       function getProductDetails(_x11, _x12) {
         return _getProductDetails.apply(this, arguments);
       }
-
       return getProductDetails;
     }()
   }]);
-
-  return HawkClient;
 }();
 
-function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function ownKeys$2(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread$3(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$2(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$2(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function useMergableState(initialValue, typeConstructor) {
   var _useState = useState(new typeConstructor(initialValue)),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      state = _useState2[0],
-      setState = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    state = _useState2[0],
+    setState = _useState2[1];
   function setStateAndMerge(value) {
     if (typeof value === 'function') {
       // if we're being passed a function, we're setting state in the form of setState(prevState => ...).
+
       setState(function (prevState) {
         // so we derive the new state from the previous state
-        var newState = value(prevState); // and then set the new merged state
+        var newState = value(prevState);
 
+        // and then set the new merged state
         return new typeConstructor(_objectSpread$3(_objectSpread$3({}, prevState), newState));
       });
       return;
-    } // otherwise, the new state was simply passed in
+    }
 
-
+    // otherwise, the new state was simply passed in
     setState(function (prevState) {
       // merge state together and set it
       return new typeConstructor(_objectSpread$3(_objectSpread$3({}, prevState), value));
     });
   }
-
   return [state, setStateAndMerge];
 }
 
 var getVisitorExpiry = function getVisitorExpiry() {
-  var d = new Date(); // 1 year
-
+  var d = new Date();
+  // 1 year
   d.setTime(d.getTime() + 360 * 24 * 60 * 60 * 1000);
   return d.toUTCString();
 };
 var getVisitExpiry = function getVisitExpiry() {
-  var d = new Date(); // 4 hours
-
+  var d = new Date();
+  // 4 hours
   d.setTime(d.getTime() + 4 * 60 * 60 * 1000);
   return d.toUTCString();
 };
 var createGuid = function createGuid() {
   var s = [];
   var hexDigits = '0123456789abcdef';
-
   for (var i = 0; i < 36; i++) {
     s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
   }
-
   s[14] = '4'; // bits 12-15 of the time_hi_and_version field to 0010
   // tslint:disable-next-line: no-bitwise
-
   s[19] = hexDigits.substr(s[19] & 0x3 | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
-
   s[8] = s[13] = s[18] = s[23] = '-';
   var uuid = s.join('');
   return uuid;
 };
 var getCookie = function getCookie(name) {
   var nameEQ = name + '=';
-  var ca = document.cookie.split(';'); // tslint:disable-next-line: prefer-for-of
-
+  var ca = document.cookie.split(';');
+  // tslint:disable-next-line: prefer-for-of
   for (var i = 0; i < ca.length; i++) {
     var c = ca[i];
-
     while (c.charAt(0) === ' ') {
       c = c.substring(1, c.length);
     }
-
     if (c.indexOf(nameEQ) === 0) {
       return c.substring(nameEQ.length, c.length);
     }
   }
-
   return null;
 };
 var setCookie = function setCookie(name, value, expiry) {
   var expires;
-
   if (expiry) {
     expires = '; expires=' + expiry;
   } else {
     expires = '';
   }
-
   document.cookie = name + '=' + value + expires + '; path=/';
 };
 
-var E_T;
-
-(function (E_T) {
+var E_T = /*#__PURE__*/function (E_T) {
   E_T[E_T["pageLoad"] = 1] = "pageLoad";
   E_T[E_T["search"] = 2] = "search";
   E_T[E_T["click"] = 3] = "click";
@@ -6600,34 +6868,21 @@ var E_T;
   E_T[E_T["recommendationClick"] = 10] = "recommendationClick";
   E_T[E_T["autoCompleteClick"] = 11] = "autoCompleteClick";
   E_T[E_T["add2CartMultiple"] = 14] = "add2CartMultiple";
-})(E_T || (E_T = {}));
-
-var P_T;
-
-(function (P_T) {
+  return E_T;
+}(E_T || {});
+var P_T = /*#__PURE__*/function (P_T) {
   P_T[P_T["item"] = 1] = "item";
   P_T[P_T["landing"] = 2] = "landing";
   P_T[P_T["cart"] = 3] = "cart";
   P_T[P_T["order"] = 4] = "order";
   P_T[P_T["custom"] = 5] = "custom";
-})(P_T || (P_T = {}));
-
-var SuggestType;
-
-(function (SuggestType) {
-  SuggestType[SuggestType["PopularSearches"] = 1] = "PopularSearches";
-  SuggestType[SuggestType["TopCategories"] = 2] = "TopCategories";
-  SuggestType[SuggestType["TopProductMatches"] = 3] = "TopProductMatches";
-  SuggestType[SuggestType["TopContentMatches"] = 4] = "TopContentMatches";
-})(SuggestType || (SuggestType = {}));
-
-var SearchType;
-
-(function (SearchType) {
+  return P_T;
+}(P_T || {});
+var SearchType = /*#__PURE__*/function (SearchType) {
   SearchType[SearchType["Initial"] = 1] = "Initial";
   SearchType[SearchType["Refinement"] = 2] = "Refinement";
-})(SearchType || (SearchType = {}));
-
+  return SearchType;
+}({});
 var TrackingEvent = /*#__PURE__*/function () {
   /**
    * The Singleton's constructor should always be private to prevent direct
@@ -6635,26 +6890,24 @@ var TrackingEvent = /*#__PURE__*/function () {
    */
   function TrackingEvent() {
     _classCallCheck(this, TrackingEvent);
-
     _defineProperty(this, "trackingURL", void 0);
-
     _defineProperty(this, "clientGUID", void 0);
   }
+
   /**
    * The static method that controls the access to the singleton instance.
    *
    * This implementation let you subclass the Singleton class while keeping
    * just one instance of each subclass around.
    */
-
-
-  _createClass(TrackingEvent, [{
+  return _createClass(TrackingEvent, [{
     key: "setTrackingURL",
     value:
     /**
      * Finally, any singleton should define some business logic, which can be
      * executed on its instance.
      */
+
     function setTrackingURL(url) {
       this.trackingURL = url;
     }
@@ -6676,16 +6929,16 @@ var TrackingEvent = /*#__PURE__*/function () {
   }, {
     key: "getVisitorExpiry",
     value: function getVisitorExpiry() {
-      var d = new Date(); // 1 year
-
+      var d = new Date();
+      // 1 year
       d.setTime(d.getTime() + 360 * 24 * 60 * 60 * 1000);
       return d.toUTCString();
     }
   }, {
     key: "getVisitExpiry",
     value: function getVisitExpiry() {
-      var d = new Date(); // 4 hours
-
+      var d = new Date();
+      // 4 hours
       d.setTime(d.getTime() + 4 * 60 * 60 * 1000);
       return d.toUTCString();
     }
@@ -6694,16 +6947,12 @@ var TrackingEvent = /*#__PURE__*/function () {
     value: function createGuid() {
       var s = [];
       var hexDigits = '0123456789abcdef';
-
       for (var i = 0; i < 36; i++) {
         s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
       }
-
       s[14] = '4'; // bits 12-15 of the time_hi_and_version field to 0010
       // tslint:disable-next-line: no-bitwise
-
       s[19] = hexDigits.substr(s[19] & 0x3 | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
-
       s[8] = s[13] = s[18] = s[23] = '-';
       var uuid = s.join('');
       return uuid;
@@ -6712,33 +6961,28 @@ var TrackingEvent = /*#__PURE__*/function () {
     key: "getCookie",
     value: function getCookie(name) {
       var nameEQ = name + '=';
-      var ca = document.cookie.split(';'); // tslint:disable-next-line: prefer-for-of
-
+      var ca = document.cookie.split(';');
+      // tslint:disable-next-line: prefer-for-of
       for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-
         while (c.charAt(0) === ' ') {
           c = c.substring(1, c.length);
         }
-
         if (c.indexOf(nameEQ) === 0) {
           return c.substring(nameEQ.length, c.length);
         }
       }
-
       return null;
     }
   }, {
     key: "setCookie",
     value: function setCookie(name, value, expiry) {
       var expires;
-
       if (expiry) {
         expires = '; expires=' + expiry;
       } else {
         expires = '';
       }
-
       document.cookie = name + '=' + value + expires + '; path=/';
     }
   }, {
@@ -6763,7 +7007,6 @@ var TrackingEvent = /*#__PURE__*/function () {
       if (typeId === SearchType.Initial) {
         this.setCookie('hawk_query_id', this.createGuid());
       }
-
       var queryId = this.getCookie('hawk_query_id');
       var c = document.documentElement;
       var pl = {
@@ -6908,23 +7151,20 @@ var TrackingEvent = /*#__PURE__*/function () {
     value: function mr(data) {
       var visitId = this.getCookie('hawk_visit_id');
       var visitorId = this.getCookie('hawk_visitor_id');
-
       if (!visitId) {
         this.setCookie('hawk_visit_id', this.createGuid(), this.getVisitExpiry());
         visitId = this.getCookie('hawk_visit_id');
       }
-
       if (!visitorId) {
         this.setCookie('hawk_visitor_id', this.createGuid(), this.getVisitorExpiry());
         visitorId = this.getCookie('hawk_visitor_id');
       }
-
       var pl = Object.assign({
         ClientGuid: this.clientGUID,
         VisitId: visitId,
-        VisitorId: visitorId // TrackingProperties: hs.Context,
+        VisitorId: visitorId
+        // TrackingProperties: hs.Context,
         // CustomDictionary: hs.Context.Custom,
-
       }, data);
       fetch(this.trackingURL, {
         method: 'POST',
@@ -6944,53 +7184,42 @@ var TrackingEvent = /*#__PURE__*/function () {
       if (!this.trackingURL || !this.clientGUID) {
         return;
       }
-
       switch (eventName.toLowerCase()) {
         case 'pageload':
           // HawkSearch.Context.add("uniqueid", "123456789");
           return this.writePageLoad(args.pageType);
-
         case 'searchtracking':
           // HawkSearch.Tracking.track("searchtracking", {trackingId:"a9bd6e50-e434-45b9-9f66-489eca07ad0a", typeId: HawkSearch.Tracking.SearchType.Initial});
           // HawkSearch.Tracking.track("searchtracking", {trackingId:"a9bd6e50-e434-45b9-9f66-489eca07ad0a", typeId: HawkSearch.Tracking.SearchType.Refinement});
           return this.writeSearchTracking(args.trackingId, args.typeId);
         // CHANGED
-
         case 'click':
           // HawkSearch.Tracking.track('click',{event: e, uniqueId: "33333", trackingId: "75a0801a-a93c-4bcb-81f1-f4b011f616e3"});
           return this.writeClick(args.event, args.uniqueId, args.trackingId, '');
         // CHANGED
-
         case 'bannerclick':
           // HawkSearch.Tracking.track('bannerclick',{bannerId: 1, campaignId: 2, trackingId:"2d652a1e-2e05-4414-9d76-51979109f724"});
           return this.writeBannerClick(args.bannerId, args.campaignId, args.trackingId);
         // CHANGED
-
         case 'bannerimpression':
           // HawkSearch.Tracking.track('bannerimpression',{bannerId: "2", campaignId: "2", trackingId:"2d652a1e-2e05-4414-9d76-51979109f724"});
           return this.writeBannerImpression(args.bannerId, args.campaignId, args.trackingId);
         // CHANGED
-
         case 'sale':
           // HawkSearch.Tracking.track('sale', {orderNo: 'order_123',itemList: [{uniqueid: '123456789', itemPrice: 12.99, quantity: 2}], total: 25.98, subTotal: 22, tax: 3.98, currency: 'USD'});
           return this.writeSale(args.orderNo, args.itemList, args.total, args.subTotal, args.tax, args.currency);
-
         case 'add2cart':
           // HawkSearch.Tracking.track('add2cart',{uniqueId: '123456789', price: 19.99, quantity: 3, currency: 'USD'});
           return this.writeAdd2Cart(args.uniqueId, args.price, args.quantity, args.currency);
-
         case 'add2cartmultiple':
           // HawkSearch.Tracking.track('add2cartmultiple', [{uniqueId: '123456789',price: 15.97,quantity: 1,currency: 'USD'},{uniqueId: '987465321', price: 18.00, quantity: 1, currency: 'USD'}]);
           return this.writeAdd2CartMultiple(args);
-
         case 'rate':
           // HawkSearch.Tracking.track('rate', {uniqueId: '123456789',value: 3.00});
           return this.writeRate(args.uniqueId, args.value);
-
         case 'recommendationclick':
           // HawkSearch.Tracking.track('recommendationclick',{uniqueId: "223222", itemIndex: "222", widgetGuid:"2d652a1e-2e05-4414-9d76-51979109f724", requestId:"2d652a1e-2e05-4414-9d76-51979109f724"});
           return this.writeRecommendationClick(args.widgetGuid, args.uniqueId, args.itemIndex, args.requestId);
-
         case 'autocompleteclick':
           // HawkSearch.Tracking.track('autocompleteclick',{keyword: "test", suggestType: HawkSearch.Tracking.SuggestType.PopularSearches, name:"tester", url:"/test"});
           return this.writeAutoCompleteClick(args.keyword, args.suggestType, args.name, args.url);
@@ -7003,56 +7232,45 @@ var TrackingEvent = /*#__PURE__*/function () {
       if (!TrackingEvent.instance) {
         TrackingEvent.instance = new TrackingEvent();
       }
-
       return TrackingEvent.instance;
     }
   }]);
-
-  return TrackingEvent;
 }(); // export TrackingEvent.getInstance();
-
-
 _defineProperty(TrackingEvent, "instance", void 0);
-
 var TrackingEvent$1 = TrackingEvent.getInstance();
 
-function _createForOfIteratorHelper$1(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$2(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray$2(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$2(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$2(o, minLen); }
-
-function _arrayLikeToArray$2(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _createForOfIteratorHelper$1(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray$2(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray$2(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray$2(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray$2(r, a) : void 0; } }
+function _arrayLikeToArray$2(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function ownKeys$3(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread$4(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$3(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$3(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function useHawkState(initialSearch) {
   var _useHawkConfig = useHawkConfig(),
-      config = _useHawkConfig.config;
-
+    config = _useHawkConfig.config;
   var client = new HawkClient(config);
-
   var _useMergableState = useMergableState(new SearchStore({
-    pendingSearch: initialSearch || {
-      FacetSelections: {}
-    },
-    isLoading: true,
-    itemsToCompare: [],
-    comparedResults: [],
-    itemsToCompareIds: [],
-    productDetails: {}
-  }), SearchStore),
-      _useMergableState2 = _slicedToArray$1(_useMergableState, 2),
-      store = _useMergableState2[0],
-      setStore = _useMergableState2[1];
-
+      pendingSearch: initialSearch || {
+        FacetSelections: {}
+      },
+      isLoading: true,
+      itemsToCompare: [],
+      comparedResults: [],
+      itemsToCompareIds: [],
+      productDetails: {}
+    }), SearchStore),
+    _useMergableState2 = _slicedToArray$1(_useMergableState, 2),
+    store = _useMergableState2[0],
+    setStore = _useMergableState2[1];
   useEffect(function () {
     // when the pending search changes, trigger a search
+
     var cts = axios$1.CancelToken.source();
     search(cts.token);
     return function () {
       cts.cancel();
     };
   }, [store.pendingSearch]);
+
   /**
    * Performs a search with the currently configured pending search request. The search request can be
    * configured via the `setSearch` method. This method usually doesn't need to be called directly, as
@@ -7060,170 +7278,143 @@ function useHawkState(initialSearch) {
    * `setSearch`.
    * @returns A promise that resolves when the search request has been completed.
    */
-
   function search(_x) {
     return _search.apply(this, arguments);
   }
-
   function _search() {
     _search = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(cancellationToken) {
       var searchResults, searchParams, visitId, visitorId, updatedRequest, selectedFacets;
       return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              setStore({
-                isLoading: true
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            setStore({
+              isLoading: true
+            });
+            searchResults = null;
+            searchParams = _objectSpread$4(_objectSpread$4({}, store.pendingSearch), {}, {
+              // pass parameter for extended response
+              IsInPreview: config.isInPreview,
+              // and override some of the request fields with config values
+              ClientGuid: config.clientGuid,
+              Keyword: store.pendingSearch.Keyword ? decodeURIComponent(store.pendingSearch.Keyword || '') : store.pendingSearch.Keyword,
+              SearchWithin: store.pendingSearch.SearchWithin ? decodeURIComponent(store.pendingSearch.SearchWithin || '') : store.pendingSearch.SearchWithin
+            }); // The index name in the configuration takes priority over the one supplied from the URL
+            if (config.indexName) {
+              Object.assign(searchParams, {
+                IndexName: config.indexName
               });
-              searchResults = null;
-              searchParams = _objectSpread$4(_objectSpread$4({}, store.pendingSearch), {}, {
-                // pass parameter for extended response
-                IsInPreview: config.isInPreview,
-                // and override some of the request fields with config values
-                ClientGuid: config.clientGuid,
-                Keyword: store.pendingSearch.Keyword ? decodeURIComponent(store.pendingSearch.Keyword || '') : store.pendingSearch.Keyword,
-                SearchWithin: store.pendingSearch.SearchWithin ? decodeURIComponent(store.pendingSearch.SearchWithin || '') : store.pendingSearch.SearchWithin
-              }); // The index name in the configuration takes priority over the one supplied from the URL
+            }
 
-              if (config.indexName) {
-                Object.assign(searchParams, {
-                  IndexName: config.indexName
-                });
-              } // If the index name is required and no value is provided from the config or the URL, the request is canceled
-
-
-              if (!(config.indexNameRequired && !searchParams.IndexName)) {
-                _context.next = 7;
-                break;
-              }
-
-              setStore({
-                isLoading: false
-              });
-              return _context.abrupt("return");
-
-            case 7:
-              // Fill clientdata
-              visitId = getCookie('hawk_visit_id');
-              visitorId = getCookie('hawk_visitor_id');
-
-              if (!visitId) {
-                setCookie('hawk_visit_id', createGuid(), getVisitExpiry());
-                visitId = getCookie('hawk_visit_id');
-              }
-
-              if (!visitorId) {
-                setCookie('hawk_visitor_id', createGuid(), getVisitorExpiry());
-                visitorId = getCookie('hawk_visitor_id');
-              }
-
-              updatedRequest = _objectSpread$4({
-                ClientData: {
-                  VisitorId: visitorId || '',
-                  VisitId: visitId || '',
-                  UserAgent: navigator.userAgent,
-                  PreviewBuckets: store.searchResults ? store.searchResults.VisitorTargets.map(function (v) {
-                    return v.Id;
-                  }) : []
-                }
-              }, searchParams);
-              _context.prev = 12;
-              _context.next = 15;
-              return client.search(updatedRequest, cancellationToken);
-
-            case 15:
-              searchResults = _context.sent;
-              _context.next = 24;
+            // If the index name is required and no value is provided from the config or the URL, the request is canceled
+            if (!(config.indexNameRequired && !searchParams.IndexName)) {
+              _context.next = 7;
               break;
-
-            case 18:
-              _context.prev = 18;
-              _context.t0 = _context["catch"](12);
-
-              if (!axios$1.isCancel(_context.t0)) {
-                _context.next = 22;
-                break;
+            }
+            setStore({
+              isLoading: false
+            });
+            return _context.abrupt("return");
+          case 7:
+            // Fill clientdata
+            visitId = getCookie('hawk_visit_id');
+            visitorId = getCookie('hawk_visitor_id');
+            if (!visitId) {
+              setCookie('hawk_visit_id', createGuid(), getVisitExpiry());
+              visitId = getCookie('hawk_visit_id');
+            }
+            if (!visitorId) {
+              setCookie('hawk_visitor_id', createGuid(), getVisitorExpiry());
+              visitorId = getCookie('hawk_visitor_id');
+            }
+            updatedRequest = _objectSpread$4({
+              ClientData: {
+                VisitorId: visitorId || '',
+                VisitId: visitId || '',
+                UserAgent: navigator.userAgent,
+                PreviewBuckets: store.searchResults ? store.searchResults.VisitorTargets.map(function (v) {
+                  return v.Id;
+                }) : []
               }
-
-              return _context.abrupt("return");
-
-            case 22:
-              console.error('Search request error:', _context.t0);
-              setStore({
-                requestError: true
-              });
-
-            case 24:
-              setStore({
-                isLoading: false
-              });
-
-              if (searchResults) {
-                if (!searchResults.Success) {
-                  console.error('Search result error:', searchResults);
-                  setStore({
-                    requestError: true
+            }, searchParams);
+            _context.prev = 12;
+            _context.next = 15;
+            return client.search(updatedRequest, cancellationToken);
+          case 15:
+            searchResults = _context.sent;
+            _context.next = 24;
+            break;
+          case 18:
+            _context.prev = 18;
+            _context.t0 = _context["catch"](12);
+            if (!axios$1.isCancel(_context.t0)) {
+              _context.next = 22;
+              break;
+            }
+            return _context.abrupt("return");
+          case 22:
+            console.error('Search request error:', _context.t0);
+            setStore({
+              requestError: true
+            });
+          case 24:
+            setStore({
+              isLoading: false
+            });
+            if (searchResults) {
+              if (!searchResults.Success) {
+                console.error('Search result error:', searchResults);
+                setStore({
+                  requestError: true
+                });
+              } else {
+                selectedFacets = searchParams.FacetSelections ? Object.keys(searchParams.FacetSelections) : [];
+                if (searchParams.SortBy || searchParams.PageNo || searchParams.MaxPerPage || selectedFacets.length || searchParams.SearchWithin) {
+                  TrackingEvent$1.track('searchtracking', {
+                    trackingId: searchResults.TrackingId,
+                    typeId: SearchType.Refinement,
+                    keyword: searchParams.Keyword
                   });
                 } else {
-                  selectedFacets = searchParams.FacetSelections ? Object.keys(searchParams.FacetSelections) : [];
-
-                  if (searchParams.SortBy || searchParams.PageNo || searchParams.MaxPerPage || selectedFacets.length || searchParams.SearchWithin) {
-                    TrackingEvent$1.track('searchtracking', {
-                      trackingId: searchResults.TrackingId,
-                      typeId: SearchType.Refinement,
-                      keyword: searchParams.Keyword
-                    });
-                  } else {
-                    TrackingEvent$1.track('searchtracking', {
-                      trackingId: searchResults.TrackingId,
-                      typeId: SearchType.Initial,
-                      keyword: searchParams.Keyword
-                    });
-                  }
-
-                  setStore({
-                    searchResults: new Response(searchResults),
-                    requestError: false
+                  TrackingEvent$1.track('searchtracking', {
+                    trackingId: searchResults.TrackingId,
+                    typeId: SearchType.Initial,
+                    keyword: searchParams.Keyword
                   });
                 }
+                setStore({
+                  searchResults: new Response(searchResults),
+                  requestError: false
+                });
               }
-
-            case 26:
-            case "end":
-              return _context.stop();
-          }
+            }
+          case 26:
+          case "end":
+            return _context.stop();
         }
       }, _callee, null, [[12, 18]]);
     }));
     return _search.apply(this, arguments);
   }
-
   function pinItem(_x2, _x3) {
     return _pinItem.apply(this, arguments);
   }
-
   function _pinItem() {
     _pinItem = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(request, cancellationToken) {
       return regenerator.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.next = 2;
-              return client.pinItem(request, cancellationToken);
-
-            case 2:
-              return _context2.abrupt("return", _context2.sent);
-
-            case 3:
-            case "end":
-              return _context2.stop();
-          }
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return client.pinItem(request, cancellationToken);
+          case 2:
+            return _context2.abrupt("return", _context2.sent);
+          case 3:
+          case "end":
+            return _context2.stop();
         }
       }, _callee2);
     }));
     return _pinItem.apply(this, arguments);
   }
-
   function updatePinOrder(_x4, _x5) {
     return _updatePinOrder.apply(this, arguments);
   }
@@ -7232,30 +7423,23 @@ function useHawkState(initialSearch) {
    * user can use this method from view application.
    * @returns A promise that resolves when the compare request has been completed.
    */
-
-
   function _updatePinOrder() {
     _updatePinOrder = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(request, cancellationToken) {
       return regenerator.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return client.updatePinOrder(request, cancellationToken);
-
-            case 2:
-              return _context3.abrupt("return", _context3.sent);
-
-            case 3:
-            case "end":
-              return _context3.stop();
-          }
+        while (1) switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return client.updatePinOrder(request, cancellationToken);
+          case 2:
+            return _context3.abrupt("return", _context3.sent);
+          case 3:
+          case "end":
+            return _context3.stop();
         }
       }, _callee3);
     }));
     return _updatePinOrder.apply(this, arguments);
   }
-
   function getComparedItems(_x6, _x7) {
     return _getComparedItems.apply(this, arguments);
   }
@@ -7263,30 +7447,23 @@ function useHawkState(initialSearch) {
    * Get product details by ID
    * @returns A promise that resolves when the product details request has been completed.
    */
-
-
   function _getComparedItems() {
     _getComparedItems = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(request, cancellationToken) {
       return regenerator.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              _context4.next = 2;
-              return client.getComparedItems(request, cancellationToken);
-
-            case 2:
-              return _context4.abrupt("return", _context4.sent);
-
-            case 3:
-            case "end":
-              return _context4.stop();
-          }
+        while (1) switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
+            return client.getComparedItems(request, cancellationToken);
+          case 2:
+            return _context4.abrupt("return", _context4.sent);
+          case 3:
+          case "end":
+            return _context4.stop();
         }
       }, _callee4);
     }));
     return _getComparedItems.apply(this, arguments);
   }
-
   function getProductDetails(_x8, _x9) {
     return _getProductDetails.apply(this, arguments);
   }
@@ -7297,56 +7474,45 @@ function useHawkState(initialSearch) {
    * @param doHistory Whether or not this search request will push a history entry into the browser. If
    * 					not specified, the default is `true`.
    */
-
-
   function _getProductDetails() {
     _getProductDetails = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(request, cancellationToken) {
       return regenerator.wrap(function _callee5$(_context5) {
-        while (1) {
-          switch (_context5.prev = _context5.next) {
-            case 0:
-              _context5.next = 2;
-              return client.getProductDetails(request, cancellationToken);
-
-            case 2:
-              return _context5.abrupt("return", _context5.sent);
-
-            case 3:
-            case "end":
-              return _context5.stop();
-          }
+        while (1) switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.next = 2;
+            return client.getProductDetails(request, cancellationToken);
+          case 2:
+            return _context5.abrupt("return", _context5.sent);
+          case 3:
+          case "end":
+            return _context5.stop();
         }
       }, _callee5);
     }));
     return _getProductDetails.apply(this, arguments);
   }
-
   function setSearch(pendingSearch, doHistory) {
     if (doHistory === undefined) {
       doHistory = true;
     }
-
     setStore(function (prevState) {
       var newState = {
         pendingSearch: _objectSpread$4(_objectSpread$4({}, prevState.pendingSearch), pendingSearch),
         doHistory: doHistory
       };
-
       if (newState.pendingSearch.Keyword === '') {
         newState.pendingSearch.Keyword = undefined;
       }
-
       return newState;
     });
   }
+
   /**
    * Sets the facet selections and search within configuration for the next search request. This will also
    * clear the page number of the next request to display the first page of results.
    * @param selections The facet selections to set.
    * @param searchWithin The search within value to set.
    */
-
-
   function setSearchSelections(selections, searchWithin) {
     setSearch({
       FacetSelections: selections,
@@ -7356,6 +7522,7 @@ function useHawkState(initialSearch) {
       PageNo: undefined
     });
   }
+
   /**
    * Toggles a facet value for the next search request that will be executed. Internally, this will call
    * `setSearch` to configure the next search with this selected facet.
@@ -7363,51 +7530,41 @@ function useHawkState(initialSearch) {
    * @param facetValue The facet value being selected.
    * @param negate  Whether or not this selection is considered a negation.
    */
-
-
   function toggleFacetValue(facet, facetValue, negate) {
     if (negate === undefined) {
       negate = false;
     }
-
     var facetName = typeof facet === 'string' ? facet : facet.Name;
     var facetField = typeof facet === 'string' ? facet : facet.selectionField;
     var valueValue = typeof facetValue === 'string' ? facetValue : facetValue.Value;
     var valueLabel = typeof facetValue === 'string' ? facetValue : facetValue.Label;
-
     if (!valueValue) {
       console.error("Facet ".concat(facetName, " (").concat(facetField, ") has no facet value for ").concat(valueLabel));
       return;
     }
+    var facetSelections = store.pendingSearch.FacetSelections;
 
-    var facetSelections = store.pendingSearch.FacetSelections; // handle `searchWithin` facet, which isn't a facet selection but is instead a field on the
+    // handle `searchWithin` facet, which isn't a facet selection but is instead a field on the
     // search request.
-
     if (facetField === 'searchWithin') {
       // set the search within to the facet value provided
-      setSearchSelections(facetSelections,
-      /* searchWithin */
-      valueValue);
+      setSearchSelections(facetSelections, /* searchWithin */valueValue);
       return;
     }
-
     if (!facetSelections) {
       facetSelections = {};
     }
-
     if (!facetSelections[facetField]) {
       facetSelections[facetField] = [];
     }
-
     var _store$isFacetSelecte = store.isFacetSelected(facet, facetValue),
-        selState = _store$isFacetSelecte.state,
-        selectionIndex = _store$isFacetSelecte.selectionIndex;
-
+      selState = _store$isFacetSelecte.state,
+      selectionIndex = _store$isFacetSelecte.selectionIndex;
     if (selState === FacetSelectionState.Selected || selState === FacetSelectionState.Negated) {
       // we're selecting this facet, and it's already selected
+
       // first, remove it from our selections
       facetSelections[facetField].splice(selectionIndex, 1);
-
       if (selState === FacetSelectionState.Selected && negate || selState === FacetSelectionState.Negated && !negate) {
         // if we're toggling from negation to non-negation or vice versa, then push the new selection
         facetSelections[facetField].push(negate ? "-".concat(valueValue) : valueValue);
@@ -7416,40 +7573,31 @@ function useHawkState(initialSearch) {
       // not selected, so we want to select it
       facetSelections[facetField].push(negate ? "-".concat(valueValue) : valueValue);
     }
-
     if (facetSelections[facetField].length === 0) {
       // clean up any facets that no longer have any selected facet values
       delete facetSelections[facetField];
     }
-
     setSearchSelections(facetSelections, store.pendingSearch.SearchWithin);
   }
-
   function setFacetValues(facet, facetValues) {
     var facetName = typeof facet === 'string' ? facet : facet.Name;
     var facetField = typeof facet === 'string' ? facet : facet.selectionField;
     var facetSelections = store.pendingSearch.FacetSelections;
-
     if (!facetSelections) {
       facetSelections = {};
     }
-
     facetSelections[facetField] = [];
-
     var _iterator = _createForOfIteratorHelper$1(facetValues),
-        _step;
-
+      _step;
     try {
       for (_iterator.s(); !(_step = _iterator.n()).done;) {
         var _facetValue = _step.value;
         var valueValue = typeof _facetValue === 'string' ? _facetValue : _facetValue.Value;
         var valueLabel = typeof _facetValue === 'string' ? _facetValue : _facetValue.Label;
-
         if (!valueValue) {
           console.error("Facet ".concat(facetName, " (").concat(facetField, ") has no facet value for ").concat(valueLabel));
           return;
         }
-
         facetSelections[facetField].push(valueValue);
       }
     } catch (err) {
@@ -7457,96 +7605,80 @@ function useHawkState(initialSearch) {
     } finally {
       _iterator.f();
     }
-
     setSearchSelections(facetSelections, store.pendingSearch.SearchWithin);
   }
+
   /**
    * Entirely clears all the values of the given facet from the current selection.
    * @param facet The facet to clear.
    */
-
-
   function clearFacet(facet) {
     var facetField = typeof facet === 'string' ? facet : facet.selectionField;
-    var facetSelections = store.pendingSearch.FacetSelections; // handle `searchWithin` facet, which isn't a facet selection but is instead a field on the
-    // search request.
+    var facetSelections = store.pendingSearch.FacetSelections;
 
+    // handle `searchWithin` facet, which isn't a facet selection but is instead a field on the
+    // search request.
     if (facetField === 'searchWithin') {
       // set searchWithin to undefined to clear it
-      setSearchSelections(facetSelections,
-      /* searchWithin */
-      undefined);
+      setSearchSelections(facetSelections, /* searchWithin */undefined);
       return;
     }
-
     if (!facetSelections || !facetSelections[facetField]) {
       // if there are no facet selections or the facet isn't selected at all, there's nothing to clear
       return;
     }
-
     delete facetSelections[facetField];
     setSearchSelections(facetSelections, store.pendingSearch.SearchWithin);
   }
+
   /**
    * Clears a given facet value of the given facet from the current selection.
    * @param facet The facet to clear.
    * @param facetValue The facet value to clear.
    */
-
-
   function clearFacetValue(facet, facetValue) {
     var facetName = typeof facet === 'string' ? facet : facet.Name;
     var facetField = typeof facet === 'string' ? facet : facet.selectionField;
     var valueValue = typeof facetValue === 'string' ? facetValue : facetValue.Value;
     var valueLabel = typeof facetValue === 'string' ? facetValue : facetValue.Label;
-
     if (!valueValue) {
       console.error("Facet ".concat(facetName, " (").concat(facetField, ") has no facet value for ").concat(valueLabel));
       return;
-    } // handle `searchWithin` facet, which isn't a facet selection but is instead a field on the
-    // search request.
-
-
-    if (facetField === 'searchWithin') {
-      // set searchWithin to undefined to clear it
-      setSearchSelections(store.pendingSearch.FacetSelections,
-      /* searchWithin */
-      undefined);
-      return;
     }
 
+    // handle `searchWithin` facet, which isn't a facet selection but is instead a field on the
+    // search request.
+    if (facetField === 'searchWithin') {
+      // set searchWithin to undefined to clear it
+      setSearchSelections(store.pendingSearch.FacetSelections, /* searchWithin */undefined);
+      return;
+    }
     var _store$isFacetSelecte2 = store.isFacetSelected(facet, facetValue),
-        selState = _store$isFacetSelecte2.state,
-        selectionIndex = _store$isFacetSelecte2.selectionIndex;
-
+      selState = _store$isFacetSelecte2.state,
+      selectionIndex = _store$isFacetSelecte2.selectionIndex;
     if (selState === FacetSelectionState.NotSelected) {
       // if there are no facet selections or the facet isn't selected at all, there's nothing to clear
       return;
     }
+    var facetSelections = store.pendingSearch.FacetSelections;
 
-    var facetSelections = store.pendingSearch.FacetSelections; // remove it from the selections
-
+    // remove it from the selections
     facetSelections[facetField].splice(selectionIndex, 1);
-
     if (facetSelections[facetField].length === 0) {
       // clean up any facets that no longer have any selected facet values
       delete facetSelections[facetField];
     }
-
     setSearchSelections(facetSelections, store.pendingSearch.SearchWithin);
   }
+
   /**
    * Clears all selected facets from the current selection.
    */
-
-
   function clearAllFacets() {
     setSearchSelections(undefined, undefined);
   }
-
   function setItemsToCompare(resultItem, isCheck) {
     var itemsArray = _toConsumableArray(store.itemsToCompare);
-
     if (isCheck) {
       // append
       itemsArray = [].concat(_toConsumableArray(itemsArray), [resultItem]);
@@ -7555,9 +7687,8 @@ function useHawkState(initialSearch) {
       itemsArray = itemsArray.filter(function (item) {
         return item.DocId !== resultItem.DocId;
       });
-    } // setStore({ itemsToCompare: itemsArray });
-
-
+    }
+    // setStore({ itemsToCompare: itemsArray });
     setStore({
       itemsToCompare: itemsArray,
       itemsToCompareIds: itemsArray.map(function (item) {
@@ -7565,26 +7696,22 @@ function useHawkState(initialSearch) {
       })
     });
   }
-
   function setComparedResults(data) {
     setStore({
       comparedResults: data
     });
   }
-
   function setProductDetailsResults(data) {
     setStore({
       productDetails: data
     });
   }
-
   function clearItemsToCompare() {
     setStore({
       itemsToCompare: [],
       itemsToCompareIds: []
     });
   }
-
   var actor = {
     search: search,
     setSearch: setSearch,
@@ -7606,20 +7733,17 @@ function useHawkState(initialSearch) {
 }
 
 var HawkContext = /*#__PURE__*/React__default.createContext({});
-
 /**
  * This component acts as the global store for the hawksearch application state. Only one instance of this component
  * should exist, and it should be the root level component.
  */
 function StoreProvider(_ref) {
   var initialSearch = _ref.initialSearch,
-      children = _ref.children;
-
+    children = _ref.children;
   var _useHawkState = useHawkState(initialSearch),
-      _useHawkState2 = _slicedToArray$1(_useHawkState, 2),
-      store = _useHawkState2[0],
-      actor = _useHawkState2[1];
-
+    _useHawkState2 = _slicedToArray$1(_useHawkState, 2),
+    store = _useHawkState2[0],
+    actor = _useHawkState2[1];
   return /*#__PURE__*/React__default.createElement(HawkContext.Provider, {
     value: {
       store: store,
@@ -7627,11 +7751,10 @@ function StoreProvider(_ref) {
     }
   }, children);
 }
+
 /**
  * Retrieves the global hawk store for use within a component.
  */
-
-
 function useHawksearch() {
   return useContext(HawkContext);
 }
@@ -7642,7 +7765,6 @@ function Hawksearch(props) {
     TrackingEvent$1.setTrackingURL(props.config.trackEventUrl);
     TrackingEvent$1.setClientGUID(props.config.clientGuid);
   }
-
   return /*#__PURE__*/React__default.createElement(ConfigProvider, {
     config: props.config
   }, /*#__PURE__*/React__default.createElement(StoreProvider, {
@@ -7651,77 +7773,53 @@ function Hawksearch(props) {
 }
 
 function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
     }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
+    return n;
+  }, _extends.apply(null, arguments);
 }
 
-var SuggestionType;
-
-(function (SuggestionType) {
+var SuggestionType = /*#__PURE__*/function (SuggestionType) {
   SuggestionType["Product"] = "product";
   SuggestionType["Category"] = "category";
   SuggestionType["Content"] = "content";
   SuggestionType["Popular"] = "popular";
-})(SuggestionType || (SuggestionType = {}));
-
-var Suggestion = function Suggestion(suggestionType) {
+  return SuggestionType;
+}({});
+var Suggestion = /*#__PURE__*/_createClass(function Suggestion(suggestionType) {
   _classCallCheck(this, Suggestion);
-
   _defineProperty(this, "SuggestionType", void 0);
-
   this.SuggestionType = suggestionType;
-};
+});
 
-function _createSuper$1(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$1(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _isNativeReflectConstruct$1() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _callSuper$1(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct$1() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _isNativeReflectConstruct$1() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$1 = function _isNativeReflectConstruct() { return !!t; })(); }
 var Category = /*#__PURE__*/function (_Suggestion) {
-  _inherits(Category, _Suggestion);
-
-  var _super = _createSuper$1(Category);
-
-  /** Display name of category (example: Men &raquo; Jackets). */
-
-  /**
-   * URL for displaying contents of the category, ex:
-   * http://dev.hawksearch.net/sites/elasticdemo?department_nest=Jackets_4
-   */
   function Category(init) {
     var _this;
-
     _classCallCheck(this, Category);
-
-    _this = _super.call(this, SuggestionType.Category);
-
-    _defineProperty(_assertThisInitialized(_this), "Value", void 0);
-
-    _defineProperty(_assertThisInitialized(_this), "Url", void 0);
-
-    Object.assign(_assertThisInitialized(_this), init);
+    _this = _callSuper$1(this, Category, [SuggestionType.Category]);
+    /** Display name of category (example: Men &raquo; Jackets). */
+    _defineProperty(_this, "Value", void 0);
+    /**
+     * URL for displaying contents of the category, ex:
+     * http://dev.hawksearch.net/sites/elasticdemo?department_nest=Jackets_4
+     */
+    _defineProperty(_this, "Url", void 0);
+    Object.assign(_this, init);
     return _this;
   }
-
-  return Category;
+  _inherits(Category, _Suggestion);
+  return _createClass(Category);
 }(Suggestion);
 var CategoryStrategy = /*#__PURE__*/function () {
   function CategoryStrategy() {
     _classCallCheck(this, CategoryStrategy);
   }
-
-  _createClass(CategoryStrategy, [{
+  return _createClass(CategoryStrategy, [{
     key: "handleItemChange",
     value: function handleItemChange(item, downshift) {
       location.assign(item.Url);
@@ -7732,63 +7830,41 @@ var CategoryStrategy = /*#__PURE__*/function () {
       return this ? item.Value : '';
     }
   }]);
-
-  return CategoryStrategy;
 }();
 
-function _createSuper$2(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$2(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _isNativeReflectConstruct$2() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _callSuper$2(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct$2() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _isNativeReflectConstruct$2() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$2 = function _isNativeReflectConstruct() { return !!t; })(); }
 var Product = /*#__PURE__*/function (_Suggestion) {
-  _inherits(Product, _Suggestion);
-
-  var _super = _createSuper$2(Product);
-
-  /** Name of the item (if applicable). */
-
-  /* Sku of the item (if applicable). */
-
-  /** URL of image of the item (if applicable). */
-
-  /** URL of product page (if applicable). */
-
-  /** HTML to display the item in autocomplete. */
-
-  /**
-   * This will only be populated if the request parameter @see Request.DisplayFullResponse is sent
-   * as `true`.
-   */
   function Product(init) {
     var _this;
-
     _classCallCheck(this, Product);
-
-    _this = _super.call(this, SuggestionType.Product);
-
-    _defineProperty(_assertThisInitialized(_this), "ProductName", void 0);
-
-    _defineProperty(_assertThisInitialized(_this), "Sku", void 0);
-
-    _defineProperty(_assertThisInitialized(_this), "Thumb", void 0);
-
-    _defineProperty(_assertThisInitialized(_this), "Url", void 0);
-
-    _defineProperty(_assertThisInitialized(_this), "Html", void 0);
-
-    _defineProperty(_assertThisInitialized(_this), "Results", void 0);
-
-    Object.assign(_assertThisInitialized(_this), init);
+    _this = _callSuper$2(this, Product, [SuggestionType.Product]);
+    /** Name of the item (if applicable). */
+    _defineProperty(_this, "ProductName", void 0);
+    /* Sku of the item (if applicable). */
+    _defineProperty(_this, "Sku", void 0);
+    /** URL of image of the item (if applicable). */
+    _defineProperty(_this, "Thumb", void 0);
+    /** URL of product page (if applicable). */
+    _defineProperty(_this, "Url", void 0);
+    /** HTML to display the item in autocomplete. */
+    _defineProperty(_this, "Html", void 0);
+    /**
+     * This will only be populated if the request parameter @see Request.DisplayFullResponse is sent
+     * as `true`.
+     */
+    _defineProperty(_this, "Results", void 0);
+    Object.assign(_this, init);
     return _this;
   }
-
-  return Product;
+  _inherits(Product, _Suggestion);
+  return _createClass(Product);
 }(Suggestion);
 var ProductStrategy = /*#__PURE__*/function () {
   function ProductStrategy() {
     _classCallCheck(this, ProductStrategy);
   }
-
-  _createClass(ProductStrategy, [{
+  return _createClass(ProductStrategy, [{
     key: "handleItemChange",
     value: function handleItemChange(item, downshift) {
       location.assign(item.Url);
@@ -7799,50 +7875,33 @@ var ProductStrategy = /*#__PURE__*/function () {
       return this ? item.ProductName : '';
     }
   }]);
-
-  return ProductStrategy;
 }();
 
-function _createSuper$3(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$3(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _isNativeReflectConstruct$3() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _callSuper$3(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct$3() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _isNativeReflectConstruct$3() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$3 = function _isNativeReflectConstruct() { return !!t; })(); }
 var Content = /*#__PURE__*/function (_Suggestion) {
-  _inherits(Content, _Suggestion);
-
-  var _super = _createSuper$3(Content);
-
-  /** Display label for the content item in Autocomplete. */
-
-  /** The URL for the link created. */
-
-  /** The display label in HTML format, if applicable. */
   function Content(init) {
     var _this;
-
     _classCallCheck(this, Content);
-
-    _this = _super.call(this, SuggestionType.Content);
-
-    _defineProperty(_assertThisInitialized(_this), "Value", void 0);
-
-    _defineProperty(_assertThisInitialized(_this), "Url", void 0);
-
-    _defineProperty(_assertThisInitialized(_this), "Html", void 0);
-
-    _defineProperty(_assertThisInitialized(_this), "Results", void 0);
-
-    Object.assign(_assertThisInitialized(_this), init);
+    _this = _callSuper$3(this, Content, [SuggestionType.Content]);
+    /** Display label for the content item in Autocomplete. */
+    _defineProperty(_this, "Value", void 0);
+    /** The URL for the link created. */
+    _defineProperty(_this, "Url", void 0);
+    /** The display label in HTML format, if applicable. */
+    _defineProperty(_this, "Html", void 0);
+    _defineProperty(_this, "Results", void 0);
+    Object.assign(_this, init);
     return _this;
   }
-
-  return Content;
+  _inherits(Content, _Suggestion);
+  return _createClass(Content);
 }(Suggestion);
 var ContentStrategy = /*#__PURE__*/function () {
   function ContentStrategy() {
     _classCallCheck(this, ContentStrategy);
   }
-
-  _createClass(ContentStrategy, [{
+  return _createClass(ContentStrategy, [{
     key: "handleItemChange",
     value: function handleItemChange(item, downshift) {
       location.assign(item.Url);
@@ -7853,44 +7912,30 @@ var ContentStrategy = /*#__PURE__*/function () {
       return this ? item.Value : '';
     }
   }]);
-
-  return ContentStrategy;
 }();
 
-function _createSuper$4(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$4(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _isNativeReflectConstruct$4() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _callSuper$4(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct$4() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _isNativeReflectConstruct$4() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$4 = function _isNativeReflectConstruct() { return !!t; })(); }
 var Popular = /*#__PURE__*/function (_Suggestion) {
-  _inherits(Popular, _Suggestion);
-
-  var _super = _createSuper$4(Popular);
-
-  /** Display label for the popular search term. */
-
-  /** The URL for the link created. */
   function Popular(init) {
     var _this;
-
     _classCallCheck(this, Popular);
-
-    _this = _super.call(this, SuggestionType.Popular);
-
-    _defineProperty(_assertThisInitialized(_this), "Value", void 0);
-
-    _defineProperty(_assertThisInitialized(_this), "Url", void 0);
-
-    Object.assign(_assertThisInitialized(_this), init);
+    _this = _callSuper$4(this, Popular, [SuggestionType.Popular]);
+    /** Display label for the popular search term. */
+    _defineProperty(_this, "Value", void 0);
+    /** The URL for the link created. */
+    _defineProperty(_this, "Url", void 0);
+    Object.assign(_this, init);
     return _this;
   }
-
-  return Popular;
+  _inherits(Popular, _Suggestion);
+  return _createClass(Popular);
 }(Suggestion);
 var PopularStrategy = /*#__PURE__*/function () {
   function PopularStrategy() {
     _classCallCheck(this, PopularStrategy);
   }
-
-  _createClass(PopularStrategy, [{
+  return _createClass(PopularStrategy, [{
     key: "handleItemChange",
     value: function handleItemChange(item, downshift) {
       location.assign(item.Url);
@@ -7901,87 +7946,59 @@ var PopularStrategy = /*#__PURE__*/function () {
       return this ? item.Value : '';
     }
   }]);
-
-  return PopularStrategy;
 }();
 
-var Response$1 =
-/** Number of products that would be in search results if search was executed. */
-
-/** Number of content items that would be in search results if search was executed.  */
-
-/**
- * Pairs of display values and URLs for matching category names.  The number of categories returned
- * is configured in the Hawksearch Workbench unless overridden by the request parameters.
- */
-
-/**
- * A set of objects for each content item returned. The number returned is configured in the
- * Hawksearch Workbench > Keyword Search > Auto-complete > Update Top Content.
- */
-
-/**
- * A set of Value and Url for each popular search term. The definition of Popular can be defined in
- * the Hawksearch Workbench > Keyword Search > Auto-complete > Update Popular Searches.
- */
-
-/** Search website URL to be used to complete links. */
-
-/** The name of the parameter used to pass the keyword entered by user. */
-
-/**
- * Will be included in the response if there are results to display. The `CategoryHeading` contains
- * the text to display above the list of categories to display in Autocomplete.
- */
-
-/**
- * Will be included in the response if there are results to display. The `ContentHeading` contains
- * the text to display above the list of content items to display in Autocomplete.
- */
-
-/**
- * Will be included in the response if there are results to display. The `ProductHeading` contains
- * the text to display above the list of products to display in Autocomplete.
- */
-
-/**
- * Will be included in the response if there are results to display. The `PopularHeading` contains
- * the text to display above the list of popular search terms to display in Autocomplete.
- */
-
-/**
- * Will be included in the response if there are results to display. The `ViewAllButtonLabel` contains
- * the text to display for the link to return all results from searching with the term entered.
- */
-function Response(init) {
+var Response$1 = /*#__PURE__*/_createClass(function Response(init) {
   _classCallCheck(this, Response);
-
+  /** Number of products that would be in search results if search was executed. */
   _defineProperty(this, "Count", void 0);
-
+  /** Number of content items that would be in search results if search was executed.  */
   _defineProperty(this, "ContentCount", void 0);
-
+  /**
+   * Pairs of display values and URLs for matching category names.  The number of categories returned
+   * is configured in the Hawksearch Workbench unless overridden by the request parameters.
+   */
   _defineProperty(this, "Categories", void 0);
-
   _defineProperty(this, "Products", void 0);
-
+  /**
+   * A set of objects for each content item returned. The number returned is configured in the
+   * Hawksearch Workbench > Keyword Search > Auto-complete > Update Top Content.
+   */
   _defineProperty(this, "Content", void 0);
-
+  /**
+   * A set of Value and Url for each popular search term. The definition of Popular can be defined in
+   * the Hawksearch Workbench > Keyword Search > Auto-complete > Update Popular Searches.
+   */
   _defineProperty(this, "Popular", void 0);
-
+  /** Search website URL to be used to complete links. */
   _defineProperty(this, "SearchWebsiteUrl", void 0);
-
+  /** The name of the parameter used to pass the keyword entered by user. */
   _defineProperty(this, "KeywordField", void 0);
-
+  /**
+   * Will be included in the response if there are results to display. The `CategoryHeading` contains
+   * the text to display above the list of categories to display in Autocomplete.
+   */
   _defineProperty(this, "CategoryHeading", void 0);
-
+  /**
+   * Will be included in the response if there are results to display. The `ContentHeading` contains
+   * the text to display above the list of content items to display in Autocomplete.
+   */
   _defineProperty(this, "ContentHeading", void 0);
-
+  /**
+   * Will be included in the response if there are results to display. The `ProductHeading` contains
+   * the text to display above the list of products to display in Autocomplete.
+   */
   _defineProperty(this, "ProductHeading", void 0);
-
+  /**
+   * Will be included in the response if there are results to display. The `PopularHeading` contains
+   * the text to display above the list of popular search terms to display in Autocomplete.
+   */
   _defineProperty(this, "PopularHeading", void 0);
-
+  /**
+   * Will be included in the response if there are results to display. The `ViewAllButtonLabel` contains
+   * the text to display for the link to return all results from searching with the term entered.
+   */
   _defineProperty(this, "ViewAllButtonLabel", void 0);
-
   Object.assign(this, init);
   this.Categories = init.Categories.map(function (r) {
     return new Category(r);
@@ -7995,7 +8012,7 @@ function Response(init) {
   this.Content = init.Content.map(function (r) {
     return new Content(r);
   });
-};
+});
 
 function hasAllEmpty(popular, categories, products, content) {
   var hasPopular = popular && popular.length === 0;
@@ -8004,23 +8021,20 @@ function hasAllEmpty(popular, categories, products, content) {
   var hasContent = content && content.length === 0;
   return hasPopular && hasCategories && hasProducts && hasContent;
 }
-
 function SearchSuggestionsList(_ref) {
   var isLoading = _ref.isLoading,
-      searchResults = _ref.searchResults,
-      downshift = _ref.downshift,
-      onViewMatches = _ref.onViewMatches,
-      SuggestionList = _ref.SuggestionList;
+    searchResults = _ref.searchResults,
+    downshift = _ref.downshift,
+    onViewMatches = _ref.onViewMatches,
+    SuggestionList = _ref.SuggestionList;
   var popular = searchResults.Popular,
-      categories = searchResults.Categories,
-      products = searchResults.Products,
-      content = searchResults.Content;
+    categories = searchResults.Categories,
+    products = searchResults.Products,
+    content = searchResults.Content;
   var isRecordEmpty = hasAllEmpty(popular, categories, products, content);
-
   if (isRecordEmpty) {
     return null;
   }
-
   return SuggestionList ? /*#__PURE__*/React__default.createElement(SuggestionList, {
     isLoading: isLoading,
     downshift: downshift,
@@ -8031,26 +8045,22 @@ function SearchSuggestionsList(_ref) {
 
 function SearchSuggestions(_ref) {
   var query = _ref.query,
-      downshift = _ref.downshift,
-      onViewMatches = _ref.onViewMatches,
-      SuggestionList = _ref.SuggestionList;
-
+    downshift = _ref.downshift,
+    onViewMatches = _ref.onViewMatches,
+    SuggestionList = _ref.SuggestionList;
   var _useHawkConfig = useHawkConfig(),
-      config = _useHawkConfig.config;
-
+    config = _useHawkConfig.config;
   var client = new HawkClient(config);
-
   var _useState = useState({}),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      results = _useState2[0],
-      setResults = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    results = _useState2[0],
+    setResults = _useState2[1];
   var _useState3 = useState(false),
-      _useState4 = _slicedToArray$1(_useState3, 2),
-      isLoading = _useState4[0],
-      setIsLoading = _useState4[1]; // debounce the input search string so that we only do an autocomplete query every so often
+    _useState4 = _slicedToArray$1(_useState3, 2),
+    isLoading = _useState4[0],
+    setIsLoading = _useState4[1];
 
-
+  // debounce the input search string so that we only do an autocomplete query every so often
   useEffect(function () {
     // default to 200ms if not specified
     var debounceMs = config.autocompleteDebounce || 200;
@@ -8063,75 +8073,63 @@ function SearchSuggestions(_ref) {
       clearTimeout(timeout);
     };
   }, [query, config.autocompleteDebounce]);
+
   /**
    * Performs an autocomplete request to the Hawk API and populates the result set of this component.
    * @param input The user entered search string that results will be autocompleted for.
    */
-
   function doAutocomplete(_x, _x2) {
     return _doAutocomplete.apply(this, arguments);
   }
-
   function _doAutocomplete() {
     _doAutocomplete = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(input, cancellationToken) {
       var response;
       return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              setIsLoading(true);
-              response = null;
-              _context.prev = 2;
-              _context.next = 5;
-              return client.autocomplete({
-                ClientGuid: config.clientGuid,
-                Keyword: decodeURIComponent(input),
-                IndexName: config.indexName,
-                DisplayFullResponse: true,
-                IsInPreview: config.isInPreview
-              }, cancellationToken).then(function (o) {
-                // ensure, returned object will return response
-                // since by default, axios uses JSON.parse to parse an object,
-                // it doesn't recognize it as Response type - this line is to prevent it
-                return Object.assign(new Response$1(o));
-              });
-
-            case 5:
-              response = _context.sent;
-              _context.next = 13;
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            setIsLoading(true);
+            response = null;
+            _context.prev = 2;
+            _context.next = 5;
+            return client.autocomplete({
+              ClientGuid: config.clientGuid,
+              Keyword: decodeURIComponent(input),
+              IndexName: config.indexName,
+              DisplayFullResponse: true,
+              IsInPreview: config.isInPreview
+            }, cancellationToken).then(function (o) {
+              // ensure, returned object will return response
+              // since by default, axios uses JSON.parse to parse an object,
+              // it doesn't recognize it as Response type - this line is to prevent it
+              return Object.assign(new Response$1(o));
+            });
+          case 5:
+            response = _context.sent;
+            _context.next = 13;
+            break;
+          case 8:
+            _context.prev = 8;
+            _context.t0 = _context["catch"](2);
+            if (!axios$1.isCancel(_context.t0)) {
+              _context.next = 12;
               break;
-
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](2);
-
-              if (!axios$1.isCancel(_context.t0)) {
-                _context.next = 12;
-                break;
-              }
-
-              return _context.abrupt("return");
-
-            case 12:
-              console.error('Autocomplete request error:', _context.t0);
-
-            case 13:
-              setIsLoading(false);
-
-              if (response) {
-                setResults(response);
-              }
-
-            case 15:
-            case "end":
-              return _context.stop();
-          }
+            }
+            return _context.abrupt("return");
+          case 12:
+            console.error('Autocomplete request error:', _context.t0);
+          case 13:
+            setIsLoading(false);
+            if (response) {
+              setResults(response);
+            }
+          case 15:
+          case "end":
+            return _context.stop();
         }
       }, _callee, null, [[2, 8]]);
     }));
     return _doAutocomplete.apply(this, arguments);
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "autosuggest-menu"
   }, /*#__PURE__*/React__default.createElement(SearchSuggestionsList, {
@@ -8196,80 +8194,65 @@ function QuestionmarkSVG(props) {
 }
 
 var FacetContext = /*#__PURE__*/React__default.createContext({});
-
 function getInitialCollapsibleState(facet, cookies) {
   var cookieValue = cookies[facet.Field];
-
   if (cookieValue !== undefined) {
     return cookieValue === 'true'; // Convert string to boolean
   }
-
   return facet.IsCollapsible && facet.IsCollapsedDefault;
 }
-
 function Facet$1(_ref) {
   var facet = _ref.facet,
-      children = _ref.children;
-
+    children = _ref.children;
   var _useHawksearch = useHawksearch(),
-      searchActor = _useHawksearch.actor;
-
+    searchActor = _useHawksearch.actor;
   var wrapperRef = useRef(null);
-
   var _useState = useState(''),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      filter = _useState2[0],
-      setFilter = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    filter = _useState2[0],
+    setFilter = _useState2[1];
   var _useState3 = useState(facet.shouldTruncate),
-      _useState4 = _slicedToArray$1(_useState3, 2),
-      isTruncated = _useState4[0],
-      setTruncated = _useState4[1];
-
+    _useState4 = _slicedToArray$1(_useState3, 2),
+    isTruncated = _useState4[0],
+    setTruncated = _useState4[1];
   var _useCookies = useCookies([facet.Field]),
-      _useCookies2 = _slicedToArray$1(_useCookies, 2),
-      cookies = _useCookies2[0],
-      setCookie = _useCookies2[1];
-
+    _useCookies2 = _slicedToArray$1(_useCookies, 2),
+    cookies = _useCookies2[0],
+    setCookie = _useCookies2[1];
   var _useState5 = useState(getInitialCollapsibleState(facet, cookies)),
-      _useState6 = _slicedToArray$1(_useState5, 2),
-      isCollapsed = _useState6[0],
-      setCollapsed = _useState6[1];
-
+    _useState6 = _slicedToArray$1(_useState5, 2),
+    isCollapsed = _useState6[0],
+    setCollapsed = _useState6[1];
   var _useTranslation = useTranslation(),
-      t = _useTranslation.t,
-      i18n = _useTranslation.i18n;
-
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
   function selectFacet(facetValue) {
     setFilter('');
     searchActor.toggleFacetValue(facet, facetValue);
   }
-
   function setFacets(values) {
     setFilter('');
     searchActor.setFacetValues(facet, values);
   }
-
   function negateFacet(facetValue) {
     setFilter('');
-    searchActor.toggleFacetValue(facet, facetValue,
-    /* negate */
-    true);
+    searchActor.toggleFacetValue(facet, facetValue, /* negate */true);
   }
-
   function renderTruncation() {
     // only show the toggle button if the facet is configured for truncation and we're not filtering
+
     return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, facet.shouldTruncate && !filter && /*#__PURE__*/React__default.createElement("button", {
       onClick: function onClick() {
         return actor.setTruncated(!isTruncated);
       },
       className: "hawk-facet-rail__show-more-btn"
     }, isTruncated ? "(+) Show ".concat(remainingFacets, " More") : '(-) Show Less'));
-  } // TODO: sort facet values
+  }
 
+  // TODO: sort facet values
+  var facetValues = facet.Values;
 
-  var facetValues = facet.Values; // first, perform any filtering if enabled and a filter has been typed in
-
+  // first, perform any filtering if enabled and a filter has been typed in
   if (facet.shouldSearch && filter) {
     facetValues = facet.Values.filter(function (val) {
       if (!val.Label) {
@@ -8277,20 +8260,17 @@ function Facet$1(_ref) {
         // so exclude it
         return false;
       }
-
       return val.Label.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
     });
-  } // next, handle truncation
+  }
 
-
+  // next, handle truncation
   var remainingFacets = 0;
-
   if (facet.shouldTruncate && isTruncated) {
     var valuesBeforeTrunc = facetValues.length;
     facetValues = facetValues.slice(0, facet.TruncateThreshold);
     remainingFacets = valuesBeforeTrunc - facet.TruncateThreshold;
   }
-
   var actor = {
     selectFacet: selectFacet,
     negateFacet: negateFacet,
@@ -8310,16 +8290,13 @@ function Facet$1(_ref) {
   var renderer = {
     renderTruncation: renderTruncation
   };
-
   function toggleCollapsible(event) {
     if (wrapperRef.current && wrapperRef.current.contains(event.target)) {
       return;
     }
-
     setCookie(facet.Field, !isCollapsed);
     setCollapsed(!isCollapsed);
   }
-
   return /*#__PURE__*/React__default.createElement(FacetContext.Provider, {
     value: {
       facet: facet,
@@ -8362,7 +8339,6 @@ function Facet$1(_ref) {
     placeholder: t('Quick Lookup')
   })), children)));
 }
-
 function useFacet() {
   return useContext(FacetContext);
 }
@@ -8421,25 +8397,23 @@ function PlusCircleSVG(props) {
 
 function Checkbox() {
   var _useHawksearch = useHawksearch(),
-      store = _useHawksearch.store;
-
+    store = _useHawksearch.store;
   var _useHawkConfig = useHawkConfig(),
-      config = _useHawkConfig.config;
-
+    config = _useHawkConfig.config;
   var _useFacet = useFacet(),
-      facet = _useFacet.facet,
-      facetValues = _useFacet.state.facetValues,
-      actor = _useFacet.actor,
-      renderer = _useFacet.renderer;
-
+    facet = _useFacet.facet,
+    facetValues = _useFacet.state.facetValues,
+    actor = _useFacet.actor,
+    renderer = _useFacet.renderer;
   function renderOptions() {
     if (facet.FieldType === 'range') {
       return facetValues.map(function (value) {
         var correspondingRange = facet.Ranges.find(function (c) {
           return c.Value === value.Value;
         });
-        var rangeValueAssetUrl = correspondingRange ? config.dashboardUrl + correspondingRange.AssetFullUrl : ''; // facets can be selected or negated, so explicitly check that the facet is not selected
+        var rangeValueAssetUrl = correspondingRange ? config.dashboardUrl + correspondingRange.AssetFullUrl : '';
 
+        // facets can be selected or negated, so explicitly check that the facet is not selected
         var selectionState = store.isFacetSelected(facet, value).state;
         var isSelected = selectionState !== FacetSelectionState.NotSelected;
         var isNegated = selectionState === FacetSelectionState.Negated;
@@ -8496,7 +8470,6 @@ function Checkbox() {
       });
     }
   }
-
   function renderCheckMark(isSelected) {
     return /*#__PURE__*/React__default.createElement("span", {
       className: isSelected ? 'hawk-facet-rail__facet-checkbox hawk-facet-rail__facet-checkbox--checked' : 'hawk-facet-rail__facet-checkbox'
@@ -8504,7 +8477,6 @@ function Checkbox() {
       "class": "hawk-facet-rail__facet-checkbox-icon"
     }) : null);
   }
-
   function renderFacetActions(value, isNegated) {
     return /*#__PURE__*/React__default.createElement("button", {
       onClick: function onClick(e) {
@@ -8519,7 +8491,6 @@ function Checkbox() {
       className: "visually-hidden"
     }, "Exclude facet")));
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail__facet-values"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -8531,22 +8502,18 @@ function Checkbox() {
 
 function Search() {
   var _useHawksearch = useHawksearch(),
-      store = _useHawksearch.store,
-      hawkActor = _useHawksearch.actor;
-
+    store = _useHawksearch.store,
+    hawkActor = _useHawksearch.actor;
   var _useFacet = useFacet(),
-      facet = _useFacet.facet,
-      actor = _useFacet.actor;
-
+    facet = _useFacet.facet,
+    actor = _useFacet.actor;
   var _useState = useState(undefined),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      input = _useState2[0],
-      setInput = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    input = _useState2[0],
+    setInput = _useState2[1];
   var _useTranslation = useTranslation(),
-      t = _useTranslation.t,
-      i18n = _useTranslation.i18n;
-
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
   function onKeyDown(event) {
     if (event.key === 'Enter') {
       setInput(undefined); // clear the user's entered value as we want to be driven by the store again
@@ -8554,23 +8521,20 @@ function Search() {
       actor.selectFacet(event.currentTarget.value);
     }
   }
-
   function clearFacet() {
     setInput(undefined); // clear the user's entered value as we want to be driven by the store again
 
     hawkActor.clearFacet(facet);
   }
-
   function getInputValue() {
     if (input !== undefined) {
       // if the user type an input, that's the value for the input
       return input;
-    } // otherwise, use the value from the store
+    }
 
-
+    // otherwise, use the value from the store
     return decodeURIComponent(store.pendingSearch.SearchWithin || '');
   }
-
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail__facet-values"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -8591,14 +8555,12 @@ function Search() {
 
 function Link() {
   var _useHawksearch = useHawksearch(),
-      store = _useHawksearch.store;
-
+    store = _useHawksearch.store;
   var _useFacet = useFacet(),
-      facet = _useFacet.facet,
-      facetValues = _useFacet.state.facetValues,
-      actor = _useFacet.actor,
-      renderer = _useFacet.renderer;
-
+    facet = _useFacet.facet,
+    facetValues = _useFacet.state.facetValues,
+    actor = _useFacet.actor,
+    renderer = _useFacet.renderer;
   function setLinkFacet(value, selectionState) {
     if (selectionState) {
       // Deselect the facet
@@ -8608,7 +8570,6 @@ function Link() {
       actor.setFacets([value]);
     }
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail__facet-values"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -8641,42 +8602,33 @@ function formatDate(unixFormat) {
   var day = (date.getDate() + 100).toString().substring(1);
   return year + '-' + month + '-' + day;
 }
-
 function SliderCalendarInputs(sliderProps) {
   var _useState = useState(0),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      minValue = _useState2[0],
-      setMinValue = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    minValue = _useState2[0],
+    setMinValue = _useState2[1];
   var _useState3 = useState(0),
-      _useState4 = _slicedToArray$1(_useState3, 2),
-      maxValue = _useState4[0],
-      setMaxValue = _useState4[1];
-
+    _useState4 = _slicedToArray$1(_useState3, 2),
+    maxValue = _useState4[0],
+    setMaxValue = _useState4[1];
   function onMinUpdate(event) {
     var value = new Date(event.target.value).getTime();
     var newMinValue = Number(value);
-
     if (isNaN(newMinValue) || minValue === value) {
       return;
     }
-
     setMinValue(value);
     sliderProps.onValueChange(Number(newMinValue), Number(maxValue));
   }
-
   function onMaxUpdate(event) {
     var value = new Date(event.target.value).getTime();
     var newMaxValue = Number(value);
-
     if (isNaN(newMaxValue) || maxValue === value) {
       return;
     }
-
     setMaxValue(value);
     sliderProps.onValueChange(Number(minValue), Number(newMaxValue));
   }
-
   useEffect(function () {
     setMinValue(sliderProps.values[0]);
     setMaxValue(sliderProps.values[1]);
@@ -8701,78 +8653,64 @@ function SliderCalendarInputs(sliderProps) {
 }
 
 var Rheostat = /*#__PURE__*/React__default.lazy(function () {
-  return import(
-  /* webpackChunkName: "rheostat" */
-  'rheostat');
+  return import( /* webpackChunkName: "rheostat" */'rheostat');
 });
-
 function formatDate$1(date) {
   var year = date.getFullYear().toString();
   var month = (date.getMonth() + 101).toString().substring(1);
   var day = (date.getDate() + 100).toString().substring(1);
   return year + '-' + month + '-' + day;
 }
-
 function replaceHyphen(date) {
   if (!date) {
     return date;
   }
-
   return date.replace(/-/g, '/');
 }
-
 function getTime(date) {
   return date && Number(new Date(date || '').getTime());
 }
-
 function SliderDate() {
   var _useHawksearch = useHawksearch(),
-      facetSelections = _useHawksearch.store.facetSelections;
-
+    facetSelections = _useHawksearch.store.facetSelections;
   var _useFacet = useFacet(),
-      _useFacet$state = _useFacet.state,
-      facetValues = _useFacet$state.facetValues,
-      decimalPrecision = _useFacet$state.decimalPrecision,
-      facet = _useFacet.facet,
-      actor = _useFacet.actor; // the range of the slider is defined by the first facet value. or null if there is no first value
-
-
+    _useFacet$state = _useFacet.state,
+    facetValues = _useFacet$state.facetValues,
+    decimalPrecision = _useFacet$state.decimalPrecision,
+    facet = _useFacet.facet,
+    actor = _useFacet.actor;
+  // the range of the slider is defined by the first facet value. or null if there is no first value
   var range = facetValues.length > 0 ? facetValues[0] : null;
-
   var _useState = useState(range && getTime(range.RangeMin)),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      rangeMin = _useState2[0],
-      setMinRange = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    rangeMin = _useState2[0],
+    setMinRange = _useState2[1];
   var _useState3 = useState(range && getTime(range.RangeMax)),
-      _useState4 = _slicedToArray$1(_useState3, 2),
-      rangeMax = _useState4[0],
-      setMaxRange = _useState4[1];
-
+    _useState4 = _slicedToArray$1(_useState3, 2),
+    rangeMax = _useState4[0],
+    setMaxRange = _useState4[1];
   var _useState5 = useState(range && getTime(range.RangeStart)),
-      _useState6 = _slicedToArray$1(_useState5, 2),
-      rangeStart = _useState6[0],
-      setStartRange = _useState6[1];
-
+    _useState6 = _slicedToArray$1(_useState5, 2),
+    rangeStart = _useState6[0],
+    setStartRange = _useState6[1];
   var _useState7 = useState(range && getTime(range.RangeEnd)),
-      _useState8 = _slicedToArray$1(_useState7, 2),
-      rangeEnd = _useState8[0],
-      setEndRange = _useState8[1]; // if there's no range, initialize to zeros
+    _useState8 = _slicedToArray$1(_useState7, 2),
+    rangeEnd = _useState8[0],
+    setEndRange = _useState8[1];
 
-
+  // if there's no range, initialize to zeros
   var _useState9 = useState(),
-      _useState10 = _slicedToArray$1(_useState9, 2),
-      minValue = _useState10[0],
-      setMinValue = _useState10[1];
-
+    _useState10 = _slicedToArray$1(_useState9, 2),
+    minValue = _useState10[0],
+    setMinValue = _useState10[1];
   var _useState11 = useState(),
-      _useState12 = _slicedToArray$1(_useState11, 2),
-      maxValue = _useState12[0],
-      setMaxValue = _useState12[1];
-
+    _useState12 = _slicedToArray$1(_useState11, 2),
+    maxValue = _useState12[0],
+    setMaxValue = _useState12[1];
   useEffect(function () {
-    var paramName = facet.ParamName || facet.Field; // clear min and max value if these were cleared
+    var paramName = facet.ParamName || facet.Field;
 
+    // clear min and max value if these were cleared
     if (!paramName || !(paramName in facetSelections)) {
       setMinValue(undefined);
       setMaxValue(undefined);
@@ -8785,46 +8723,38 @@ function SliderDate() {
     setStartRange(newRange && getTime(newRange.RangeStart));
     setEndRange(newRange && getTime(newRange.RangeEnd));
   }, [facetValues]);
-
   if (rangeMin === null || isNaN(rangeMin) || rangeMax === null || isNaN(rangeMax) || rangeStart === null || isNaN(rangeStart) || rangeEnd === null || isNaN(rangeEnd)) {
     // this facet is somehow misconfigured so don't render
     return null;
   }
-
   function onSliderDrag(state) {
     var _state$values = _slicedToArray$1(state.values, 2),
-        newMin = _state$values[0],
-        newMax = _state$values[1];
-
+      newMin = _state$values[0],
+      newMax = _state$values[1];
     setMinValue(newMin);
     setMaxValue(newMax);
   }
-
   function onSliderValueChange(state) {
     var _state$values2 = _slicedToArray$1(state.values, 2),
-        newMin = _state$values2[0],
-        newMax = _state$values2[1];
-
+      newMin = _state$values2[0],
+      newMax = _state$values2[1];
     setFacetValues(newMin, newMax);
   }
-
   function onValueChange(newMinValue, newMaxValue) {
     var currentMinValue = minValue;
-    var currentMaxValue = maxValue; // if min value wasn't yet selected use range start
-
+    var currentMaxValue = maxValue;
+    // if min value wasn't yet selected use range start
     if (minValue === undefined && rangeStart !== null) {
       currentMinValue = rangeStart; // setMinValue(rangeStart);
-    } // if max value wasn't yet selected use range end
+    }
 
-
+    // if max value wasn't yet selected use range end
     if (maxValue === undefined && rangeEnd !== null) {
       currentMaxValue = rangeEnd;
     }
-
     if (currentMinValue === undefined || currentMaxValue === undefined) {
       return;
     }
-
     if (currentMinValue !== newMinValue && newMinValue <= currentMaxValue) {
       if (rangeMin !== null && newMinValue <= rangeMin) {
         currentMinValue = rangeMin;
@@ -8832,7 +8762,6 @@ function SliderDate() {
         currentMinValue = newMinValue;
       }
     }
-
     if (currentMaxValue !== newMaxValue && newMaxValue >= currentMinValue) {
       if (rangeMax !== null && newMaxValue >= rangeMax) {
         currentMaxValue = rangeMax;
@@ -8840,24 +8769,21 @@ function SliderDate() {
         currentMaxValue = newMaxValue;
       }
     }
-
     setFacetValues(currentMinValue, currentMaxValue);
   }
-
   function setFacetValues(minVal, maxVal) {
     if (minVal === undefined || maxVal === undefined || isNaN(minVal) || isNaN(maxVal)) {
       return;
     }
-
     setMinValue(minVal);
     setMaxValue(maxVal);
     var formattedMinVal = replaceHyphen(formatDate$1(new Date(minVal)));
-    var formattedMaxVal = replaceHyphen(formatDate$1(new Date(maxVal))); // this selection is sent to hawk separated by commas, so build the value here
+    var formattedMaxVal = replaceHyphen(formatDate$1(new Date(maxVal)));
 
+    // this selection is sent to hawk separated by commas, so build the value here
     var selection = "".concat(formattedMinVal, ",").concat(formattedMaxVal);
     actor.setFacets([selection]);
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail__facet-values"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -8879,93 +8805,11 @@ function SliderDate() {
 }
 
 /**
- * react-number-format - 4.5.5
+ * react-number-format - 4.9.4
  * Author : Sudhanshu Yadav
- * Copyright (c) 2016, 2021 to Sudhanshu Yadav, released under the MIT license.
+ * Copyright (c) 2016, 2022 to Sudhanshu Yadav, released under the MIT license.
  * https://github.com/s-yadav/react-number-format
  */
-
-function createCommonjsModule$1(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
-}
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-
-var ReactPropTypesSecret_1 = ReactPropTypesSecret;
-
-function emptyFunction() {}
-function emptyFunctionWithReset() {}
-emptyFunctionWithReset.resetWarningCache = emptyFunction;
-
-var factoryWithThrowingShims = function() {
-  function shim(props, propName, componentName, location, propFullName, secret) {
-    if (secret === ReactPropTypesSecret_1) {
-      // It is still safe when called from React.
-      return;
-    }
-    var err = new Error(
-      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
-      'Use PropTypes.checkPropTypes() to call them. ' +
-      'Read more at http://fb.me/use-check-prop-types'
-    );
-    err.name = 'Invariant Violation';
-    throw err;
-  }  shim.isRequired = shim;
-  function getShim() {
-    return shim;
-  }  // Important!
-  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
-  var ReactPropTypes = {
-    array: shim,
-    bool: shim,
-    func: shim,
-    number: shim,
-    object: shim,
-    string: shim,
-    symbol: shim,
-
-    any: shim,
-    arrayOf: getShim,
-    element: shim,
-    elementType: shim,
-    instanceOf: getShim,
-    node: shim,
-    objectOf: getShim,
-    oneOf: getShim,
-    oneOfType: getShim,
-    shape: getShim,
-    exact: getShim,
-
-    checkPropTypes: emptyFunctionWithReset,
-    resetWarningCache: emptyFunction
-  };
-
-  ReactPropTypes.PropTypes = ReactPropTypes;
-
-  return ReactPropTypes;
-};
-
-var propTypes = createCommonjsModule$1(function (module) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-{
-  // By explicitly using `prop-types` you are opting into new production behavior.
-  // http://fb.me/prop-types-in-prod
-  module.exports = factoryWithThrowingShims();
-}
-});
 
 //     
 
@@ -9060,10 +8904,10 @@ function limitToScale(numStr        , scale        , fixedDecimalScale         )
 }
 
 function repeat(str, count) {
-  return Array(count + 1).join(str)
+  return Array(count + 1).join(str);
 }
 
-function toNumericString(num) {  
+function toNumericString(num) {
   num += ''; // typecast number to string
 
   // store the sign and remove it from the number.
@@ -9093,14 +8937,15 @@ function toNumericString(num) {
 
   if (decimalIndex < 0) {
     // if decimal index is less then 0 add preceding 0s
-    // add 1 as join will have 
+    // add 1 as join will have
     coefficient = '0.' + repeat('0', Math.abs(decimalIndex)) + coefficient;
   } else if (decimalIndex >= coffiecientLn) {
     // if decimal index is less then 0 add leading 0s
     coefficient = coefficient + repeat('0', decimalIndex - coffiecientLn);
   } else {
     // else add decimal point at proper index
-    coefficient = (coefficient.substring(0, decimalIndex) || '0') + '.' + coefficient.substring(decimalIndex);
+    coefficient =
+      (coefficient.substring(0, decimalIndex) || '0') + '.' + coefficient.substring(decimalIndex);
   }
 
   return sign + coefficient;
@@ -9121,7 +8966,7 @@ function roundToPrecision(numStr        , scale        , fixedDecimalScale      
   var hasNagation = ref.hasNagation;
   var floatValue = parseFloat(("0." + (afterDecimal || '0')));
   var floatValueStr =
-    afterDecimal.length <= scale ? toNumericString(floatValue) : floatValue.toFixed(scale);
+    afterDecimal.length <= scale ? ("0." + afterDecimal) : floatValue.toFixed(scale);
   var roundedDecimalParts = floatValueStr.split('.');
   var intPart = beforeDecimal
     .split('')
@@ -9144,14 +8989,6 @@ function roundToPrecision(numStr        , scale        , fixedDecimalScale      
   var negation = hasNagation ? '-' : '';
   var decimalSeparator = shoudHaveDecimalSeparator ? '.' : '';
   return ("" + negation + intPart + decimalSeparator + decimalPart);
-}
-
-function omit(obj        , keyMaps        ) {
-  var filteredObj = {};
-  Object.keys(obj).forEach(function (key) {
-    if (!keyMaps[key]) { filteredObj[key] = obj[key]; }
-  });
-  return filteredObj;
 }
 
 /** set the caret positon in an input field **/
@@ -9218,55 +9055,15 @@ function getCurrentCaretPosition(el                  ) {
 }
 
 function addInputMode(format                                   ) {
-  return format || !(navigator.platform && /iPhone|iPod/.test(navigator.platform));
+  return (
+    format ||
+    (typeof navigator !== 'undefined' &&
+      !(navigator.platform && /iPhone|iPod/.test(navigator.platform)))
+  );
 }
 
 //     
-
-
-var propTypes$1 = {
-  thousandSeparator: propTypes.oneOfType([propTypes.string, propTypes.oneOf([true])]),
-  decimalSeparator: propTypes.string,
-  allowedDecimalSeparators: propTypes.arrayOf(propTypes.string),
-  thousandsGroupStyle: propTypes.oneOf(['thousand', 'lakh', 'wan']),
-  decimalScale: propTypes.number,
-  fixedDecimalScale: propTypes.bool,
-  displayType: propTypes.oneOf(['input', 'text']),
-  prefix: propTypes.string,
-  suffix: propTypes.string,
-  format: propTypes.oneOfType([
-    propTypes.string,
-    propTypes.func
-  ]),
-  removeFormatting: propTypes.func,
-  mask: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
-  value: propTypes.oneOfType([
-    propTypes.number,
-    propTypes.string
-  ]),
-  defaultValue: propTypes.oneOfType([
-    propTypes.number,
-    propTypes.string
-  ]),
-  isNumericString: propTypes.bool,
-  customInput: propTypes.elementType,
-  allowNegative: propTypes.bool,
-  allowEmptyFormatting: propTypes.bool,
-  allowLeadingZeros: propTypes.bool,
-  onValueChange: propTypes.func,
-  onKeyDown: propTypes.func,
-  onMouseUp: propTypes.func,
-  onChange: propTypes.func,
-  onFocus: propTypes.func,
-  onBlur: propTypes.func,
-  type: propTypes.oneOf(['text', 'tel', 'password']),
-  isAllowed: propTypes.func,
-  renderText: propTypes.func,
-  getInputRef: propTypes.oneOfType([
-    propTypes.func, // for legacy refs
-    propTypes.shape({ current: propTypes.any })
-  ])
-};
+function objectWithoutProperties$1 (obj, exclude) { var target = {}; for (var k in obj) if (Object.prototype.hasOwnProperty.call(obj, k) && exclude.indexOf(k) === -1) target[k] = obj[k]; return target; }
 
 var defaultProps = {
   displayType: 'input',
@@ -9286,12 +9083,11 @@ var defaultProps = {
   onMouseUp: noop$1,
   onFocus: noop$1,
   onBlur: noop$1,
-  isAllowed: returnTrue
+  isAllowed: returnTrue,
 };
 var NumberFormat = /*@__PURE__*/(function (superclass) {
   function NumberFormat(props        ) {
     superclass.call(this, props);
-
     var defaultValue = props.defaultValue;
 
     //validate props
@@ -9307,7 +9103,7 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
 
     this.selectionBeforeInput = {
       selectionStart: 0,
-      selectionEnd: 0
+      selectionEnd: 0,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -9325,7 +9121,7 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     // set mounted state
     // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({
-      mounted: true
+      mounted: true,
     });
   };
 
@@ -9335,6 +9131,7 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
 
   NumberFormat.prototype.componentWillUnmount = function componentWillUnmount () {
     clearTimeout(this.focusTimeout);
+    clearTimeout(this.caretPositionTimeout);
   };
 
   NumberFormat.prototype.updateValueIfRequired = function updateValueIfRequired (prevProps        ) {
@@ -9346,7 +9143,7 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     var lastNumStr = state.numAsString; if ( lastNumStr === void 0 ) lastNumStr = '';
 
     // If only state changed no need to do any thing
-    if(prevProps !== props) {
+    if (prevProps !== props) {
       //validate props
       this.validateProps();
 
@@ -9366,7 +9163,13 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
         //set state always when not in focus and formatted value is changed
         (focusedElm === null && formattedValue !== stateValue)
       ) {
-        this.updateValue({ formattedValue: formattedValue, numAsString: numAsString, input: focusedElm });
+        this.updateValue({
+          formattedValue: formattedValue,
+          numAsString: numAsString,
+          input: focusedElm,
+          source: 'prop',
+          event: null,
+        });
       }
     }
   };
@@ -9383,24 +9186,26 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
 
     //remove negation for regex check
     var hasNegation = num[0] === '-';
-    if(hasNegation) { num = num.replace('-', ''); }
+    if (hasNegation) { num = num.replace('-', ''); }
 
     //if decimal scale is zero remove decimal and number after decimalSeparator
     if (decimalSeparator && decimalScale === 0) {
       num = num.split(decimalSeparator)[0];
     }
 
-    num  = (num.match(numRegex) || []).join('').replace(decimalSeparator, '.');
+    num = (num.match(numRegex) || []).join('').replace(decimalSeparator, '.');
 
     //remove extra decimals
     var firstDecimalIndex = num.indexOf('.');
 
     if (firstDecimalIndex !== -1) {
-      num = (num.substring(0, firstDecimalIndex)) + "." + (num.substring(firstDecimalIndex + 1, num.length).replace(new RegExp(escapeRegExp(decimalSeparator), 'g'), ''));
+      num = (num.substring(0, firstDecimalIndex)) + "." + (num
+        .substring(firstDecimalIndex + 1, num.length)
+        .replace(new RegExp(escapeRegExp(decimalSeparator), 'g'), ''));
     }
 
     //add negation back
-    if(hasNegation) { num = '-' + num; }
+    if (hasNegation) { num = '-' + num; }
 
     return num;
   };
@@ -9410,9 +9215,18 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     var ref = this.props;
     var format = ref.format;
     var decimalScale = ref.decimalScale;
+    var customNumerals = ref.customNumerals;
     var ref$1 = this.getSeparators();
     var decimalSeparator = ref$1.decimalSeparator;
-    return new RegExp('\\d' + (decimalSeparator && decimalScale !== 0 && !ignoreDecimalSeparator && !format ? '|' + escapeRegExp(decimalSeparator) : ''), g ? 'g' : undefined);
+    return new RegExp(
+      '[0-9' +
+        (customNumerals ? customNumerals.join('') : '') +
+        ']' +
+        (decimalSeparator && decimalScale !== 0 && !ignoreDecimalSeparator && !format
+          ? '|' + escapeRegExp(decimalSeparator)
+          : ''),
+      g ? 'g' : undefined
+    );
   };
 
   NumberFormat.prototype.getSeparators = function getSeparators () {
@@ -9433,7 +9247,7 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
       decimalSeparator: decimalSeparator,
       thousandSeparator: thousandSeparator,
       allowedDecimalSeparators: allowedDecimalSeparators,
-    }
+    };
   };
 
   NumberFormat.prototype.getMaskAtIndex = function getMaskAtIndex (index        ) {
@@ -9452,9 +9266,8 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     return {
       formattedValue: formattedValue,
       value: numAsString,
-      floatValue: isNaN(floatValue) ? undefined : floatValue
+      floatValue: isNaN(floatValue) ? undefined : floatValue,
     };
-
   };
 
   NumberFormat.prototype.validateProps = function validateProps () {
@@ -9474,10 +9287,9 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     if (mask) {
       var maskAsStr = mask === 'string' ? mask : mask.toString();
       if (maskAsStr.match(/\d/g)) {
-        throw new Error(("\n          Mask " + mask + " should not contain numeric character;\n        "))
+        throw new Error(("\n          Mask " + mask + " should not contain numeric character;\n        "));
       }
     }
-
   };
   /** Misc methods end **/
 
@@ -9487,8 +9299,8 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     otherwise browser resets the caret position after we set it
     We are also setting it without timeout so that in normal browser we don't see the flickering */
     setCaretPosition(el, caretPos);
-    setTimeout(function () {
-      if(el.value === currentValue) { setCaretPosition(el, caretPos); }
+    this.caretPositionTimeout = setTimeout(function () {
+      if (el.value === currentValue) { setCaretPosition(el, caretPos); }
     }, 0);
   };
 
@@ -9517,10 +9329,14 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     /* in case format is string find the closest # position from the caret position */
 
     //in case the caretPos have input value on it don't do anything
-    if (format[caretPos] === '#' && charIsNumber(value[caretPos])) { return caretPos; }
+    if (format[caretPos] === '#' && charIsNumber(value[caretPos])) {
+      return caretPos;
+    }
 
     //if caretPos is just after input value don't do anything
-    if (format[caretPos - 1] === '#' && charIsNumber(value[caretPos - 1])) { return caretPos; }
+    if (format[caretPos - 1] === '#' && charIsNumber(value[caretPos - 1])) {
+      return caretPos;
+    }
 
     //find the nearest caret position
     var firstHashPosition = format.indexOf('#');
@@ -9534,13 +9350,17 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     var caretRightBound = caretPos + (nextPos === -1 ? 0 : nextPos);
 
     //get the position where the last number is present
-    while (caretLeftBound > firstHashPosition && (format[caretLeftBound] !== '#' || !charIsNumber(value[caretLeftBound]))) {
+    while (
+      caretLeftBound > firstHashPosition &&
+      (format[caretLeftBound] !== '#' || !charIsNumber(value[caretLeftBound]))
+    ) {
       caretLeftBound -= 1;
     }
 
-    var goToLeft = !charIsNumber(value[caretRightBound])
-    || (direction === 'left' && caretPos !== firstHashPosition)
-    || (caretPos - caretLeftBound < caretRightBound - caretPos);
+    var goToLeft =
+      !charIsNumber(value[caretRightBound]) ||
+      (direction === 'left' && caretPos !== firstHashPosition) ||
+      caretPos - caretLeftBound < caretRightBound - caretPos;
 
     if (goToLeft) {
       //check if number should be taken after the bound or after it
@@ -9562,23 +9382,34 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
 
     j = 0;
 
-    for(i=0; i<caretPos; i++){
+    for (i = 0; i < caretPos; i++) {
       var currentInputChar = inputValue[i] || '';
       var currentFormatChar = formattedValue[j] || '';
       //no need to increase new cursor position if formatted value does not have those characters
       //case inputValue = 1a23 and formattedValue =  123
-      if(!currentInputChar.match(numRegex) && currentInputChar !== currentFormatChar) { continue; }
+      if (!currentInputChar.match(numRegex) && currentInputChar !== currentFormatChar) {
+        continue;
+      }
 
       //When we are striping out leading zeros maintain the new cursor position
       //Case inputValue = 00023 and formattedValue = 23;
-      if (currentInputChar === '0' && currentFormatChar.match(numRegex) && currentFormatChar !== '0' && inputNumber.length !== formattedNumber.length) { continue; }
+      if (
+        currentInputChar === '0' &&
+        currentFormatChar.match(numRegex) &&
+        currentFormatChar !== '0' &&
+        inputNumber.length !== formattedNumber.length
+      ) {
+        continue;
+      }
 
       //we are not using currentFormatChar because j can change here
-      while(currentInputChar !== formattedValue[j] && j < formattedValue.length) { j++; }
+      while (currentInputChar !== formattedValue[j] && j < formattedValue.length) {
+        j++;
+      }
       j++;
     }
 
-    if ((typeof format === 'string' && !stateValue)) {
+    if (typeof format === 'string' && !stateValue) {
       //set it to the maximum value so it goes after the last number
       j = formattedValue.length;
     }
@@ -9589,7 +9420,6 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     return j;
   };
   /** caret specific methods ends **/
-
 
   /** methods to remove formattting **/
   NumberFormat.prototype.removePrefixAndSuffix = function removePrefixAndSuffix (val        ) {
@@ -9610,7 +9440,10 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
 
       //remove suffix
       var suffixLastIndex = val.lastIndexOf(suffix);
-      val = suffix && suffixLastIndex !== -1 && suffixLastIndex === val.length - suffix.length ? val.substring(0, suffixLastIndex) : val;
+      val =
+        suffix && suffixLastIndex !== -1 && suffixLastIndex === val.length - suffix.length
+          ? val.substring(0, suffixLastIndex)
+          : val;
 
       //add negation sign back
       if (isNegative) { val = '-' + val; }
@@ -9626,7 +9459,7 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     var start = 0;
     var numStr = '';
 
-    for (var i=0, ln=formatArray.length; i <= ln; i++) {
+    for (var i = 0, ln = formatArray.length; i <= ln; i++) {
       var part = formatArray[i] || '';
 
       //if i is the last fragment take the index of end of the value
@@ -9645,7 +9478,7 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
       }
     }
 
-    return (numStr.match(/\d/g) || []).join('');
+    return (numStr.match(this.getNumberRegex(true)) || []).join('');
   };
 
   NumberFormat.prototype.removeFormatting = function removeFormatting (val        ) {
@@ -9659,15 +9492,15 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
       val = this.getFloatString(val);
     } else if (typeof format === 'string') {
       val = this.removePatternFormatting(val);
-    } else if (typeof removeFormatting === 'function') { //condition need to be handled if format method is provide,
+    } else if (typeof removeFormatting === 'function') {
+      //condition need to be handled if format method is provide,
       val = removeFormatting(val);
     } else {
-      val = (val.match(/\d/g) || []).join('');
+      val = (val.match(this.getNumberRegex(true)) || []).join('');
     }
     return val;
   };
   /** methods to remove formattting end **/
-
 
   /*** format specific methods start ***/
   /**
@@ -9711,20 +9544,22 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     var addNegation = ref$2.addNegation; // eslint-disable-line prefer-const
 
     //apply decimal precision if its defined
-    if (decimalScale !== undefined) { afterDecimal = limitToScale(afterDecimal, decimalScale, fixedDecimalScale); }
+    if (decimalScale !== undefined) {
+      afterDecimal = limitToScale(afterDecimal, decimalScale, fixedDecimalScale);
+    }
 
-    if(thousandSeparator) {
+    if (thousandSeparator) {
       beforeDecimal = applyThousandSeparator(beforeDecimal, thousandSeparator, thousandsGroupStyle);
     }
 
     //add prefix and suffix
-    if(prefix) { beforeDecimal = prefix + beforeDecimal; }
-    if(suffix) { afterDecimal = afterDecimal + suffix; }
+    if (prefix) { beforeDecimal = prefix + beforeDecimal; }
+    if (suffix) { afterDecimal = afterDecimal + suffix; }
 
     //restore negation sign
     if (addNegation) { beforeDecimal = '-' + beforeDecimal; }
 
-    numStr = beforeDecimal + (hasDecimalSeparator && decimalSeparator ||  '') + afterDecimal;
+    numStr = beforeDecimal + ((hasDecimalSeparator && decimalSeparator) || '') + afterDecimal;
 
     return numStr;
   };
@@ -9735,7 +9570,14 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     var ref = this.props;
     var format = ref.format;
     var allowEmptyFormatting = ref.allowEmptyFormatting;
+    var customNumerals = ref.customNumerals;
     var formattedValue = numStr;
+
+    if (customNumerals && customNumerals.length === 10) {
+      var customNumeralRegex = new RegExp('[' + customNumerals.join('') + ']', 'g');
+      formattedValue = numStr.replace(customNumeralRegex, function (digit) { return customNumerals.indexOf(digit).toString(); }
+      );
+    }
 
     if (numStr === '' && !allowEmptyFormatting) {
       formattedValue = '';
@@ -9752,7 +9594,7 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     return formattedValue;
   };
 
-  NumberFormat.prototype.formatValueProp = function formatValueProp (defaultValue               ) {
+  NumberFormat.prototype.formatValueProp = function formatValueProp (defaultValue                 ) {
     var ref = this.props;
     var format = ref.format;
     var decimalScale = ref.decimalScale;
@@ -9852,20 +9694,15 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     if (typeof format === 'string' && format[caretPos] !== '#') { return true; }
 
     //check in number format
-    if (!format && (caretPos < prefix.length
-      || caretPos >= value.length - suffix.length
-      || (decimalScale && fixedDecimalScale && value[caretPos] === decimalSeparator))
+    if (
+      !format &&
+      (caretPos < prefix.length ||
+        caretPos >= value.length - suffix.length ||
+        (decimalScale && fixedDecimalScale && value[caretPos] === decimalSeparator))
     ) {
       return true;
     }
 
-    return false;
-  };
-
-  NumberFormat.prototype.checkIfFormatGotDeleted = function checkIfFormatGotDeleted (start        , end        , value        ) {
-    for (var i = start; i < end; i++) {
-      if (this.isCharacterAFormat(i, value)) { return true; }
-    }
     return false;
   };
 
@@ -9874,6 +9711,8 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
    * It will also work as fallback if android chome keyDown handler does not work
    **/
   NumberFormat.prototype.correctInputValue = function correctInputValue (caretPos        , lastValue        , value        ) {
+    var this$1 = this;
+
     var ref = this.props;
     var format = ref.format;
     var allowNegative = ref.allowNegative;
@@ -9892,11 +9731,16 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     var end = ref$3.end;
 
     /** Check for any allowed decimal separator is added in the numeric format and replace it with decimal separator */
-    if (!format && start === end && allowedDecimalSeparators.indexOf(value[selectionStart]) !== -1  ) {
+    if (
+      !format &&
+      start === end &&
+      allowedDecimalSeparators.indexOf(value[selectionStart]) !== -1
+    ) {
       var separator = decimalScale === 0 ? '' : decimalSeparator;
-      return value.substr(0, selectionStart) + separator + value.substr(selectionStart + 1, value.length);
+      return (
+        value.substr(0, selectionStart) + separator + value.substr(selectionStart + 1, value.length)
+      );
     }
-
 
     var leftBound = !!format ? 0 : prefix.length;
     var rightBound = lastValue.length - (!!format ? 0 : suffix.length);
@@ -9904,7 +9748,7 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     if (
       // don't do anything if something got added
       value.length > lastValue.length ||
-      // or if the new value is an empty string 
+      // or if the new value is an empty string
       !value.length ||
       // or if nothing has changed, in which case start will be same as end
       start === end ||
@@ -9912,30 +9756,62 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
       (selectionStart === 0 && selectionEnd === lastValue.length) ||
       // or in case if the whole content is replaced by browser, example (autocomplete)
       (start === 0 && end === lastValue.length) ||
-      // or if charcters between prefix and suffix is selected. 
+      // or if charcters between prefix and suffix is selected.
       // For numeric inputs we apply the format so, prefix and suffix can be ignored
       (selectionStart === leftBound && selectionEnd === rightBound)
     ) {
       return value;
     }
 
-    //if format got deleted reset the value to last value
-    if (this.checkIfFormatGotDeleted(start, end, lastValue)) {
-      value = lastValue;
+    // check whether the deleted portion has a character that is part of a format
+    var deletedValues = lastValue.substr(start, end - start);
+    var formatGotDeleted = !![].concat( deletedValues ).find(function (deletedVal, idx) { return this$1.isCharacterAFormat(idx + start, lastValue); }
+    );
+
+    // if it has, only remove characters that are not part of the format
+    if (formatGotDeleted) {
+      var deletedValuePortion = lastValue.substr(start);
+      var recordIndexOfFormatCharacters = {};
+      var resolvedPortion = [];
+      [].concat( deletedValuePortion ).forEach(function (currentPortion, idx) {
+        if (this$1.isCharacterAFormat(idx + start, lastValue)) {
+          recordIndexOfFormatCharacters[idx] = currentPortion;
+        } else if (idx > deletedValues.length - 1) {
+          resolvedPortion.push(currentPortion);
+        }
+      });
+
+      Object.keys(recordIndexOfFormatCharacters).forEach(function (idx) {
+        if (resolvedPortion.length > idx) {
+          resolvedPortion.splice(idx, 0, recordIndexOfFormatCharacters[idx]);
+        } else {
+          resolvedPortion.push(recordIndexOfFormatCharacters[idx]);
+        }
+      });
+
+      value = lastValue.substr(0, start) + resolvedPortion.join('');
     }
 
     //for numbers check if beforeDecimal got deleted and there is nothing after decimal,
     //clear all numbers in such case while keeping the - sign
     if (!format) {
       var numericString = this.removeFormatting(value);
-      var ref$4 = splitDecimal(numericString, allowNegative);
+      var ref$4 = splitDecimal(
+        numericString,
+        allowNegative
+      );
       var beforeDecimal = ref$4.beforeDecimal;
       var afterDecimal = ref$4.afterDecimal;
       var addNegation = ref$4.addNegation; // eslint-disable-line prefer-const
 
       //clear only if something got deleted
       var isBeforeDecimalPoint = caretPos < value.indexOf(decimalSeparator) + 1;
-      if (numericString.length < lastNumStr.length && isBeforeDecimalPoint && beforeDecimal === '' && !parseFloat(afterDecimal)) {
+      if (
+        numericString.length < lastNumStr.length &&
+        isBeforeDecimalPoint &&
+        beforeDecimal === '' &&
+        !parseFloat(afterDecimal)
+      ) {
         return addNegation ? '-' : '';
       }
     }
@@ -9945,17 +9821,20 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
 
   /** Update value and caret position */
   NumberFormat.prototype.updateValue = function updateValue (params   
-                             
-                          
-                         
-                              
+                           
+                        
                        
-                                
-     
-  ) {
+                            
+                               
+                   
+                     
+                              
+   ) {
     var formattedValue = params.formattedValue;
     var input = params.input;
     var setCaretPosition = params.setCaretPosition; if ( setCaretPosition === void 0 ) setCaretPosition = true;
+    var source = params.source;
+    var event = params.event;
     var numAsString = params.numAsString;
     var caretPos = params.caretPos;
     var ref = this.props;
@@ -9964,37 +9843,35 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     var lastValue = ref$1.value;
 
     if (input) {
-      //set caret position, and value imperatively when element is provided
-      if (setCaretPosition) {
+      //calculate caret position if not defined
+      if (caretPos === undefined && setCaretPosition) {
+        var inputValue = params.inputValue || input.value;
 
-        //calculate caret position if not defined
-        if (!caretPos) {
-          var inputValue = params.inputValue || input.value;
+        var currentCaretPosition = getCurrentCaretPosition(input);
 
-          var currentCaretPosition = getCurrentCaretPosition(input);
-
-          /**
-           * set the value imperatively, this is required for IE fix
-           * This is also required as if new caret position is beyond the previous value.
-           * Caret position will not be set correctly
-           */
-          input.value = formattedValue;
-
-          //get the caret position
-          caretPos = this.getCaretPosition(inputValue, formattedValue, currentCaretPosition);
-        }
-
-        //set caret position
-        this.setPatchedCaretPosition(input, caretPos, formattedValue);
-      } else {
         /**
-         * if we are not setting caret position set the value imperatively.
-         * This is required on onBlur method
+         * set the value imperatively, this is required for IE fix
+         * This is also required as if new caret position is beyond the previous value.
+         * Caret position will not be set correctly
          */
         input.value = formattedValue;
+
+        //get the caret position
+        caretPos = this.getCaretPosition(inputValue, formattedValue, currentCaretPosition);
+      }
+
+      /**
+       * set the value imperatively, as we set the caret position as well imperatively.
+       * This is to keep value and caret position in sync
+       */
+      input.value = formattedValue;
+
+      //set caret position, and value imperatively when element is provided
+      if (setCaretPosition) {
+        //set caret position
+        this.setPatchedCaretPosition(input, caretPos, formattedValue);
       }
     }
-
 
     //calculate numeric string if not passed
     if (numAsString === undefined) {
@@ -10003,10 +9880,10 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
 
     //update state if value is changed
     if (formattedValue !== lastValue) {
-      this.setState({ value : formattedValue, numAsString: numAsString });
+      this.setState({ value: formattedValue, numAsString: numAsString });
 
       // trigger onValueChange synchronously, so parent is updated along with the number format. Fix for #277, #287
-      onValueChange(this.getValueObject(formattedValue, numAsString));
+      onValueChange(this.getValueObject(formattedValue, numAsString), { event: event, source: source });
     }
   };
 
@@ -10021,7 +9898,7 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
 
     var currentCaretPosition = getCurrentCaretPosition(el);
 
-    inputValue =  this.correctInputValue(currentCaretPosition, lastValue, inputValue);
+    inputValue = this.correctInputValue(currentCaretPosition, lastValue, inputValue);
 
     var formattedValue = this.formatInput(inputValue) || '';
     var numAsString = this.removeFormatting(formattedValue);
@@ -10033,9 +9910,16 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
       formattedValue = lastValue;
     }
 
-    this.updateValue({ formattedValue: formattedValue, numAsString: numAsString, inputValue: inputValue, input: el });
+    this.updateValue({
+      formattedValue: formattedValue,
+      numAsString: numAsString,
+      inputValue: inputValue,
+      input: el,
+      event: e,
+      source: 'event',
+    });
 
-    if(isChangeAllowed) {
+    if (isChangeAllowed) {
       props.onChange(e);
     }
   };
@@ -10052,7 +9936,7 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     this.focusedElm = null;
 
     clearTimeout(this.focusTimeout);
-
+    clearTimeout(this.caretPositionTimeout);
 
     if (!format) {
       // if the numAsString is not a valid number reset it to empty
@@ -10069,7 +9953,14 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
       //change the state
       if (formattedValue !== lastValue) {
         // the event needs to be persisted because its properties can be accessed in an asynchronous way
-        this.updateValue({ formattedValue: formattedValue, numAsString: numAsString, input: e.target, setCaretPosition: false });
+        this.updateValue({
+          formattedValue: formattedValue,
+          numAsString: numAsString,
+          input: e.target,
+          setCaretPosition: false,
+          event: e,
+          source: 'event',
+        });
         onBlur(e);
         return;
       }
@@ -10098,7 +9989,7 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
 
     this.selectionBeforeInput = {
       selectionStart: selectionStart,
-      selectionEnd: selectionEnd
+      selectionEnd: selectionEnd,
     };
 
     //Handle backspace and delete against non numerical/decimal characters or arrow keys
@@ -10124,8 +10015,14 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     if (key === 'ArrowLeft' || key === 'ArrowRight') {
       var direction = key === 'ArrowLeft' ? 'left' : 'right';
       newCaretPosition = this.correctCaretPosition(value, expectedCaretPosition, direction);
-    } else if (key === 'Delete' && !numRegex.test(value[expectedCaretPosition]) && !negativeRegex.test(value[expectedCaretPosition])) {
-      while (!numRegex.test(value[newCaretPosition]) && newCaretPosition < rightBound) { newCaretPosition++; }
+    } else if (
+      key === 'Delete' &&
+      !numRegex.test(value[expectedCaretPosition]) &&
+      !negativeRegex.test(value[expectedCaretPosition])
+    ) {
+      while (!numRegex.test(value[newCaretPosition]) && newCaretPosition < rightBound) {
+        newCaretPosition++;
+      }
     } else if (key === 'Backspace' && !numRegex.test(value[expectedCaretPosition])) {
       /* NOTE: This is special case when backspace is pressed on a
       negative value while the cursor position is after prefix. We can't handle it on onChange because
@@ -10133,15 +10030,26 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
       */
       if (selectionStart <= leftBound + 1 && value[0] === '-' && typeof format === 'undefined') {
         var newValue = value.substring(1);
-        this.updateValue({formattedValue: newValue, caretPos: newCaretPosition, input: el});
+        this.updateValue({
+          formattedValue: newValue,
+          caretPos: newCaretPosition,
+          input: el,
+          event: e,
+          source: 'event',
+        });
       } else if (!negativeRegex.test(value[expectedCaretPosition])) {
-        while (!numRegex.test(value[newCaretPosition - 1]) && newCaretPosition > leftBound){ newCaretPosition--; }
+        while (!numRegex.test(value[newCaretPosition - 1]) && newCaretPosition > leftBound) {
+          newCaretPosition--;
+        }
         newCaretPosition = this.correctCaretPosition(value, newCaretPosition, 'left');
       }
     }
 
-
-    if (newCaretPosition !== expectedCaretPosition || expectedCaretPosition < leftBound || expectedCaretPosition > rightBound) {
+    if (
+      newCaretPosition !== expectedCaretPosition ||
+      expectedCaretPosition < leftBound ||
+      expectedCaretPosition > rightBound
+    ) {
       e.preventDefault();
       this.setPatchedCaretPosition(el, newCaretPosition, value);
     }
@@ -10152,9 +10060,7 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
       this.setPatchedCaretPosition(el, newCaretPosition, value);
     }
 
-
     onKeyDown(e);
-
   };
 
   /** required to handle the caret position when click anywhere within the input **/
@@ -10164,7 +10070,7 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     /**
      * NOTE: we have to give default value for value as in case when custom input is provided
      * value can come as undefined when nothing is provided on value prop.
-    */
+     */
     var selectionStart = el.selectionStart;
     var selectionEnd = el.selectionEnd;
     var value = el.value; if ( value === void 0 ) value = '';
@@ -10196,7 +10102,10 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
       var caretPosition = this$1.correctCaretPosition(value, selectionStart);
 
       //setPatchedCaretPosition only when everything is not selected on focus (while tabbing into the field)
-      if (caretPosition !== selectionStart && !(selectionStart === 0 && selectionEnd === value.length)) {
+      if (
+        caretPosition !== selectionStart &&
+        !(selectionStart === 0 && selectionEnd === value.length)
+      ) {
         this$1.setPatchedCaretPosition(el, caretPosition, value);
       }
 
@@ -10212,13 +10121,37 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
     var renderText = ref.renderText;
     var getInputRef = ref.getInputRef;
     var format = ref.format;
+    var thousandSeparator = ref.thousandSeparator;
+    var decimalSeparator = ref.decimalSeparator;
+    var allowedDecimalSeparators = ref.allowedDecimalSeparators;
+    var thousandsGroupStyle = ref.thousandsGroupStyle;
+    var decimalScale = ref.decimalScale;
+    var fixedDecimalScale = ref.fixedDecimalScale;
+    var prefix = ref.prefix;
+    var suffix = ref.suffix;
+    var removeFormatting = ref.removeFormatting;
+    var mask = ref.mask;
+    var defaultValue = ref.defaultValue;
+    var isNumericString = ref.isNumericString;
+    var allowNegative = ref.allowNegative;
+    var allowEmptyFormatting = ref.allowEmptyFormatting;
+    var allowLeadingZeros = ref.allowLeadingZeros;
+    var onValueChange = ref.onValueChange;
+    var isAllowed = ref.isAllowed;
+    var customNumerals = ref.customNumerals;
+    var onChange = ref.onChange;
+    var onKeyDown = ref.onKeyDown;
+    var onMouseUp = ref.onMouseUp;
+    var onFocus = ref.onFocus;
+    var onBlur = ref.onBlur;
+    var propValue = ref.value;
+    var rest = objectWithoutProperties$1( ref, ["type", "displayType", "customInput", "renderText", "getInputRef", "format", "thousandSeparator", "decimalSeparator", "allowedDecimalSeparators", "thousandsGroupStyle", "decimalScale", "fixedDecimalScale", "prefix", "suffix", "removeFormatting", "mask", "defaultValue", "isNumericString", "allowNegative", "allowEmptyFormatting", "allowLeadingZeros", "onValueChange", "isAllowed", "customNumerals", "onChange", "onKeyDown", "onMouseUp", "onFocus", "onBlur", "value"] );
+    var otherProps = rest;
     var ref$1 = this.state;
     var value = ref$1.value;
     var mounted = ref$1.mounted;
 
-    var otherProps = omit(this.props, propTypes$1);
-
-    // add input mode on element based on format prop and device once the component is mounted 
+    // add input mode on element based on format prop and device once the component is mounted
     var inputMode = mounted && addInputMode(format) ? 'numeric' : undefined;
 
     var inputProps = Object.assign({ inputMode: inputMode }, otherProps, {
@@ -10228,72 +10161,60 @@ var NumberFormat = /*@__PURE__*/(function (superclass) {
       onKeyDown: this.onKeyDown,
       onMouseUp: this.onMouseUp,
       onFocus: this.onFocus,
-      onBlur: this.onBlur
+      onBlur: this.onBlur,
     });
 
-    if( displayType === 'text'){
-      return renderText ? (renderText(value, otherProps) || null) : React__default.createElement( 'span', Object.assign({}, otherProps, { ref: getInputRef }), value);
-    }
-
-    else if (customInput) {
+    if (displayType === 'text') {
+      return renderText ? (
+        renderText(value, otherProps) || null
+      ) : (
+        React__default.createElement( 'span', Object.assign({}, otherProps, { ref: getInputRef }),
+          value
+        )
+      );
+    } else if (customInput) {
       var CustomInput = customInput;
-      return (
-        React__default.createElement( CustomInput, Object.assign({},
-          inputProps, { ref: getInputRef }))
-      )
+      return React__default.createElement( CustomInput, Object.assign({}, inputProps, { ref: getInputRef }));
     }
 
-    return (
-      React__default.createElement( 'input', Object.assign({},
-        inputProps, { ref: getInputRef }))
-    )
+    return React__default.createElement( 'input', Object.assign({}, inputProps, { ref: getInputRef }));
   };
 
   return NumberFormat;
 }(React__default.Component));
 
-NumberFormat.propTypes = propTypes$1;
 NumberFormat.defaultProps = defaultProps;
 
 function SliderNumericInputs(sliderProps) {
   var _useState = useState(''),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      minValue = _useState2[0],
-      setMinValue = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    minValue = _useState2[0],
+    setMinValue = _useState2[1];
   var _useState3 = useState(''),
-      _useState4 = _slicedToArray$1(_useState3, 2),
-      maxValue = _useState4[0],
-      setMaxValue = _useState4[1];
-
+    _useState4 = _slicedToArray$1(_useState3, 2),
+    maxValue = _useState4[0],
+    setMaxValue = _useState4[1];
   function onMinUpdate(values) {
     var formattedValue = values.formattedValue,
-        value = values.value;
+      value = values.value;
     var newMinValue = Number(value);
-
     if (isNaN(newMinValue) || minValue === value) {
       return;
     }
-
     setMinValue(value);
   }
-
   function onMaxUpdate(values) {
     var formattedValue = values.formattedValue,
-        value = values.value;
+      value = values.value;
     var newMaxValue = Number(value);
-
     if (isNaN(newMaxValue) || maxValue === value) {
       return;
     }
-
     setMaxValue(value);
   }
-
   function reloadFacets(event) {
     sliderProps.onValueChange(Number(minValue), Number(maxValue));
   }
-
   useEffect(function () {
     setMinValue(sliderProps.values[0].toString());
     setMaxValue(sliderProps.values[1].toString());
@@ -10324,73 +10245,61 @@ function SliderNumericInputs(sliderProps) {
 }
 
 var Rheostat$1 = /*#__PURE__*/React__default.lazy(function () {
-  return import(
-  /* webpackChunkName: "rheostat" */
-  'rheostat');
+  return import( /* webpackChunkName: "rheostat" */'rheostat');
 });
-
 function SliderNumeric() {
   var _useHawksearch = useHawksearch(),
-      facetSelections = _useHawksearch.store.facetSelections;
-
+    facetSelections = _useHawksearch.store.facetSelections;
   var _useFacet = useFacet(),
-      _useFacet$state = _useFacet.state,
-      facetValues = _useFacet$state.facetValues,
-      decimalPrecision = _useFacet$state.decimalPrecision,
-      facet = _useFacet.facet,
-      actor = _useFacet.actor; // the range of the slider is defined by the first facet value. or null if there is no first value
-
-
+    _useFacet$state = _useFacet.state,
+    facetValues = _useFacet$state.facetValues,
+    decimalPrecision = _useFacet$state.decimalPrecision,
+    facet = _useFacet.facet,
+    actor = _useFacet.actor;
+  // the range of the slider is defined by the first facet value. or null if there is no first value
   var range = facetValues.length > 0 ? facetValues[0] : null;
-
   var _useState = useState(range && Number(parseFloat(range.RangeMin || '').toFixed(2))),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      rangeMin = _useState2[0],
-      setMinRange = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    rangeMin = _useState2[0],
+    setMinRange = _useState2[1];
   var _useState3 = useState(range && Number(parseFloat(range.RangeMax || '').toFixed(2))),
-      _useState4 = _slicedToArray$1(_useState3, 2),
-      rangeMax = _useState4[0],
-      setMaxRange = _useState4[1];
-
+    _useState4 = _slicedToArray$1(_useState3, 2),
+    rangeMax = _useState4[0],
+    setMaxRange = _useState4[1];
   var _useState5 = useState(range && Number(parseFloat(range.RangeStart || '').toFixed(2))),
-      _useState6 = _slicedToArray$1(_useState5, 2),
-      rangeStart = _useState6[0],
-      setStartRange = _useState6[1];
-
+    _useState6 = _slicedToArray$1(_useState5, 2),
+    rangeStart = _useState6[0],
+    setStartRange = _useState6[1];
   var _useState7 = useState(range && Number(parseFloat(range.RangeEnd || '').toFixed(2))),
-      _useState8 = _slicedToArray$1(_useState7, 2),
-      rangeEnd = _useState8[0],
-      setEndRange = _useState8[1]; // if there's no range, initialize to zeros
+    _useState8 = _slicedToArray$1(_useState7, 2),
+    rangeEnd = _useState8[0],
+    setEndRange = _useState8[1];
 
-
+  // if there's no range, initialize to zeros
   var _useState9 = useState(),
-      _useState10 = _slicedToArray$1(_useState9, 2),
-      minValue = _useState10[0],
-      setMinValue = _useState10[1];
-
+    _useState10 = _slicedToArray$1(_useState9, 2),
+    minValue = _useState10[0],
+    setMinValue = _useState10[1];
   var _useState11 = useState(),
-      _useState12 = _slicedToArray$1(_useState11, 2),
-      maxValue = _useState12[0],
-      setMaxValue = _useState12[1];
-
+    _useState12 = _slicedToArray$1(_useState11, 2),
+    maxValue = _useState12[0],
+    setMaxValue = _useState12[1];
   var _useState13 = useState(facet.IsCurrency),
-      _useState14 = _slicedToArray$1(_useState13, 2),
-      isCurency = _useState14[0],
-      setIsCurrency = _useState14[1];
-
+    _useState14 = _slicedToArray$1(_useState13, 2),
+    isCurency = _useState14[0],
+    setIsCurrency = _useState14[1];
   var _useState15 = useState(facet.CurrencySymbol),
-      _useState16 = _slicedToArray$1(_useState15, 2),
-      currencySymbol = _useState16[0],
-      setCurrencySymbol = _useState16[1];
-
+    _useState16 = _slicedToArray$1(_useState15, 2),
+    currencySymbol = _useState16[0],
+    setCurrencySymbol = _useState16[1];
   useEffect(function () {
     setCurrencySymbol(facet.CurrencySymbol || '$');
     setIsCurrency(facet.IsCurrency);
   }, [facet]);
   useEffect(function () {
-    var paramName = facet.ParamName || facet.Field; // clear min and max value if these were cleared
+    var paramName = facet.ParamName || facet.Field;
 
+    // clear min and max value if these were cleared
     if (!paramName || !(paramName in facetSelections)) {
       setMinValue(undefined);
       setMaxValue(undefined);
@@ -10407,37 +10316,31 @@ function SliderNumeric() {
     setStartRange(newRange && Number(parseFloat(newRange.RangeStart || '').toFixed(2)));
     setEndRange(newRange && Number(parseFloat(newRange.RangeEnd || '').toFixed(2)));
   }, [facetValues]);
-
   if (rangeMin === null || isNaN(rangeMin) || rangeMax === null || isNaN(rangeMax) || rangeStart === null || isNaN(rangeStart) || rangeEnd === null || isNaN(rangeEnd)) {
     // this facet is somehow misconfigured so don't render
     return null;
   }
-
   function onSliderValueChange(state) {
     var _state$values = _slicedToArray$1(state.values, 2),
-        newMin = _state$values[0],
-        newMax = _state$values[1];
-
+      newMin = _state$values[0],
+      newMax = _state$values[1];
     setFacetValues(newMin, newMax);
   }
-
   function onValueChange(newMinValue, newMaxValue) {
     var currentMinValue = minValue;
-    var currentMaxValue = maxValue; // if min value wasn't yet selected use range start
-
+    var currentMaxValue = maxValue;
+    // if min value wasn't yet selected use range start
     if (minValue === undefined && rangeStart !== null) {
       currentMinValue = rangeStart; // setMinValue(rangeStart);
-    } // if max value wasn't yet selected use range end
+    }
 
-
+    // if max value wasn't yet selected use range end
     if (maxValue === undefined && rangeEnd !== null) {
       currentMaxValue = rangeEnd;
     }
-
     if (currentMinValue === undefined || currentMaxValue === undefined) {
       return;
     }
-
     if (currentMinValue !== newMinValue && newMinValue <= currentMaxValue) {
       if (rangeMin !== null && newMinValue <= rangeMin) {
         currentMinValue = rangeMin;
@@ -10445,7 +10348,6 @@ function SliderNumeric() {
         currentMinValue = newMinValue;
       }
     }
-
     if (currentMaxValue !== newMaxValue && newMaxValue >= currentMinValue) {
       if (rangeMax !== null && newMaxValue >= rangeMax) {
         currentMaxValue = rangeMax;
@@ -10453,24 +10355,21 @@ function SliderNumeric() {
         currentMaxValue = newMaxValue;
       }
     }
-
     setMinValue(currentMinValue);
     setMaxValue(currentMaxValue);
     setFacetValues(currentMinValue, currentMaxValue);
   }
-
   function setFacetValues(minVal, maxVal) {
     if (minVal === undefined || maxVal === undefined || isNaN(minVal) || isNaN(maxVal)) {
       return;
     }
-
     setMinValue(minVal);
-    setMaxValue(maxVal); // this selection is sent to hawk separated by commas, so build the value here
+    setMaxValue(maxVal);
 
+    // this selection is sent to hawk separated by commas, so build the value here
     var selection = "".concat(minVal, ",").concat(maxVal);
     actor.setFacets([selection]);
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail__facet-values"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -10495,21 +10394,19 @@ function SliderNumeric() {
 
 function Slider() {
   var _useFacet = useFacet(),
-      facet = _useFacet.facet;
-
+    facet = _useFacet.facet;
   if (facet.DataType && facet.DataType === 'datetime') {
     return /*#__PURE__*/React__default.createElement(SliderDate, null);
   }
-
   return /*#__PURE__*/React__default.createElement(SliderNumeric, null);
 }
 
 function SwatchItem(item) {
   var _useHawkConfig = useHawkConfig(),
-      config = _useHawkConfig.config;
+    config = _useHawkConfig.config;
+  var facetValue = item.swatchValue.Value || '';
 
-  var facetValue = item.swatchValue.Value || ''; // facets can be selected or negated, so explicitly check that the facet is not selected
-
+  // facets can be selected or negated, so explicitly check that the facet is not selected
   var swatchUrl = config.dashboardUrl + (!item.facetSwatch.AssetUrl ? item.facetSwatch.AssetName : item.facetSwatch.AssetUrl);
   var colorSwatchStyle = {
     backgroundColor: item.facetSwatch.Color
@@ -10545,18 +10442,15 @@ function SwatchItem(item) {
 
 function Swatch$1() {
   var _useHawksearch = useHawksearch(),
-      store = _useHawksearch.store;
-
+    store = _useHawksearch.store;
   var _useFacet = useFacet(),
-      facet = _useFacet.facet,
-      actor = _useFacet.actor,
-      facetValues = _useFacet.state.facetValues,
-      renderer = _useFacet.renderer;
-
+    facet = _useFacet.facet,
+    actor = _useFacet.actor,
+    facetValues = _useFacet.state.facetValues,
+    renderer = _useFacet.renderer;
   function onSwatchSelected(facetValue, isNegated) {
     isNegated ? actor.negateFacet(facetValue) : actor.selectFacet(facetValue);
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail__facet-values"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -10564,16 +10458,14 @@ function Swatch$1() {
   }, /*#__PURE__*/React__default.createElement("ul", {
     className: "hawk-facet-rail__facet-list"
   }, facet.SwatchData && facetValues.map(function (value) {
-    var facetValue = value.Value || ''; // find swatch that is corresponding with value
-
+    var facetValue = value.Value || '';
+    // find swatch that is corresponding with value
     var facetSwatch = facet.SwatchData && facet.SwatchData.find(function (s) {
       return s.Value.toLowerCase() === facetValue.toLowerCase();
     });
-
     if (!facetSwatch) {
       return;
     }
-
     var selectionState = store.isFacetSelected(facet, value).state;
     var isNegated = selectionState === FacetSelectionState.Negated;
     var isSelected = selectionState !== FacetSelectionState.NotSelected;
@@ -10592,32 +10484,26 @@ function Swatch$1() {
 
 function NestedItem(item) {
   var _useHawksearch = useHawksearch(),
-      store = _useHawksearch.store;
-
+    store = _useHawksearch.store;
   var _useFacet = useFacet(),
-      facet = _useFacet.facet;
-
+    facet = _useFacet.facet;
   var _useState = useState(false),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      isExpanded = _useState2[0],
-      setIsExpanded = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    isExpanded = _useState2[0],
+    setIsExpanded = _useState2[1];
   var _useState3 = useState(facet.shouldTruncate),
-      _useState4 = _slicedToArray$1(_useState3, 2),
-      isTruncated = _useState4[0],
-      setIsTruncated = _useState4[1];
-
+    _useState4 = _slicedToArray$1(_useState3, 2),
+    isTruncated = _useState4[0],
+    setIsTruncated = _useState4[1];
   var hierarchyValue = item.hierarchyValue || '';
   var hierarchyChildren = item.hierarchyValue.Children || [];
   var remainingValues = 0;
   var shouldTruncateChildren = facet.DisplayType === 'truncating' && hierarchyChildren.length > facet.TruncateThreshold;
-
   if (shouldTruncateChildren && isTruncated) {
     var valuesBeforeTrunc = hierarchyChildren.length;
     hierarchyChildren = hierarchyChildren.slice(0, facet.TruncateThreshold);
     remainingValues = valuesBeforeTrunc - facet.TruncateThreshold;
   }
-
   function renderChildTruncation() {
     return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, shouldTruncateChildren && /*#__PURE__*/React__default.createElement("li", {
       className: "hawk-facet-rail__facet-list-item hawk-show-more"
@@ -10628,7 +10514,6 @@ function NestedItem(item) {
       className: "hawk-facet-rail__show-more-btn"
     }, isTruncated ? "(+) Show ".concat(remainingValues, " More") : '(-) Show Less')));
   }
-
   return /*#__PURE__*/React__default.createElement("li", {
     className: "hawk-facet-rail__facet-list-item hawkFacet-group"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -10685,18 +10570,15 @@ function NestedItem(item) {
 
 function Nested() {
   var _useHawksearch = useHawksearch(),
-      store = _useHawksearch.store;
-
+    store = _useHawksearch.store;
   var _useFacet = useFacet(),
-      facet = _useFacet.facet,
-      facetValues = _useFacet.state.facetValues,
-      actor = _useFacet.actor,
-      renderer = _useFacet.renderer;
-
+    facet = _useFacet.facet,
+    facetValues = _useFacet.state.facetValues,
+    actor = _useFacet.actor,
+    renderer = _useFacet.renderer;
   function onValueSelected(facetValue, isNegated) {
     isNegated ? actor.negateFacet(facetValue) : actor.selectFacet(facetValue);
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail__facet-values"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -10788,8 +10670,9 @@ var moment = createCommonjsModule(function (module, exports) {
 
     function map(arr, fn) {
         var res = [],
-            i;
-        for (i = 0; i < arr.length; ++i) {
+            i,
+            arrLen = arr.length;
+        for (i = 0; i < arrLen; ++i) {
             res.push(fn(arr[i], i));
         }
         return res;
@@ -10866,24 +10749,25 @@ var moment = createCommonjsModule(function (module, exports) {
     }
 
     function isValid(m) {
-        if (m._isValid == null) {
-            var flags = getParsingFlags(m),
-                parsedParts = some.call(flags.parsedDateParts, function (i) {
-                    return i != null;
-                }),
-                isNowValid =
-                    !isNaN(m._d.getTime()) &&
-                    flags.overflow < 0 &&
-                    !flags.empty &&
-                    !flags.invalidEra &&
-                    !flags.invalidMonth &&
-                    !flags.invalidWeekday &&
-                    !flags.weekdayMismatch &&
-                    !flags.nullInput &&
-                    !flags.invalidFormat &&
-                    !flags.userInvalidated &&
-                    (!flags.meridiem || (flags.meridiem && parsedParts));
-
+        var flags = null,
+            parsedParts = false,
+            isNowValid = m._d && !isNaN(m._d.getTime());
+        if (isNowValid) {
+            flags = getParsingFlags(m);
+            parsedParts = some.call(flags.parsedDateParts, function (i) {
+                return i != null;
+            });
+            isNowValid =
+                flags.overflow < 0 &&
+                !flags.empty &&
+                !flags.invalidEra &&
+                !flags.invalidMonth &&
+                !flags.invalidWeekday &&
+                !flags.weekdayMismatch &&
+                !flags.nullInput &&
+                !flags.invalidFormat &&
+                !flags.userInvalidated &&
+                (!flags.meridiem || (flags.meridiem && parsedParts));
             if (m._strict) {
                 isNowValid =
                     isNowValid &&
@@ -10891,12 +10775,11 @@ var moment = createCommonjsModule(function (module, exports) {
                     flags.unusedTokens.length === 0 &&
                     flags.bigHour === undefined;
             }
-
-            if (Object.isFrozen == null || !Object.isFrozen(m)) {
-                m._isValid = isNowValid;
-            } else {
-                return isNowValid;
-            }
+        }
+        if (Object.isFrozen == null || !Object.isFrozen(m)) {
+            m._isValid = isNowValid;
+        } else {
+            return isNowValid;
         }
         return m._isValid;
     }
@@ -10918,7 +10801,10 @@ var moment = createCommonjsModule(function (module, exports) {
         updateInProgress = false;
 
     function copyConfig(to, from) {
-        var i, prop, val;
+        var i,
+            prop,
+            val,
+            momentPropertiesLen = momentProperties.length;
 
         if (!isUndefined(from._isAMomentObject)) {
             to._isAMomentObject = from._isAMomentObject;
@@ -10951,8 +10837,8 @@ var moment = createCommonjsModule(function (module, exports) {
             to._locale = from._locale;
         }
 
-        if (momentProperties.length > 0) {
-            for (i = 0; i < momentProperties.length; i++) {
+        if (momentPropertiesLen > 0) {
+            for (i = 0; i < momentPropertiesLen; i++) {
                 prop = momentProperties[i];
                 val = from[prop];
                 if (!isUndefined(val)) {
@@ -11007,8 +10893,9 @@ var moment = createCommonjsModule(function (module, exports) {
                 var args = [],
                     arg,
                     i,
-                    key;
-                for (i = 0; i < arguments.length; i++) {
+                    key,
+                    argLen = arguments.length;
+                for (i = 0; i < argLen; i++) {
                     arg = '';
                     if (typeof arguments[i] === 'object') {
                         arg += '\n[' + i + '] ';
@@ -11158,7 +11045,8 @@ var moment = createCommonjsModule(function (module, exports) {
         );
     }
 
-    var formattingTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|N{1,5}|YYYYYY|YYYYY|YYYY|YY|y{2,4}|yo?|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g,
+    var formattingTokens =
+            /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|N{1,5}|YYYYYY|YYYYY|YYYY|YY|y{2,4}|yo?|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g,
         formatFunctions = {},
         formatTokenFunctions = {};
@@ -11336,12 +11224,56 @@ var moment = createCommonjsModule(function (module, exports) {
         return isFunction(format) ? format(output) : format.replace(/%s/i, output);
     }
 
-    var aliases = {};
-
-    function addUnitAlias(unit, shorthand) {
-        var lowerCase = unit.toLowerCase();
-        aliases[lowerCase] = aliases[lowerCase + 's'] = aliases[shorthand] = unit;
-    }
+    var aliases = {
+        D: 'date',
+        dates: 'date',
+        date: 'date',
+        d: 'day',
+        days: 'day',
+        day: 'day',
+        e: 'weekday',
+        weekdays: 'weekday',
+        weekday: 'weekday',
+        E: 'isoWeekday',
+        isoweekdays: 'isoWeekday',
+        isoweekday: 'isoWeekday',
+        DDD: 'dayOfYear',
+        dayofyears: 'dayOfYear',
+        dayofyear: 'dayOfYear',
+        h: 'hour',
+        hours: 'hour',
+        hour: 'hour',
+        ms: 'millisecond',
+        milliseconds: 'millisecond',
+        millisecond: 'millisecond',
+        m: 'minute',
+        minutes: 'minute',
+        minute: 'minute',
+        M: 'month',
+        months: 'month',
+        month: 'month',
+        Q: 'quarter',
+        quarters: 'quarter',
+        quarter: 'quarter',
+        s: 'second',
+        seconds: 'second',
+        second: 'second',
+        gg: 'weekYear',
+        weekyears: 'weekYear',
+        weekyear: 'weekYear',
+        GG: 'isoWeekYear',
+        isoweekyears: 'isoWeekYear',
+        isoweekyear: 'isoWeekYear',
+        w: 'week',
+        weeks: 'week',
+        week: 'week',
+        W: 'isoWeek',
+        isoweeks: 'isoWeek',
+        isoweek: 'isoWeek',
+        y: 'year',
+        years: 'year',
+        year: 'year',
+    };
 
     function normalizeUnits(units) {
         return typeof units === 'string'
@@ -11366,11 +11298,24 @@ var moment = createCommonjsModule(function (module, exports) {
         return normalizedInput;
     }
 
-    var priorities = {};
-
-    function addUnitPriority(unit, priority) {
-        priorities[unit] = priority;
-    }
+    var priorities = {
+        date: 9,
+        day: 11,
+        weekday: 11,
+        isoWeekday: 11,
+        dayOfYear: 4,
+        hour: 13,
+        millisecond: 16,
+        minute: 14,
+        month: 8,
+        quarter: 7,
+        second: 15,
+        weekYear: 1,
+        isoWeekYear: 1,
+        week: 5,
+        isoWeek: 5,
+        year: 1,
+    };
 
     function getPrioritizedUnits(unitsObj) {
         var units = [],
@@ -11384,95 +11329,6 @@ var moment = createCommonjsModule(function (module, exports) {
             return a.priority - b.priority;
         });
         return units;
-    }
-
-    function isLeapYear(year) {
-        return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-    }
-
-    function absFloor(number) {
-        if (number < 0) {
-            // -0 -> 0
-            return Math.ceil(number) || 0;
-        } else {
-            return Math.floor(number);
-        }
-    }
-
-    function toInt(argumentForCoercion) {
-        var coercedNumber = +argumentForCoercion,
-            value = 0;
-
-        if (coercedNumber !== 0 && isFinite(coercedNumber)) {
-            value = absFloor(coercedNumber);
-        }
-
-        return value;
-    }
-
-    function makeGetSet(unit, keepTime) {
-        return function (value) {
-            if (value != null) {
-                set$1(this, unit, value);
-                hooks.updateOffset(this, keepTime);
-                return this;
-            } else {
-                return get(this, unit);
-            }
-        };
-    }
-
-    function get(mom, unit) {
-        return mom.isValid()
-            ? mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]()
-            : NaN;
-    }
-
-    function set$1(mom, unit, value) {
-        if (mom.isValid() && !isNaN(value)) {
-            if (
-                unit === 'FullYear' &&
-                isLeapYear(mom.year()) &&
-                mom.month() === 1 &&
-                mom.date() === 29
-            ) {
-                value = toInt(value);
-                mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](
-                    value,
-                    mom.month(),
-                    daysInMonth(value, mom.month())
-                );
-            } else {
-                mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
-            }
-        }
-    }
-
-    // MOMENTS
-
-    function stringGet(units) {
-        units = normalizeUnits(units);
-        if (isFunction(this[units])) {
-            return this[units]();
-        }
-        return this;
-    }
-
-    function stringSet(units, value) {
-        if (typeof units === 'object') {
-            units = normalizeObjectUnits(units);
-            var prioritized = getPrioritizedUnits(units),
-                i;
-            for (i = 0; i < prioritized.length; i++) {
-                this[prioritized[i].unit](units[prioritized[i].unit]);
-            }
-        } else {
-            units = normalizeUnits(units);
-            if (isFunction(this[units])) {
-                return this[units](value);
-            }
-        }
-        return this;
     }
 
     var match1 = /\d/, //       0 - 9
@@ -11493,7 +11349,10 @@ var moment = createCommonjsModule(function (module, exports) {
         matchTimestamp = /[+-]?\d+(\.\d{1,3})?/, // 123456789 123456789.123
         // any word (or two) characters or numbers including two/three word month in arabic.
         // includes scottish gaelic two word and hyphenated months
-        matchWord = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i,
+        matchWord =
+            /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i,
+        match1to2NoLeadingZero = /^[1-9]\d?/, //         1-99
+        match1to2HasZero = /^([1-9]\d|\d)/, //           0-99
         regexes;
 
     regexes = {};
@@ -11519,15 +11378,12 @@ var moment = createCommonjsModule(function (module, exports) {
         return regexEscape(
             s
                 .replace('\\', '')
-                .replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (
-                    matched,
-                    p1,
-                    p2,
-                    p3,
-                    p4
-                ) {
-                    return p1 || p2 || p3 || p4;
-                })
+                .replace(
+                    /\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g,
+                    function (matched, p1, p2, p3, p4) {
+                        return p1 || p2 || p3 || p4;
+                    }
+                )
         );
     }
 
@@ -11535,11 +11391,32 @@ var moment = createCommonjsModule(function (module, exports) {
         return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
+    function absFloor(number) {
+        if (number < 0) {
+            // -0 -> 0
+            return Math.ceil(number) || 0;
+        } else {
+            return Math.floor(number);
+        }
+    }
+
+    function toInt(argumentForCoercion) {
+        var coercedNumber = +argumentForCoercion,
+            value = 0;
+
+        if (coercedNumber !== 0 && isFinite(coercedNumber)) {
+            value = absFloor(coercedNumber);
+        }
+
+        return value;
+    }
+
     var tokens = {};
 
     function addParseToken(token, callback) {
         var i,
-            func = callback;
+            func = callback,
+            tokenLen;
         if (typeof token === 'string') {
             token = [token];
         }
@@ -11548,7 +11425,8 @@ var moment = createCommonjsModule(function (module, exports) {
                 array[callback] = toInt(input);
             };
         }
-        for (i = 0; i < token.length; i++) {
+        tokenLen = token.length;
+        for (i = 0; i < tokenLen; i++) {
             tokens[token[i]] = func;
         }
     }
@@ -11566,6 +11444,10 @@ var moment = createCommonjsModule(function (module, exports) {
         }
     }
 
+    function isLeapYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+    }
+
     var YEAR = 0,
         MONTH = 1,
         DATE = 2,
@@ -11575,6 +11457,173 @@ var moment = createCommonjsModule(function (module, exports) {
         MILLISECOND = 6,
         WEEK = 7,
         WEEKDAY = 8;
+
+    // FORMATTING
+
+    addFormatToken('Y', 0, 0, function () {
+        var y = this.year();
+        return y <= 9999 ? zeroFill(y, 4) : '+' + y;
+    });
+
+    addFormatToken(0, ['YY', 2], 0, function () {
+        return this.year() % 100;
+    });
+
+    addFormatToken(0, ['YYYY', 4], 0, 'year');
+    addFormatToken(0, ['YYYYY', 5], 0, 'year');
+    addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
+
+    // PARSING
+
+    addRegexToken('Y', matchSigned);
+    addRegexToken('YY', match1to2, match2);
+    addRegexToken('YYYY', match1to4, match4);
+    addRegexToken('YYYYY', match1to6, match6);
+    addRegexToken('YYYYYY', match1to6, match6);
+
+    addParseToken(['YYYYY', 'YYYYYY'], YEAR);
+    addParseToken('YYYY', function (input, array) {
+        array[YEAR] =
+            input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
+    });
+    addParseToken('YY', function (input, array) {
+        array[YEAR] = hooks.parseTwoDigitYear(input);
+    });
+    addParseToken('Y', function (input, array) {
+        array[YEAR] = parseInt(input, 10);
+    });
+
+    // HELPERS
+
+    function daysInYear(year) {
+        return isLeapYear(year) ? 366 : 365;
+    }
+
+    // HOOKS
+
+    hooks.parseTwoDigitYear = function (input) {
+        return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
+    };
+
+    // MOMENTS
+
+    var getSetYear = makeGetSet('FullYear', true);
+
+    function getIsLeapYear() {
+        return isLeapYear(this.year());
+    }
+
+    function makeGetSet(unit, keepTime) {
+        return function (value) {
+            if (value != null) {
+                set$1(this, unit, value);
+                hooks.updateOffset(this, keepTime);
+                return this;
+            } else {
+                return get(this, unit);
+            }
+        };
+    }
+
+    function get(mom, unit) {
+        if (!mom.isValid()) {
+            return NaN;
+        }
+
+        var d = mom._d,
+            isUTC = mom._isUTC;
+
+        switch (unit) {
+            case 'Milliseconds':
+                return isUTC ? d.getUTCMilliseconds() : d.getMilliseconds();
+            case 'Seconds':
+                return isUTC ? d.getUTCSeconds() : d.getSeconds();
+            case 'Minutes':
+                return isUTC ? d.getUTCMinutes() : d.getMinutes();
+            case 'Hours':
+                return isUTC ? d.getUTCHours() : d.getHours();
+            case 'Date':
+                return isUTC ? d.getUTCDate() : d.getDate();
+            case 'Day':
+                return isUTC ? d.getUTCDay() : d.getDay();
+            case 'Month':
+                return isUTC ? d.getUTCMonth() : d.getMonth();
+            case 'FullYear':
+                return isUTC ? d.getUTCFullYear() : d.getFullYear();
+            default:
+                return NaN; // Just in case
+        }
+    }
+
+    function set$1(mom, unit, value) {
+        var d, isUTC, year, month, date;
+
+        if (!mom.isValid() || isNaN(value)) {
+            return;
+        }
+
+        d = mom._d;
+        isUTC = mom._isUTC;
+
+        switch (unit) {
+            case 'Milliseconds':
+                return void (isUTC
+                    ? d.setUTCMilliseconds(value)
+                    : d.setMilliseconds(value));
+            case 'Seconds':
+                return void (isUTC ? d.setUTCSeconds(value) : d.setSeconds(value));
+            case 'Minutes':
+                return void (isUTC ? d.setUTCMinutes(value) : d.setMinutes(value));
+            case 'Hours':
+                return void (isUTC ? d.setUTCHours(value) : d.setHours(value));
+            case 'Date':
+                return void (isUTC ? d.setUTCDate(value) : d.setDate(value));
+            // case 'Day': // Not real
+            //    return void (isUTC ? d.setUTCDay(value) : d.setDay(value));
+            // case 'Month': // Not used because we need to pass two variables
+            //     return void (isUTC ? d.setUTCMonth(value) : d.setMonth(value));
+            case 'FullYear':
+                break; // See below ...
+            default:
+                return; // Just in case
+        }
+
+        year = value;
+        month = mom.month();
+        date = mom.date();
+        date = date === 29 && month === 1 && !isLeapYear(year) ? 28 : date;
+        void (isUTC
+            ? d.setUTCFullYear(year, month, date)
+            : d.setFullYear(year, month, date));
+    }
+
+    // MOMENTS
+
+    function stringGet(units) {
+        units = normalizeUnits(units);
+        if (isFunction(this[units])) {
+            return this[units]();
+        }
+        return this;
+    }
+
+    function stringSet(units, value) {
+        if (typeof units === 'object') {
+            units = normalizeObjectUnits(units);
+            var prioritized = getPrioritizedUnits(units),
+                i,
+                prioritizedLen = prioritized.length;
+            for (i = 0; i < prioritizedLen; i++) {
+                this[prioritized[i].unit](units[prioritized[i].unit]);
+            }
+        } else {
+            units = normalizeUnits(units);
+            if (isFunction(this[units])) {
+                return this[units](value);
+            }
+        }
+        return this;
+    }
 
     function mod(n, x) {
         return ((n % x) + x) % x;
@@ -11624,17 +11673,9 @@ var moment = createCommonjsModule(function (module, exports) {
         return this.localeData().months(this, format);
     });
 
-    // ALIASES
-
-    addUnitAlias('month', 'M');
-
-    // PRIORITY
-
-    addUnitPriority('month', 8);
-
     // PARSING
 
-    addRegexToken('M', match1to2);
+    addRegexToken('M', match1to2, match1to2NoLeadingZero);
     addRegexToken('MM', match1to2, match2);
     addRegexToken('MMM', function (isStrict, locale) {
         return locale.monthsShortRegex(isStrict);
@@ -11659,12 +11700,12 @@ var moment = createCommonjsModule(function (module, exports) {
 
     // LOCALES
 
-    var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split(
-            '_'
-        ),
-        defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split(
-            '_'
-        ),
+    var defaultLocaleMonths =
+            'January_February_March_April_May_June_July_August_September_October_November_December'.split(
+                '_'
+            ),
+        defaultLocaleMonthsShort =
+            'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
         MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/,
         defaultMonthsShortRegex = matchWord,
         defaultMonthsRegex = matchWord;
@@ -11800,8 +11841,6 @@ var moment = createCommonjsModule(function (module, exports) {
     // MOMENTS
 
     function setMonth(mom, value) {
-        var dayOfMonth;
-
         if (!mom.isValid()) {
             // No op
             return mom;
@@ -11819,8 +11858,13 @@ var moment = createCommonjsModule(function (module, exports) {
             }
         }
 
-        dayOfMonth = Math.min(mom.date(), daysInMonth(mom.year(), value));
-        mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Month'](value, dayOfMonth);
+        var month = value,
+            date = mom.date();
+
+        date = date < 29 ? date : Math.min(date, daysInMonth(mom.year(), month));
+        void (mom._isUTC
+            ? mom._d.setUTCMonth(month, date)
+            : mom._d.setMonth(month, date));
         return mom;
     }
 
@@ -11887,27 +11931,24 @@ var moment = createCommonjsModule(function (module, exports) {
             longPieces = [],
             mixedPieces = [],
             i,
-            mom;
+            mom,
+            shortP,
+            longP;
         for (i = 0; i < 12; i++) {
             // make the regex if we don't have it already
             mom = createUTC([2000, i]);
-            shortPieces.push(this.monthsShort(mom, ''));
-            longPieces.push(this.months(mom, ''));
-            mixedPieces.push(this.months(mom, ''));
-            mixedPieces.push(this.monthsShort(mom, ''));
+            shortP = regexEscape(this.monthsShort(mom, ''));
+            longP = regexEscape(this.months(mom, ''));
+            shortPieces.push(shortP);
+            longPieces.push(longP);
+            mixedPieces.push(longP);
+            mixedPieces.push(shortP);
         }
         // Sorting makes sure if one month (or abbr) is a prefix of another it
         // will match the longer piece.
         shortPieces.sort(cmpLenRev);
         longPieces.sort(cmpLenRev);
         mixedPieces.sort(cmpLenRev);
-        for (i = 0; i < 12; i++) {
-            shortPieces[i] = regexEscape(shortPieces[i]);
-            longPieces[i] = regexEscape(longPieces[i]);
-        }
-        for (i = 0; i < 24; i++) {
-            mixedPieces[i] = regexEscape(mixedPieces[i]);
-        }
 
         this._monthsRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
         this._monthsShortRegex = this._monthsRegex;
@@ -11919,69 +11960,6 @@ var moment = createCommonjsModule(function (module, exports) {
             '^(' + shortPieces.join('|') + ')',
             'i'
         );
-    }
-
-    // FORMATTING
-
-    addFormatToken('Y', 0, 0, function () {
-        var y = this.year();
-        return y <= 9999 ? zeroFill(y, 4) : '+' + y;
-    });
-
-    addFormatToken(0, ['YY', 2], 0, function () {
-        return this.year() % 100;
-    });
-
-    addFormatToken(0, ['YYYY', 4], 0, 'year');
-    addFormatToken(0, ['YYYYY', 5], 0, 'year');
-    addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
-
-    // ALIASES
-
-    addUnitAlias('year', 'y');
-
-    // PRIORITIES
-
-    addUnitPriority('year', 1);
-
-    // PARSING
-
-    addRegexToken('Y', matchSigned);
-    addRegexToken('YY', match1to2, match2);
-    addRegexToken('YYYY', match1to4, match4);
-    addRegexToken('YYYYY', match1to6, match6);
-    addRegexToken('YYYYYY', match1to6, match6);
-
-    addParseToken(['YYYYY', 'YYYYYY'], YEAR);
-    addParseToken('YYYY', function (input, array) {
-        array[YEAR] =
-            input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
-    });
-    addParseToken('YY', function (input, array) {
-        array[YEAR] = hooks.parseTwoDigitYear(input);
-    });
-    addParseToken('Y', function (input, array) {
-        array[YEAR] = parseInt(input, 10);
-    });
-
-    // HELPERS
-
-    function daysInYear(year) {
-        return isLeapYear(year) ? 366 : 365;
-    }
-
-    // HOOKS
-
-    hooks.parseTwoDigitYear = function (input) {
-        return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
-    };
-
-    // MOMENTS
-
-    var getSetYear = makeGetSet('FullYear', true);
-
-    function getIsLeapYear() {
-        return isLeapYear(this.year());
     }
 
     function createDate(y, m, d, h, M, s, ms) {
@@ -12089,31 +12067,19 @@ var moment = createCommonjsModule(function (module, exports) {
     addFormatToken('w', ['ww', 2], 'wo', 'week');
     addFormatToken('W', ['WW', 2], 'Wo', 'isoWeek');
 
-    // ALIASES
-
-    addUnitAlias('week', 'w');
-    addUnitAlias('isoWeek', 'W');
-
-    // PRIORITIES
-
-    addUnitPriority('week', 5);
-    addUnitPriority('isoWeek', 5);
-
     // PARSING
 
-    addRegexToken('w', match1to2);
+    addRegexToken('w', match1to2, match1to2NoLeadingZero);
     addRegexToken('ww', match1to2, match2);
-    addRegexToken('W', match1to2);
+    addRegexToken('W', match1to2, match1to2NoLeadingZero);
     addRegexToken('WW', match1to2, match2);
 
-    addWeekParseToken(['w', 'ww', 'W', 'WW'], function (
-        input,
-        week,
-        config,
-        token
-    ) {
-        week[token.substr(0, 1)] = toInt(input);
-    });
+    addWeekParseToken(
+        ['w', 'ww', 'W', 'WW'],
+        function (input, week, config, token) {
+            week[token.substr(0, 1)] = toInt(input);
+        }
+    );
 
     // HELPERS
 
@@ -12166,17 +12132,6 @@ var moment = createCommonjsModule(function (module, exports) {
 
     addFormatToken('e', 0, 0, 'weekday');
     addFormatToken('E', 0, 0, 'isoWeekday');
-
-    // ALIASES
-
-    addUnitAlias('day', 'd');
-    addUnitAlias('weekday', 'e');
-    addUnitAlias('isoWeekday', 'E');
-
-    // PRIORITY
-    addUnitPriority('day', 11);
-    addUnitPriority('weekday', 11);
-    addUnitPriority('isoWeekday', 11);
 
     // PARSING
 
@@ -12238,9 +12193,8 @@ var moment = createCommonjsModule(function (module, exports) {
         return ws.slice(n, 7).concat(ws.slice(0, n));
     }
 
-    var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split(
-            '_'
-        ),
+    var defaultLocaleWeekdays =
+            'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
         defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
         defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
         defaultWeekdaysRegex = matchWord,
@@ -12258,24 +12212,24 @@ var moment = createCommonjsModule(function (module, exports) {
         return m === true
             ? shiftWeekdays(weekdays, this._week.dow)
             : m
-            ? weekdays[m.day()]
-            : weekdays;
+              ? weekdays[m.day()]
+              : weekdays;
     }
 
     function localeWeekdaysShort(m) {
         return m === true
             ? shiftWeekdays(this._weekdaysShort, this._week.dow)
             : m
-            ? this._weekdaysShort[m.day()]
-            : this._weekdaysShort;
+              ? this._weekdaysShort[m.day()]
+              : this._weekdaysShort;
     }
 
     function localeWeekdaysMin(m) {
         return m === true
             ? shiftWeekdays(this._weekdaysMin, this._week.dow)
             : m
-            ? this._weekdaysMin[m.day()]
-            : this._weekdaysMin;
+              ? this._weekdaysMin[m.day()]
+              : this._weekdaysMin;
     }
 
     function handleStrictParse$1(weekdayName, format, strict) {
@@ -12424,7 +12378,8 @@ var moment = createCommonjsModule(function (module, exports) {
         if (!this.isValid()) {
             return input != null ? this : NaN;
         }
-        var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
+
+        var day = get(this, 'Day');
         if (input != null) {
             input = parseWeekday(input, this.localeData());
             return this.add(input - day, 'd');
@@ -12623,13 +12578,6 @@ var moment = createCommonjsModule(function (module, exports) {
     meridiem('a', true);
     meridiem('A', false);
 
-    // ALIASES
-
-    addUnitAlias('hour', 'h');
-
-    // PRIORITY
-    addUnitPriority('hour', 13);
-
     // PARSING
 
     function matchMeridiem(isStrict, locale) {
@@ -12638,9 +12586,9 @@ var moment = createCommonjsModule(function (module, exports) {
 
     addRegexToken('a', matchMeridiem);
     addRegexToken('A', matchMeridiem);
-    addRegexToken('H', match1to2);
-    addRegexToken('h', match1to2);
-    addRegexToken('k', match1to2);
+    addRegexToken('H', match1to2, match1to2HasZero);
+    addRegexToken('h', match1to2, match1to2NoLeadingZero);
+    addRegexToken('k', match1to2, match1to2NoLeadingZero);
     addRegexToken('HH', match1to2, match2);
     addRegexToken('hh', match1to2, match2);
     addRegexToken('kk', match1to2, match2);
@@ -12788,6 +12736,12 @@ var moment = createCommonjsModule(function (module, exports) {
         return globalLocale;
     }
 
+    function isLocaleNameSane(name) {
+        // Prevent names that look like filesystem paths, i.e contain '/' or '\'
+        // Ensure name is available and function returns boolean
+        return !!(name && name.match('^[^/\\\\]*$'));
+    }
+
     function loadLocale(name) {
         var oldLocale = null,
             aliasedRequire;
@@ -12796,7 +12750,8 @@ var moment = createCommonjsModule(function (module, exports) {
             locales[name] === undefined &&
             'object' !== 'undefined' &&
             module &&
-            module.exports
+            module.exports &&
+            isLocaleNameSane(name)
         ) {
             try {
                 oldLocale = globalLocale._abbr;
@@ -12976,21 +12931,21 @@ var moment = createCommonjsModule(function (module, exports) {
                 a[MONTH] < 0 || a[MONTH] > 11
                     ? MONTH
                     : a[DATE] < 1 || a[DATE] > daysInMonth(a[YEAR], a[MONTH])
-                    ? DATE
-                    : a[HOUR] < 0 ||
-                      a[HOUR] > 24 ||
-                      (a[HOUR] === 24 &&
-                          (a[MINUTE] !== 0 ||
-                              a[SECOND] !== 0 ||
-                              a[MILLISECOND] !== 0))
-                    ? HOUR
-                    : a[MINUTE] < 0 || a[MINUTE] > 59
-                    ? MINUTE
-                    : a[SECOND] < 0 || a[SECOND] > 59
-                    ? SECOND
-                    : a[MILLISECOND] < 0 || a[MILLISECOND] > 999
-                    ? MILLISECOND
-                    : -1;
+                      ? DATE
+                      : a[HOUR] < 0 ||
+                          a[HOUR] > 24 ||
+                          (a[HOUR] === 24 &&
+                              (a[MINUTE] !== 0 ||
+                                  a[SECOND] !== 0 ||
+                                  a[MILLISECOND] !== 0))
+                        ? HOUR
+                        : a[MINUTE] < 0 || a[MINUTE] > 59
+                          ? MINUTE
+                          : a[SECOND] < 0 || a[SECOND] > 59
+                            ? SECOND
+                            : a[MILLISECOND] < 0 || a[MILLISECOND] > 999
+                              ? MILLISECOND
+                              : -1;
 
             if (
                 getParsingFlags(m)._overflowDayOfYear &&
@@ -13013,8 +12968,10 @@ var moment = createCommonjsModule(function (module, exports) {
 
     // iso 8601 regex
     // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
-    var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
-        basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d|))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
+    var extendedIsoRegex =
+            /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
+        basicIsoRegex =
+            /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d|))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
         tzRegex = /Z|[+-]\d\d(?::?\d\d)?/,
         isoDates = [
             ['YYYYYY-MM-DD', /[+-]\d{6}-\d\d-\d\d/],
@@ -13045,7 +13002,8 @@ var moment = createCommonjsModule(function (module, exports) {
         ],
         aspNetJsonRegex = /^\/?Date\((-?\d+)/i,
         // RFC 2822 regex: For details see https://tools.ietf.org/html/rfc2822#section-3.3
-        rfc2822 = /^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(\d{2,4})\s(\d\d):(\d\d)(?::(\d\d))?\s(?:(UT|GMT|[ECMP][SD]T)|([Zz])|([+-]\d{4}))$/,
+        rfc2822 =
+            /^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(\d{2,4})\s(\d\d):(\d\d)(?::(\d\d))?\s(?:(UT|GMT|[ECMP][SD]T)|([Zz])|([+-]\d{4}))$/,
         obsOffsets = {
             UT: 0,
             GMT: 0,
@@ -13068,12 +13026,13 @@ var moment = createCommonjsModule(function (module, exports) {
             allowTime,
             dateFormat,
             timeFormat,
-            tzFormat;
+            tzFormat,
+            isoDatesLen = isoDates.length,
+            isoTimesLen = isoTimes.length;
 
         if (match) {
             getParsingFlags(config).iso = true;
-
-            for (i = 0, l = isoDates.length; i < l; i++) {
+            for (i = 0, l = isoDatesLen; i < l; i++) {
                 if (isoDates[i][1].exec(match[1])) {
                     dateFormat = isoDates[i][0];
                     allowTime = isoDates[i][2] !== false;
@@ -13085,7 +13044,7 @@ var moment = createCommonjsModule(function (module, exports) {
                 return;
             }
             if (match[3]) {
-                for (i = 0, l = isoTimes.length; i < l; i++) {
+                for (i = 0, l = isoTimesLen; i < l; i++) {
                     if (isoTimes[i][1].exec(match[3])) {
                         // match[2] should be 'T' or space
                         timeFormat = (match[2] || ' ') + isoTimes[i][0];
@@ -13152,7 +13111,7 @@ var moment = createCommonjsModule(function (module, exports) {
     function preprocessRFC2822(s) {
         // Remove comments and folding whitespace and replace multiple-spaces with a single space
         return s
-            .replace(/\([^)]*\)|[\n\t]/g, ' ')
+            .replace(/\([^()]*\)|[\n\t]/g, ' ')
             .replace(/(\s\s+)/g, ' ')
             .replace(/^\s\s*/, '')
             .replace(/\s\s*$/, '');
@@ -13465,12 +13424,13 @@ var moment = createCommonjsModule(function (module, exports) {
             skipped,
             stringLength = string.length,
             totalParsedInputLength = 0,
-            era;
+            era,
+            tokenLen;
 
         tokens =
             expandFormat(config._f, config._locale).match(formattingTokens) || [];
-
-        for (i = 0; i < tokens.length; i++) {
+        tokenLen = tokens.length;
+        for (i = 0; i < tokenLen; i++) {
             token = tokens[i];
             parsedInput = (string.match(getParseRegexForToken(token, config)) ||
                 [])[0];
@@ -13565,15 +13525,16 @@ var moment = createCommonjsModule(function (module, exports) {
             i,
             currentScore,
             validFormatFound,
-            bestFormatIsValid = false;
+            bestFormatIsValid = false,
+            configfLen = config._f.length;
 
-        if (config._f.length === 0) {
+        if (configfLen === 0) {
             getParsingFlags(config).invalidFormat = true;
             config._d = new Date(NaN);
             return;
         }
 
-        for (i = 0; i < config._f.length; i++) {
+        for (i = 0; i < configfLen; i++) {
             currentScore = 0;
             validFormatFound = false;
             tempConfig = copyConfig({}, config);
@@ -13814,7 +13775,8 @@ var moment = createCommonjsModule(function (module, exports) {
     function isDurationValid(m) {
         var key,
             unitHasDecimal = false,
-            i;
+            i,
+            orderLen = ordering.length;
         for (key in m) {
             if (
                 hasOwnProp(m, key) &&
@@ -13827,7 +13789,7 @@ var moment = createCommonjsModule(function (module, exports) {
             }
         }
 
-        for (i = 0; i < ordering.length; ++i) {
+        for (i = 0; i < orderLen; ++i) {
             if (m[ordering[i]]) {
                 if (unitHasDecimal) {
                     return false; // only allow non-integers for smallest unit
@@ -14152,7 +14114,8 @@ var moment = createCommonjsModule(function (module, exports) {
         // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
         // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
         // and further modified to allow for strings containing both week and day
-        isoRegex = /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;
+        isoRegex =
+            /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;
 
     function createDuration(input, key) {
         var duration = input,
@@ -14373,9 +14336,10 @@ var moment = createCommonjsModule(function (module, exports) {
                 'ms',
             ],
             i,
-            property;
+            property,
+            propertyLen = properties.length;
 
-        for (i = 0; i < properties.length; i += 1) {
+        for (i = 0; i < propertyLen; i += 1) {
             property = properties[i];
             propertyTest = propertyTest || hasOwnProp(input, property);
         }
@@ -14422,16 +14386,16 @@ var moment = createCommonjsModule(function (module, exports) {
         return diff < -6
             ? 'sameElse'
             : diff < -1
-            ? 'lastWeek'
-            : diff < 0
-            ? 'lastDay'
-            : diff < 1
-            ? 'sameDay'
-            : diff < 2
-            ? 'nextDay'
-            : diff < 7
-            ? 'nextWeek'
-            : 'sameElse';
+              ? 'lastWeek'
+              : diff < 0
+                ? 'lastDay'
+                : diff < 1
+                  ? 'sameDay'
+                  : diff < 2
+                    ? 'nextDay'
+                    : diff < 7
+                      ? 'nextWeek'
+                      : 'sameElse';
     }
 
     function calendar$1(time, formats) {
@@ -14998,19 +14962,17 @@ var moment = createCommonjsModule(function (module, exports) {
     addRegexToken('NNNN', matchEraName);
     addRegexToken('NNNNN', matchEraNarrow);
 
-    addParseToken(['N', 'NN', 'NNN', 'NNNN', 'NNNNN'], function (
-        input,
-        array,
-        config,
-        token
-    ) {
-        var era = config._locale.erasParse(input, token, config._strict);
-        if (era) {
-            getParsingFlags(config).era = era;
-        } else {
-            getParsingFlags(config).invalidEra = input;
+    addParseToken(
+        ['N', 'NN', 'NNN', 'NNNN', 'NNNNN'],
+        function (input, array, config, token) {
+            var era = config._locale.erasParse(input, token, config._strict);
+            if (era) {
+                getParsingFlags(config).era = era;
+            } else {
+                getParsingFlags(config).invalidEra = input;
+            }
         }
-    });
+    );
 
     addRegexToken('y', matchUnsigned);
     addRegexToken('yy', matchUnsigned);
@@ -15241,16 +15203,22 @@ var moment = createCommonjsModule(function (module, exports) {
             mixedPieces = [],
             i,
             l,
+            erasName,
+            erasAbbr,
+            erasNarrow,
             eras = this.eras();
 
         for (i = 0, l = eras.length; i < l; ++i) {
-            namePieces.push(regexEscape(eras[i].name));
-            abbrPieces.push(regexEscape(eras[i].abbr));
-            narrowPieces.push(regexEscape(eras[i].narrow));
+            erasName = regexEscape(eras[i].name);
+            erasAbbr = regexEscape(eras[i].abbr);
+            erasNarrow = regexEscape(eras[i].narrow);
 
-            mixedPieces.push(regexEscape(eras[i].name));
-            mixedPieces.push(regexEscape(eras[i].abbr));
-            mixedPieces.push(regexEscape(eras[i].narrow));
+            namePieces.push(erasName);
+            abbrPieces.push(erasAbbr);
+            narrowPieces.push(erasNarrow);
+            mixedPieces.push(erasName);
+            mixedPieces.push(erasAbbr);
+            mixedPieces.push(erasNarrow);
         }
 
         this._erasRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
@@ -15283,14 +15251,6 @@ var moment = createCommonjsModule(function (module, exports) {
 
     // ALIASES
 
-    addUnitAlias('weekYear', 'gg');
-    addUnitAlias('isoWeekYear', 'GG');
-
-    // PRIORITY
-
-    addUnitPriority('weekYear', 1);
-    addUnitPriority('isoWeekYear', 1);
-
     // PARSING
 
     addRegexToken('G', matchSigned);
@@ -15302,14 +15262,12 @@ var moment = createCommonjsModule(function (module, exports) {
     addRegexToken('GGGGG', match1to6, match6);
     addRegexToken('ggggg', match1to6, match6);
 
-    addWeekParseToken(['gggg', 'ggggg', 'GGGG', 'GGGGG'], function (
-        input,
-        week,
-        config,
-        token
-    ) {
-        week[token.substr(0, 2)] = toInt(input);
-    });
+    addWeekParseToken(
+        ['gggg', 'ggggg', 'GGGG', 'GGGGG'],
+        function (input, week, config, token) {
+            week[token.substr(0, 2)] = toInt(input);
+        }
+    );
 
     addWeekParseToken(['gg', 'GG'], function (input, week, config, token) {
         week[token] = hooks.parseTwoDigitYear(input);
@@ -15322,7 +15280,7 @@ var moment = createCommonjsModule(function (module, exports) {
             this,
             input,
             this.week(),
-            this.weekday(),
+            this.weekday() + this.localeData()._week.dow,
             this.localeData()._week.dow,
             this.localeData()._week.doy
         );
@@ -15384,14 +15342,6 @@ var moment = createCommonjsModule(function (module, exports) {
 
     addFormatToken('Q', 0, 'Qo', 'quarter');
 
-    // ALIASES
-
-    addUnitAlias('quarter', 'Q');
-
-    // PRIORITY
-
-    addUnitPriority('quarter', 7);
-
     // PARSING
 
     addRegexToken('Q', match1);
@@ -15411,16 +15361,9 @@ var moment = createCommonjsModule(function (module, exports) {
 
     addFormatToken('D', ['DD', 2], 'Do', 'date');
 
-    // ALIASES
-
-    addUnitAlias('date', 'D');
-
-    // PRIORITY
-    addUnitPriority('date', 9);
-
     // PARSING
 
-    addRegexToken('D', match1to2);
+    addRegexToken('D', match1to2, match1to2NoLeadingZero);
     addRegexToken('DD', match1to2, match2);
     addRegexToken('Do', function (isStrict, locale) {
         // TODO: Remove "ordinalParse" fallback in next major release.
@@ -15441,13 +15384,6 @@ var moment = createCommonjsModule(function (module, exports) {
     // FORMATTING
 
     addFormatToken('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear');
-
-    // ALIASES
-
-    addUnitAlias('dayOfYear', 'DDD');
-
-    // PRIORITY
-    addUnitPriority('dayOfYear', 4);
 
     // PARSING
 
@@ -15473,17 +15409,9 @@ var moment = createCommonjsModule(function (module, exports) {
 
     addFormatToken('m', ['mm', 2], 0, 'minute');
 
-    // ALIASES
-
-    addUnitAlias('minute', 'm');
-
-    // PRIORITY
-
-    addUnitPriority('minute', 14);
-
     // PARSING
 
-    addRegexToken('m', match1to2);
+    addRegexToken('m', match1to2, match1to2HasZero);
     addRegexToken('mm', match1to2, match2);
     addParseToken(['m', 'mm'], MINUTE);
 
@@ -15495,17 +15423,9 @@ var moment = createCommonjsModule(function (module, exports) {
 
     addFormatToken('s', ['ss', 2], 0, 'second');
 
-    // ALIASES
-
-    addUnitAlias('second', 's');
-
-    // PRIORITY
-
-    addUnitPriority('second', 15);
-
     // PARSING
 
-    addRegexToken('s', match1to2);
+    addRegexToken('s', match1to2, match1to2HasZero);
     addRegexToken('ss', match1to2, match2);
     addParseToken(['s', 'ss'], SECOND);
 
@@ -15542,14 +15462,6 @@ var moment = createCommonjsModule(function (module, exports) {
     addFormatToken(0, ['SSSSSSSSS', 9], 0, function () {
         return this.millisecond() * 1000000;
     });
-
-    // ALIASES
-
-    addUnitAlias('millisecond', 'ms');
-
-    // PRIORITY
-
-    addUnitPriority('millisecond', 16);
 
     // PARSING
 
@@ -15858,12 +15770,12 @@ var moment = createCommonjsModule(function (module, exports) {
                     toInt((number % 100) / 10) === 1
                         ? 'th'
                         : b === 1
-                        ? 'st'
-                        : b === 2
-                        ? 'nd'
-                        : b === 3
-                        ? 'rd'
-                        : 'th';
+                          ? 'st'
+                          : b === 2
+                            ? 'nd'
+                            : b === 3
+                              ? 'rd'
+                              : 'th';
             return number + output;
         },
     });
@@ -16036,19 +15948,6 @@ var moment = createCommonjsModule(function (module, exports) {
         }
     }
 
-    // TODO: Use this.as('ms')?
-    function valueOf$1() {
-        if (!this.isValid()) {
-            return NaN;
-        }
-        return (
-            this._milliseconds +
-            this._days * 864e5 +
-            (this._months % 12) * 2592e6 +
-            toInt(this._months / 12) * 31536e6
-        );
-    }
-
     function makeAs(alias) {
         return function () {
             return this.as(alias);
@@ -16063,7 +15962,8 @@ var moment = createCommonjsModule(function (module, exports) {
         asWeeks = makeAs('w'),
         asMonths = makeAs('M'),
         asQuarters = makeAs('Q'),
-        asYears = makeAs('y');
+        asYears = makeAs('y'),
+        valueOf$1 = asMilliseconds;
 
     function clone$1() {
         return createDuration(this);
@@ -16332,7 +16232,7 @@ var moment = createCommonjsModule(function (module, exports) {
 
     //! moment.js
 
-    hooks.version = '2.29.1';
+    hooks.version = '2.30.1';
 
     setHookCallback(createLocal);
 
@@ -16386,43 +16286,39 @@ function replaceHyphen$1(date) {
   if (!date) {
     return date;
   }
-
   return date.replace(/-/g, '/');
 }
-
 function OpenRangeDatetime() {
   var _useHawksearch = useHawksearch(),
-      hawkActor = _useHawksearch.actor;
-
+    hawkActor = _useHawksearch.actor;
   var _useHawksearch2 = useHawksearch(),
-      facetSelections = _useHawksearch2.store.facetSelections;
-
+    facetSelections = _useHawksearch2.store.facetSelections;
   var _useFacet = useFacet(),
-      facetValues = _useFacet.state.facetValues,
-      facet = _useFacet.facet,
-      actor = _useFacet.actor;
-
+    facetValues = _useFacet.state.facetValues,
+    facet = _useFacet.facet,
+    actor = _useFacet.actor;
   var daterange = facetValues.length > 0 ? facetValues[0] : null;
   var rangeStartDate = daterange && daterange.RangeStart ? moment(daterange.RangeStart).format('YYYY-MM-DDTHH:mm') : '';
-  var rangeEndDate = daterange && daterange.RangeEnd ? moment(daterange.RangeEnd).format('YYYY-MM-DDTHH:mm') : ''; // if there's no range, initialize to empty strings
+  var rangeEndDate = daterange && daterange.RangeEnd ? moment(daterange.RangeEnd).format('YYYY-MM-DDTHH:mm') : '';
 
+  // if there's no range, initialize to empty strings
   var _useState = useState(rangeStartDate || ''),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      minDateValue = _useState2[0],
-      setdateStartValue = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    minDateValue = _useState2[0],
+    setdateStartValue = _useState2[1];
   var _useState3 = useState(rangeEndDate || ''),
-      _useState4 = _slicedToArray$1(_useState3, 2),
-      maxDateValue = _useState4[0],
-      setdateEndValue = _useState4[1]; // the open range boundary values are defined by the first facet value. or null if there is no first value
-
+    _useState4 = _slicedToArray$1(_useState3, 2),
+    maxDateValue = _useState4[0],
+    setdateEndValue = _useState4[1];
+  // the open range boundary values are defined by the first facet value. or null if there is no first value
 
   var range = facetValues.length > 0 ? facetValues[0] : null;
   var rangeStart = range && range.RangeStart || '';
   var rangeEnd = range && range.RangeEnd || '';
   useEffect(function () {
-    var paramName = facet.ParamName || facet.Field; // Set min and max value if these were cleared
+    var paramName = facet.ParamName || facet.Field;
 
+    // Set min and max value if these were cleared
     if (!paramName || !(paramName in facetSelections)) {
       setdateStartValue(rangeStartDate);
       setdateEndValue(rangeEndDate);
@@ -16432,23 +16328,21 @@ function OpenRangeDatetime() {
       setdateEndValue(selectedValues[1].replace(/\//g, '-'));
     }
   }, [facetSelections]);
-
   if (rangeStart === null || rangeEnd === null) {
     // this facet is somehow misconfigured so don't render
     return null;
   }
-
   function ondateRangeStartChange(event) {
     setdateFacetValues(event.currentTarget.value, maxDateValue);
   }
-
   function ondateRangeEndChange(event) {
     setdateFacetValues(minDateValue, event.currentTarget.value);
   }
-
   function setdateFacetValues(startVal, endVal) {
     setdateStartValue(startVal);
-    setdateEndValue(endVal); // this selection is sent to hawk separated by commas, so build the value here
+    setdateEndValue(endVal);
+
+    // this selection is sent to hawk separated by commas, so build the value here
 
     if (startVal === '' && endVal === '') {
       hawkActor.clearFacet(facet);
@@ -16457,7 +16351,6 @@ function OpenRangeDatetime() {
       actor.setFacets([selection]);
     }
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail__facet-values"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -16483,39 +16376,37 @@ function OpenRangeDatetime() {
 
 function OpenRangeNumber() {
   var _useHawksearch = useHawksearch(),
-      hawkActor = _useHawksearch.actor;
-
+    hawkActor = _useHawksearch.actor;
   var _useFacet = useFacet(),
-      facetValues = _useFacet.state.facetValues,
-      facet = _useFacet.facet,
-      actor = _useFacet.actor; // the open range boundary values are defined by the first facet value. or null if there is no first value
+    facetValues = _useFacet.state.facetValues,
+    facet = _useFacet.facet,
+    actor = _useFacet.actor;
 
-
+  // the open range boundary values are defined by the first facet value. or null if there is no first value
   var range = facetValues.length > 0 ? facetValues[0] : null;
   var rangeStart = range && range.RangeStart || '';
-  var rangeEnd = range && range.RangeEnd || ''; // if there's no range, initialize to empty strings
+  var rangeEnd = range && range.RangeEnd || '';
 
+  // if there's no range, initialize to empty strings
   var _useState = useState(rangeStart || ''),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      minValue = _useState2[0],
-      setStartValue = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    minValue = _useState2[0],
+    setStartValue = _useState2[1];
   var _useState3 = useState(rangeEnd || ''),
-      _useState4 = _slicedToArray$1(_useState3, 2),
-      maxValue = _useState4[0],
-      setEndValue = _useState4[1];
-
+    _useState4 = _slicedToArray$1(_useState3, 2),
+    maxValue = _useState4[0],
+    setEndValue = _useState4[1];
   function onRangeStartChange(event) {
     setFacetValues(event.currentTarget.value, maxValue);
   }
-
   function onRangeEndChange(event) {
     setFacetValues(minValue, event.currentTarget.value);
   }
-
   function setFacetValues(startVal, endVal) {
     setStartValue(startVal);
-    setEndValue(endVal); // this selection is sent to hawk separated by commas, so build the value here
+    setEndValue(endVal);
+
+    // this selection is sent to hawk separated by commas, so build the value here
 
     if (startVal === '' && endVal === '') {
       hawkActor.clearFacet(facet);
@@ -16524,12 +16415,10 @@ function OpenRangeNumber() {
       actor.setFacets([selection]);
     }
   }
-
   if (rangeStart === null || rangeEnd === null) {
     // this facet is somehow misconfigured so don't render
     return null;
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail__facet-values"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -16552,43 +16441,35 @@ function OpenRangeNumber() {
 
 function OpenRange() {
   var _useFacet = useFacet(),
-      facet = _useFacet.facet;
-
+    facet = _useFacet.facet;
   if (facet.DataType && facet.DataType === 'datetime') {
     return /*#__PURE__*/React__default.createElement(OpenRangeDatetime, null);
   }
-
   return /*#__PURE__*/React__default.createElement(OpenRangeNumber, null);
 }
 
 function NestedLinkItem(item) {
   var _useHawksearch = useHawksearch(),
-      store = _useHawksearch.store;
-
+    store = _useHawksearch.store;
   var _useFacet = useFacet(),
-      facet = _useFacet.facet;
-
+    facet = _useFacet.facet;
   var _useState = useState(false),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      isExpanded = _useState2[0],
-      setIsExpanded = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    isExpanded = _useState2[0],
+    setIsExpanded = _useState2[1];
   var _useState3 = useState(facet.shouldTruncate),
-      _useState4 = _slicedToArray$1(_useState3, 2),
-      isTruncated = _useState4[0],
-      setIsTruncated = _useState4[1];
-
+    _useState4 = _slicedToArray$1(_useState3, 2),
+    isTruncated = _useState4[0],
+    setIsTruncated = _useState4[1];
   var hierarchyValue = item.hierarchyValue || '';
   var hierarchyChildren = item.hierarchyValue.Children || [];
   var remainingValues = 0;
   var shouldTruncateChildren = facet.DisplayType === 'truncating' && hierarchyChildren.length > facet.TruncateThreshold;
-
   if (shouldTruncateChildren && isTruncated) {
     var valuesBeforeTrunc = hierarchyChildren.length;
     hierarchyChildren = hierarchyChildren.slice(0, facet.TruncateThreshold);
     remainingValues = valuesBeforeTrunc - facet.TruncateThreshold;
   }
-
   function renderChildTruncation() {
     return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, shouldTruncateChildren && /*#__PURE__*/React__default.createElement("li", {
       className: "hawk-facet-rail__facet-list-item hawk-show-more"
@@ -16599,7 +16480,6 @@ function NestedLinkItem(item) {
       className: "hawk-facet-rail__show-more-btn"
     }, isTruncated ? "(+) Show ".concat(remainingValues, " More") : '(-) Show Less')));
   }
-
   return /*#__PURE__*/React__default.createElement("li", {
     className: "hawk-facet-rail__facet-list-item hawkFacet-group"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -16641,18 +16521,15 @@ function NestedLinkItem(item) {
 
 function NestedLink() {
   var _useHawksearch = useHawksearch(),
-      store = _useHawksearch.store;
-
+    store = _useHawksearch.store;
   var _useFacet = useFacet(),
-      facet = _useFacet.facet,
-      facetValues = _useFacet.state.facetValues,
-      actor = _useFacet.actor,
-      renderer = _useFacet.renderer;
-
+    facet = _useFacet.facet,
+    facetValues = _useFacet.state.facetValues,
+    actor = _useFacet.actor,
+    renderer = _useFacet.renderer;
   function onValueSelected(facetValue, isNegated) {
     isNegated ? actor.negateFacet(facetValue) : actor.selectFacet(facetValue);
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail__facet-values"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -16674,9 +16551,7 @@ function NestedLink() {
   }))), renderer.renderTruncation());
 }
 
-var FacetType;
-
-(function (FacetType) {
+var FacetType = /*#__PURE__*/function (FacetType) {
   FacetType["Checkbox"] = "checkbox";
   FacetType["NestedCheckbox"] = "nestedcheckbox";
   FacetType["Link"] = "link";
@@ -16689,8 +16564,10 @@ var FacetType;
   FacetType["RecentSearches"] = "recentsearches";
   FacetType["RelatedSearches"] = "relatedsearches";
   FacetType["OpenRange"] = "openRange";
-})(FacetType || (FacetType = {}));
+  return FacetType;
+}({});
 
+// the default set of facet components that we support
 var defaultFacetComponents = [{
   facetType: FacetType.Checkbox,
   component: Checkbox
@@ -16729,106 +16606,101 @@ var defaultAutocompleteStrategies = [{
   SuggestionType: SuggestionType.Content,
   SuggestionStrategy: new ContentStrategy()
 }];
+
 /**
  * Builds a list of all supported facet components by also taking into consideration overridden components.
  */
-
 function getFacetComponents(overridedComponents) {
-  var facetComponents = []; // tslint:disable-next-line:forin
+  var facetComponents = [];
 
-  var _loop = function _loop(key) {
+  // tslint:disable-next-line:forin
+  var _loop = function _loop() {
     var fType = FacetType[key];
-    var fComponent = // check to see if the facet is overridden
+    var fComponent =
+    // check to see if the facet is overridden
     overridedComponents.find(function (component) {
       return component.facetType === fType;
-    }) || // otherwise, pull from defaults
+    }) ||
+    // otherwise, pull from defaults
     defaultFacetComponents.find(function (component) {
       return component.facetType === fType;
     });
-
     if (fComponent) {
       facetComponents.push(fComponent);
     }
   };
-
   for (var key in FacetType) {
-    _loop(key);
+    _loop();
   }
-
   return facetComponents;
 }
+
 /**
  * Builds a list of all supported autocomplete suggestion strategiesby also taking into consideration overridden strategies.
  */
-
 function getAutocompleteStrategies(overridedStrategies) {
-  var suggestionStrategies = []; // tslint:disable-next-line:forin
+  var suggestionStrategies = [];
 
-  var _loop2 = function _loop2(key) {
+  // tslint:disable-next-line:forin
+  var _loop2 = function _loop2() {
     var sType = SuggestionType[key];
-    var autocompleteStrategy = // check to see if the facet is overridden
+    var autocompleteStrategy =
+    // check to see if the facet is overridden
     overridedStrategies.find(function (strategyMatch) {
       return strategyMatch.SuggestionType === sType;
-    }) || // otherwise, pull from defaults
+    }) ||
+    // otherwise, pull from defaults
     defaultAutocompleteStrategies.find(function (strategyMatch) {
       return strategyMatch.SuggestionType === sType;
     });
-
     if (autocompleteStrategy) {
       suggestionStrategies.push(autocompleteStrategy);
     }
   };
-
   for (var key in SuggestionType) {
-    _loop2(key);
+    _loop2();
   }
-
   return suggestionStrategies;
 }
 
-function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
+function ownKeys$4(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread$5(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$4(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$4(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function SearchBoxBase(_ref) {
   var initialValue = _ref.initialValue,
-      onSubmit = _ref.onSubmit,
-      onViewMatches = _ref.onViewMatches,
-      SuggestionList = _ref.SuggestionList;
-
+    onSubmit = _ref.onSubmit,
+    onViewMatches = _ref.onViewMatches,
+    SuggestionList = _ref.SuggestionList;
   var _useHawkConfig = useHawkConfig(),
-      config = _useHawkConfig.config;
-
+    config = _useHawkConfig.config;
   var strategies = getAutocompleteStrategies(config.autocompleteStrategies || []);
-
   var _useTranslation = useTranslation(),
-      t = _useTranslation.t,
-      i18n = _useTranslation.i18n;
-
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
   var _useHawksearch = useHawksearch(),
-      _useHawksearch$store = _useHawksearch.store,
-      pendingSearch = _useHawksearch$store.pendingSearch,
-      searchResults = _useHawksearch$store.searchResults;
-
+    _useHawksearch$store = _useHawksearch.store,
+    pendingSearch = _useHawksearch$store.pendingSearch,
+    searchResults = _useHawksearch$store.searchResults;
   var _useState = useState(''),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      initialInput = _useState2[0],
-      setInitialInput = _useState2[1]; // Will update the suggested selected keyword in the autocomplete input box
+    _useState2 = _slicedToArray$1(_useState, 2),
+    initialInput = _useState2[0],
+    setInitialInput = _useState2[1];
 
-
+  // Will update the suggested selected keyword in the autocomplete input box
   useEffect(function () {
     setInitialInput(decodeURIComponent(pendingSearch.Keyword || ''));
-  }, [pendingSearch.Keyword, initialValue, pendingSearch.IgnoreSpellcheck]); // Will update the Adjusted keyword in the autocomplete input box
+  }, [pendingSearch.Keyword, initialValue, pendingSearch.IgnoreSpellcheck]);
 
+  // Will update the Adjusted keyword in the autocomplete input box
   useEffect(function () {
     if (searchResults && searchResults.AdjustedKeyword) {
       setInitialInput(decodeURIComponent(searchResults.AdjustedKeyword));
     }
   }, [searchResults]);
-  /** Called when the internal state of downshift changes - we're handling a couple custom behaviors here */
 
+  /** Called when the internal state of downshift changes - we're handling a couple custom behaviors here */
   function handleStateChange(state, changes) {
-    if ( // NOTE: these strings are hardcoded to support code splitting downshift.
+    if (
+    // NOTE: these strings are hardcoded to support code splitting downshift.
     // using the constants from the package will prevent code splitting from operating correctly
     changes.type === '__autocomplete_mouseup__' || changes.type === '__autocomplete_keydown_enter__' || changes.type === '__autocomplete_click_item__') {
       // when:
@@ -16843,44 +16715,34 @@ function SearchBoxBase(_ref) {
         inputValue: state.inputValue
       });
     }
-
     return changes;
   }
+
   /** Called when an item has been selected from the autocomplete results. */
-
-
   function handleItemChange(item, downshift) {
     if (!item) {
       return;
     }
-
     var matchedStrategy = strategies.find(function (strategy) {
       return strategy.SuggestionType === item.SuggestionType;
     });
-
     if (!matchedStrategy) {
       return;
     }
-
     matchedStrategy.SuggestionStrategy.handleItemChange(item, downshift);
   }
-
   function handleToString(item) {
     if (!item) {
       return '';
     }
-
     var matchedStrategy = strategies.find(function (strategy) {
       return strategy.SuggestionType === item.SuggestionType;
     });
-
     if (!matchedStrategy) {
       return '';
     }
-
     return matchedStrategy.SuggestionStrategy.toString(item);
   }
-
   return /*#__PURE__*/React__default.createElement(React__default.Suspense, {
     fallback: /*#__PURE__*/React__default.createElement("div", null, t('Loading'), "...")
   }, /*#__PURE__*/React__default.createElement(Downshift, {
@@ -16892,10 +16754,10 @@ function SearchBoxBase(_ref) {
     initialInputValue: decodeURIComponent(initialValue || '')
   }, function (options) {
     var isOpen = options.isOpen,
-        inputValue = options.inputValue,
-        getInputProps = options.getInputProps,
-        openMenu = options.openMenu,
-        closeMenu = options.closeMenu;
+      inputValue = options.inputValue,
+      getInputProps = options.getInputProps,
+      openMenu = options.openMenu,
+      closeMenu = options.closeMenu;
     var showSuggestions = isOpen && inputValue && inputValue.length > 0;
     return /*#__PURE__*/React__default.createElement("div", {
       className: "hawk__searchBox__searchInput",
@@ -16937,34 +16799,27 @@ function SearchBoxBase(_ref) {
  * This search box is intended to be used on non-search pages. On search pages, the `SearchBox` component should be
  * used instead.
  */
-
 function GlobalSearchBox() {
   var _useHawkConfig = useHawkConfig(),
-      config = _useHawkConfig.config;
-
+    config = _useHawkConfig.config;
   var _useHawksearch = useHawksearch(),
-      actor = _useHawksearch.actor;
-
+    actor = _useHawksearch.actor;
   var searchUrl = config.searchPageUrl;
-
   function handleSubmit(event, downshift) {
     var inputValue = downshift.inputValue;
-
     if (event.key === 'Enter') {
       var redirect = "".concat(searchUrl, "?keyword=").concat(inputValue);
-
       if (config.indexName) {
         redirect += '&indexName=' + config.indexName;
       }
-
       location.assign(redirect);
     }
-  } // On select view all matches from suggestions list
+  }
 
-
+  // On select view all matches from suggestions list
   function handleViewAllMatches(downshift) {
     var inputValue = downshift.inputValue,
-        closeMenu = downshift.closeMenu;
+      closeMenu = downshift.closeMenu;
     actor.setSearch({
       PageId: undefined,
       CustomUrl: undefined,
@@ -16972,7 +16827,6 @@ function GlobalSearchBox() {
     });
     closeMenu();
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk hawk__searchBox"
   }, /*#__PURE__*/React__default.createElement(SearchBoxBase, {
@@ -16981,13 +16835,16 @@ function GlobalSearchBox() {
   }));
 }
 
+/**
+ * This component is the search input box (with autosuggest) that should be utilized on search pages. For a simple
+ * search input box that is meant to be used on non-search pages (or globally), see `GlobalSearchBox`.
+ */
+
 function SearchBox(_ref) {
   var SuggestionList = _ref.SuggestionList;
-
   var _useHawksearch = useHawksearch(),
-      store = _useHawksearch.store,
-      actor = _useHawksearch.actor;
-
+    store = _useHawksearch.store,
+    actor = _useHawksearch.actor;
   function handleSubmit(event, downshift) {
     if (event.key === 'Enter') {
       actor.setSearch({
@@ -16998,12 +16855,12 @@ function SearchBox(_ref) {
         IgnoreSpellcheck: false
       });
     }
-  } // On Select view all matches from suggestion list
+  }
 
-
+  // On Select view all matches from suggestion list
   function handleViewAllMatches(downshift) {
     var inputValue = downshift.inputValue,
-        closeMenu = downshift.closeMenu;
+      closeMenu = downshift.closeMenu;
     actor.setSearch({
       PageId: undefined,
       CustomUrl: undefined,
@@ -17011,7 +16868,6 @@ function SearchBox(_ref) {
     });
     closeMenu();
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk__searchBox"
   }, /*#__PURE__*/React__default.createElement(SearchBoxBase, {
@@ -17024,10 +16880,9 @@ function SearchBox(_ref) {
 
 function CompareTiles(_ref) {
   var imageURL = _ref.imageURL,
-      itemName = _ref.itemName,
-      onSelectTiles = _ref.onSelectTiles,
-      item = _ref.item;
-
+    itemName = _ref.itemName,
+    onSelectTiles = _ref.onSelectTiles,
+    item = _ref.item;
   if (item && onSelectTiles) {
     return /*#__PURE__*/React__default.createElement("div", {
       onClick: function onClick() {
@@ -17039,7 +16894,6 @@ function CompareTiles(_ref) {
       alt: itemName
     }));
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk__compare-tiles"
   }, imageURL && /*#__PURE__*/React__default.createElement("img", {
@@ -17047,12 +16901,11 @@ function CompareTiles(_ref) {
     alt: itemName
   }));
 }
-
 function CompareItems(_ref2) {
   var itemsList = _ref2.itemsList,
-      onSelectCompareItems = _ref2.onSelectCompareItems,
-      clearItems = _ref2.clearItems,
-      onSelectTiles = _ref2.onSelectTiles;
+    onSelectCompareItems = _ref2.onSelectCompareItems,
+    clearItems = _ref2.clearItems,
+    onSelectTiles = _ref2.onSelectTiles;
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk__compare-container"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -17069,7 +16922,6 @@ function CompareItems(_ref2) {
         key: index
       });
     }
-
     return /*#__PURE__*/React__default.createElement(CompareTiles, {
       onSelectTiles: onSelectTiles,
       imageURL: '',
@@ -17092,9 +16944,8 @@ function CompareItems(_ref2) {
 
 function PlaceholderFacetValue() {
   var _useState = useState(Math.round(Math.random() * (200 - 100) + 100)),
-      _useState2 = _slicedToArray$1(_useState, 1),
-      width = _useState2[0];
-
+    _useState2 = _slicedToArray$1(_useState, 1),
+    width = _useState2[0];
   return /*#__PURE__*/React__default.createElement("li", {
     className: "hawk-facet-rail__facet-list-item"
   }, /*#__PURE__*/React__default.createElement("span", {
@@ -17113,13 +16964,11 @@ function PlaceholderFacetValue() {
 
 function PlaceholderFacet() {
   var _useState = useState(Math.round(Math.random() * (250 - 125) + 125)),
-      _useState2 = _slicedToArray$1(_useState, 1),
-      width = _useState2[0];
-
+    _useState2 = _slicedToArray$1(_useState, 1),
+    width = _useState2[0];
   var _useState3 = useState(Math.round(Math.random() * (8 - 1) + 1)),
-      _useState4 = _slicedToArray$1(_useState3, 1),
-      numValues = _useState4[0];
-
+    _useState4 = _slicedToArray$1(_useState3, 1),
+    numValues = _useState4[0];
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail__facet"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -17146,29 +16995,26 @@ function PlaceholderFacet() {
 
 function FacetList() {
   var _useHawksearch = useHawksearch(),
-      searchResults = _useHawksearch.store.searchResults;
-
+    searchResults = _useHawksearch.store.searchResults;
   var _useHawkConfig = useHawkConfig(),
-      config = _useHawkConfig.config; // the number of random placeholders to render while we wait for results
+    config = _useHawkConfig.config;
 
-
+  // the number of random placeholders to render while we wait for results
   var _useState = useState(Math.round(Math.random() * (5 - 3) + 3)),
-      _useState2 = _slicedToArray$1(_useState, 1),
-      numPlaceholders = _useState2[0];
-
+    _useState2 = _slicedToArray$1(_useState, 1),
+    numPlaceholders = _useState2[0];
   var components = getFacetComponents(config.facetOverrides || []);
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail__facet-list"
-  }, searchResults ? // if there are search results, render the facets
+  }, searchResults ?
+  // if there are search results, render the facets
   searchResults.Facets.map(function (facet) {
     if (!facet.IsVisible) {
       return null;
     }
-
     if (facet.FieldType === 'tab') {
       return null;
     }
-
     var registeredComponent = components.find(function (component) {
       return component.facetType === facet.FacetType;
     });
@@ -17177,7 +17023,8 @@ function FacetList() {
       key: facet.FacetId,
       facet: facet
     }, Component ? /*#__PURE__*/React__default.createElement(Component, null) : /*#__PURE__*/React__default.createElement("div", null, facet.FieldType, " ", facet.FacetType, " is not implemented!"));
-  }) : // otherwise render a couple placeholders
+  }) :
+  // otherwise render a couple placeholders
   _toConsumableArray(Array(numPlaceholders)).map(function (_, i) {
     return /*#__PURE__*/React__default.createElement(PlaceholderFacet, {
       key: i
@@ -17187,9 +17034,8 @@ function FacetList() {
 
 function FacetRail() {
   var _useTranslation = useTranslation(),
-      t = _useTranslation.t,
-      i18n = _useTranslation.i18n;
-
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -17222,25 +17068,22 @@ function XCircleSVG(props) {
 
 function Selections$1() {
   var _useHawksearch = useHawksearch(),
-      _useHawksearch$store = _useHawksearch.store,
-      facetSelections = _useHawksearch$store.facetSelections,
-      pendingSearch = _useHawksearch$store.pendingSearch,
-      actor = _useHawksearch.actor;
-
+    _useHawksearch$store = _useHawksearch.store,
+    facetSelections = _useHawksearch$store.facetSelections,
+    pendingSearch = _useHawksearch$store.pendingSearch,
+    actor = _useHawksearch.actor;
   var _useTranslation = useTranslation(),
-      t = _useTranslation.t,
-      i18n = _useTranslation.i18n; // Added filter to hide selection for Tabs
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
 
-
+  // Added filter to hide selection for Tabs
   var keys = Object.keys(facetSelections).filter(function (key) {
     return key !== 'it';
   });
-
   if (keys.length === 0) {
     // no selections, so render nothing
     return null;
   }
-
   function clearSelection(facet, value) {
     if (value) {
       actor.clearFacetValue(facet, value.value);
@@ -17248,14 +17091,11 @@ function Selections$1() {
       actor.clearFacet(facet);
     }
   }
-
   function clearAll() {
     actor.clearAllFacets();
   }
-
   function renderRange(value, facet) {
     var displayValue = value.value;
-
     if (!displayValue || displayValue.indexOf(',') === -1) {
       // range facet selection values should include a comma, so if they don't then this likely isn't a valid
       // range value that we want to render
@@ -17264,24 +17104,20 @@ function Selections$1() {
       });
       return selectedRange ? selectedRange.Label : displayValue;
     }
-
     var splittedValues = displayValue.split(',');
-
     if (facet.IsCurrency && splittedValues.length > 1) {
       return "".concat(facet.CurrencySymbol, " ").concat(splittedValues[0], " - ").concat(facet.CurrencySymbol, " ").concat(splittedValues[1]);
-    } // return a prettier display value for ranges
+    }
 
-
+    // return a prettier display value for ranges
     return displayValue.replace(',', ' - ');
   }
-
   function renderLabel(selection, item) {
     if (selection.facet.FacetType === 'openRange' && selection.facet.DataType === 'datetime') {
       var _split = (item.label || ',').split(','),
-          _split2 = _slicedToArray$1(_split, 2),
-          startDate = _split2[0],
-          endDate = _split2[1];
-
+        _split2 = _slicedToArray$1(_split, 2),
+        startDate = _split2[0],
+        endDate = _split2[1];
       startDate = moment(startDate.replace(/\//g, '-')).format('LLLL');
       endDate = moment(endDate.replace(/\//g, '-')).format('LLLL');
       return "".concat(startDate, " - ").concat(endDate);
@@ -17290,10 +17126,8 @@ function Selections$1() {
     } else if (selection.facet.FacetType === 'search') {
       return decodeURIComponent(item.label);
     }
-
     return item.label;
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail__selections"
   }, /*#__PURE__*/React__default.createElement("h4", null, t("You've Selected")), /*#__PURE__*/React__default.createElement("ul", {
@@ -17342,19 +17176,16 @@ function Selections$1() {
 
 function SearchResultsLabel() {
   var _useHawksearch = useHawksearch(),
-      _useHawksearch$store = _useHawksearch.store,
-      pendingSearch = _useHawksearch$store.pendingSearch,
-      searchResults = _useHawksearch$store.searchResults;
-
+    _useHawksearch$store = _useHawksearch.store,
+    pendingSearch = _useHawksearch$store.pendingSearch,
+    searchResults = _useHawksearch$store.searchResults;
   var _useState = useState(''),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      keyword = _useState2[0],
-      setKeyword = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    keyword = _useState2[0],
+    setKeyword = _useState2[1];
   var _useTranslation = useTranslation(),
-      t = _useTranslation.t,
-      i18n = _useTranslation.i18n;
-
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
   useEffect(function () {
     if (searchResults && searchResults.AdjustedKeyword) {
       setKeyword(decodeURIComponent(searchResults.AdjustedKeyword));
@@ -17362,12 +17193,10 @@ function SearchResultsLabel() {
       setKeyword(decodeURIComponent(pendingSearch.Keyword || ''));
     }
   }, [searchResults]);
-
   if (!pendingSearch.Keyword) {
     // no selections, so render nothing
     return null;
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-facet-rail__results-label"
   }, /*#__PURE__*/React__default.createElement("h3", null, pendingSearch.Keyword ? t('Search Results for') + ' ' + keyword : t('Search Results')));
@@ -17375,21 +17204,18 @@ function SearchResultsLabel() {
 
 function Sorting$1() {
   var _useHawksearch = useHawksearch(),
-      _useHawksearch$store = _useHawksearch.store,
-      searchResults = _useHawksearch$store.searchResults,
-      pendingSearch = _useHawksearch$store.pendingSearch,
-      actor = _useHawksearch.actor;
-
+    _useHawksearch$store = _useHawksearch.store,
+    searchResults = _useHawksearch$store.searchResults,
+    pendingSearch = _useHawksearch$store.pendingSearch,
+    actor = _useHawksearch.actor;
   var _useTranslation = useTranslation(),
-      t = _useTranslation.t,
-      i18n = _useTranslation.i18n;
-
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
   function onChange(event) {
     actor.setSearch({
       SortBy: event.currentTarget.value
     });
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-sorting"
   }, /*#__PURE__*/React__default.createElement("span", {
@@ -17441,120 +17267,103 @@ function RightChevronSVG(props) {
 
 function Pager(_ref) {
   var page = _ref.page,
-      totalPages = _ref.totalPages,
-      onPageChange = _ref.onPageChange;
-
+    totalPages = _ref.totalPages,
+    onPageChange = _ref.onPageChange;
   var _useState = useState(undefined),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      inputValue = _useState2[0],
-      setInputValue = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    inputValue = _useState2[0],
+    setInputValue = _useState2[1];
   var _useState3 = useState(false),
-      _useState4 = _slicedToArray$1(_useState3, 2),
-      hasError = _useState4[0],
-      setHasError = _useState4[1];
-
+    _useState4 = _slicedToArray$1(_useState3, 2),
+    hasError = _useState4[0],
+    setHasError = _useState4[1];
   function goToPreviousPage() {
     goToPage(page - 1);
   }
-
   function goToNextPage() {
     goToPage(page + 1);
   }
-
   function goToPage(pageNo) {
     if (isNaN(pageNo)) {
       // not a valid number
       doInputError();
       return;
     }
-
     if (pageNo < 1) {
       // can't go beyond the first page
       doInputError();
       return;
     }
-
     if (pageNo > totalPages) {
       // can't go beyond the last page
       doInputError();
       return;
-    } // once we've determined that we *do* want to do this page change, clear the user's input
+    }
+
+    // once we've determined that we *do* want to do this page change, clear the user's input
     // because the input should be driven by props again
+    setInputValue(undefined);
 
-
-    setInputValue(undefined); // inform the consumer that we've changed pages
-
+    // inform the consumer that we've changed pages
     onPageChange(pageNo);
   }
+
   /**
    * Returns the input value for the pager input control. If the user has typed in a value into the input then
    * that value will be returned; otherwise, the page value passed in via props will be returned.
    */
-
-
   function getInputValue() {
     if (inputValue !== undefined) {
       // if the user typed an input, that's the page value for the control
       return inputValue || '';
-    } // otherwise, fall back to what's passed in through props
+    }
 
-
+    // otherwise, fall back to what's passed in through props
     return page;
   }
-
   function onKeyDown(event) {
     var wantedPageNo = parseInt(event.currentTarget.value, 10);
-
     if (event.key === 'Enter') {
       goToPage(wantedPageNo);
     }
   }
-
   function onBlur(event) {
     if (Number(event.currentTarget.value) !== page) {
       var wantedPageNo = parseInt(event.currentTarget.value, 10);
       goToPage(wantedPageNo);
     }
   }
-
   function onKeyPress(event) {
     var keyCode = event.keyCode || event.which;
     var keyValue = String.fromCharCode(keyCode);
-
     if (keyValue.match(/[+-.e]+/g)) {
       event.preventDefault();
     }
   }
-
   function onInput(event) {
     var wantedPageNo = parseInt(event.currentTarget.value, 10);
-
     if (wantedPageNo > totalPages) {
       wantedPageNo = totalPages;
       event.currentTarget.value = '';
       event.preventDefault();
     }
-
     if (wantedPageNo < 1) {
       wantedPageNo = 1;
       event.currentTarget.value = '';
       event.preventDefault();
     }
   }
-
   function doInputError() {
-    setHasError(true); // in 500ms, clear the error animation
+    setHasError(true);
 
+    // in 500ms, clear the error animation
     setTimeout(function () {
       setHasError(false);
     }, 500);
   }
-
   function onChange(event) {
     setInputValue(event.currentTarget.value);
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-pagination__controls"
   }, /*#__PURE__*/React__default.createElement("button", {
@@ -17589,19 +17398,16 @@ function Pager(_ref) {
 
 function ItemsPerPage() {
   var _useHawksearch = useHawksearch(),
-      _useHawksearch$store = _useHawksearch.store,
-      searchResults = _useHawksearch$store.searchResults,
-      pendingSearch = _useHawksearch$store.pendingSearch,
-      actor = _useHawksearch.actor;
-
+    _useHawksearch$store = _useHawksearch.store,
+    searchResults = _useHawksearch$store.searchResults,
+    pendingSearch = _useHawksearch$store.pendingSearch,
+    actor = _useHawksearch.actor;
   function onChange(event) {
     actor.setSearch({
       MaxPerPage: Number(event.currentTarget.value),
       PageNo: 1 // if we change our max items per page, reset to page 1
-
     });
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-items-per-page"
   }, /*#__PURE__*/React__default.createElement("select", {
@@ -17617,18 +17423,16 @@ function ItemsPerPage() {
 
 function Pagination$1() {
   var _useHawksearch = useHawksearch(),
-      _useHawksearch$store = _useHawksearch.store,
-      searchResults = _useHawksearch$store.searchResults,
-      pendingSearch = _useHawksearch$store.pendingSearch,
-      actor = _useHawksearch.actor;
-
+    _useHawksearch$store = _useHawksearch.store,
+    searchResults = _useHawksearch$store.searchResults,
+    pendingSearch = _useHawksearch$store.pendingSearch,
+    actor = _useHawksearch.actor;
   function onPageChange(pageNo) {
     // when the pager's page changes, trigger a new search
     actor.setSearch({
       PageNo: pageNo
     });
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-pagination"
   }, /*#__PURE__*/React__default.createElement(Pager, {
@@ -17653,6 +17457,7 @@ function ToolRow() {
  *
  * @returns
  */
+
 function PlaceHolderSVG(props) {
   return /*#__PURE__*/createElement("svg", {
     x: "0px",
@@ -17662,9 +17467,9 @@ function PlaceHolderSVG(props) {
     focusable: "false",
     "aria-hidden": "true"
   }, /*#__PURE__*/createElement("g", null, /*#__PURE__*/createElement("g", null, /*#__PURE__*/createElement("path", {
-    d: "M0,437.8c0,28.5,23.2,51.6,51.6,51.6h386.2c28.5,0,51.6-23.2,51.6-51.6V51.6c0-28.5-23.2-51.6-51.6-51.6H51.6\r C23.1,0,0,23.2,0,51.6C0,51.6,0,437.8,0,437.8z M437.8,464.9H51.6c-14.9,0-27.1-12.2-27.1-27.1v-64.5l92.8-92.8l79.3,79.3\r c4.8,4.8,12.5,4.8,17.3,0l143.2-143.2l107.8,107.8v113.4C464.9,452.7,452.7,464.9,437.8,464.9z M51.6,24.5h386.2\r c14.9,0,27.1,12.2,27.1,27.1v238.1l-99.2-99.1c-4.8-4.8-12.5-4.8-17.3,0L205.2,333.8l-79.3-79.3c-4.8-4.8-12.5-4.8-17.3,0\r l-84.1,84.1v-287C24.5,36.7,36.7,24.5,51.6,24.5z"
+    d: "M0,437.8c0,28.5,23.2,51.6,51.6,51.6h386.2c28.5,0,51.6-23.2,51.6-51.6V51.6c0-28.5-23.2-51.6-51.6-51.6H51.6 C23.1,0,0,23.2,0,51.6C0,51.6,0,437.8,0,437.8z M437.8,464.9H51.6c-14.9,0-27.1-12.2-27.1-27.1v-64.5l92.8-92.8l79.3,79.3 c4.8,4.8,12.5,4.8,17.3,0l143.2-143.2l107.8,107.8v113.4C464.9,452.7,452.7,464.9,437.8,464.9z M51.6,24.5h386.2 c14.9,0,27.1,12.2,27.1,27.1v238.1l-99.2-99.1c-4.8-4.8-12.5-4.8-17.3,0L205.2,333.8l-79.3-79.3c-4.8-4.8-12.5-4.8-17.3,0 l-84.1,84.1v-287C24.5,36.7,36.7,24.5,51.6,24.5z"
   }), /*#__PURE__*/createElement("path", {
-    d: "M151.7,196.1c34.4,0,62.3-28,62.3-62.3s-28-62.3-62.3-62.3s-62.3,28-62.3,62.3S117.3,196.1,151.7,196.1z M151.7,96\r c20.9,0,37.8,17,37.8,37.8s-17,37.8-37.8,37.8s-37.8-17-37.8-37.8S130.8,96,151.7,96z"
+    d: "M151.7,196.1c34.4,0,62.3-28,62.3-62.3s-28-62.3-62.3-62.3s-62.3,28-62.3,62.3S117.3,196.1,151.7,196.1z M151.7,96 c20.9,0,37.8,17,37.8,37.8s-17,37.8-37.8,37.8s-37.8-17-37.8-37.8S130.8,96,151.7,96z"
   }))));
 }
 
@@ -17693,15 +17498,12 @@ function PlaceholderItem() {
 
 function Spinner(_ref) {
   var isVisible = _ref.isVisible;
-
   var _useTranslation = useTranslation(),
-      t = _useTranslation.t,
-      i18n = _useTranslation.i18n;
-
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
   if (!isVisible) {
     return null;
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: 'hawk-modal'
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -17711,29 +17513,23 @@ function Spinner(_ref) {
 
 function ResultImage(_ref) {
   var item = _ref.item,
-      websiteUrl = _ref.websiteUrl,
-      itemTitleFieldName = _ref.itemTitleFieldName,
-      imageUrlFieldName = _ref.imageUrlFieldName,
-      onLoadCallBack = _ref.onLoadCallBack;
-
+    websiteUrl = _ref.websiteUrl,
+    itemTitleFieldName = _ref.itemTitleFieldName,
+    imageUrlFieldName = _ref.imageUrlFieldName,
+    onLoadCallBack = _ref.onLoadCallBack;
   var _useState = useState(false),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      imageLoaded = _useState2[0],
-      setImageLoaded = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    imageLoaded = _useState2[0],
+    setImageLoaded = _useState2[1];
   var imageUrl = imageUrlFieldName ? item.getDocumentValue(imageUrlFieldName) : item.getDocumentValue('image');
-
   if (!imageUrl) {
     return null;
   }
-
   var itemName = itemTitleFieldName ? item.getDocumentValue(itemTitleFieldName) : item.getDocumentValue('itemname');
   var absoluteUrlTester = new RegExp('^https?://|^//', 'i');
-
   if (!absoluteUrlTester.test(imageUrl) && websiteUrl) {
     imageUrl = websiteUrl + imageUrl;
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-results__item-image"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -17747,7 +17543,6 @@ function ResultImage(_ref) {
       if (onLoadCallBack) {
         onLoadCallBack();
       }
-
       setImageLoaded(true);
     },
     src: imageUrl,
@@ -17774,25 +17569,25 @@ function ResultItem(_ref) {
 
 function ResultListing(_ref) {
   var _ref$ResultItem = _ref.ResultItem,
-      ResultItem$1 = _ref$ResultItem === void 0 ? ResultItem : _ref$ResultItem;
-
+    ResultItem$1 = _ref$ResultItem === void 0 ? ResultItem : _ref$ResultItem;
   var _useHawksearch = useHawksearch(),
-      _useHawksearch$store = _useHawksearch.store,
-      isLoading = _useHawksearch$store.isLoading,
-      searchResults = _useHawksearch$store.searchResults;
-
+    _useHawksearch$store = _useHawksearch.store,
+    isLoading = _useHawksearch$store.isLoading,
+    searchResults = _useHawksearch$store.searchResults;
   var results = searchResults ? searchResults.Results : [];
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-results__listing"
   }, /*#__PURE__*/React__default.createElement(Spinner, {
     isVisible: isLoading
-  }), results.length ? // if we have results, display them
+  }), results.length ?
+  // if we have results, display them
   results.map(function (result) {
     return /*#__PURE__*/React__default.createElement(ResultItem$1, {
       key: result.DocId,
       item: result
     });
-  }) : // otherwise display placeholder items as we're loading
+  }) :
+  // otherwise display placeholder items as we're loading
   _toConsumableArray(Array(12)).map(function (_, i) {
     return /*#__PURE__*/React__default.createElement(PlaceholderItem, {
       key: i
@@ -17802,27 +17597,23 @@ function ResultListing(_ref) {
 
 function Results(_ref) {
   var _ref$ResultItem = _ref.ResultItem,
-      ResultItem$1 = _ref$ResultItem === void 0 ? ResultItem : _ref$ResultItem;
-
+    ResultItem$1 = _ref$ResultItem === void 0 ? ResultItem : _ref$ResultItem;
   var _useHawksearch = useHawksearch(),
-      _useHawksearch$store = _useHawksearch.store,
-      isLoading = _useHawksearch$store.isLoading,
-      searchResults = _useHawksearch$store.searchResults,
-      requestError = _useHawksearch$store.requestError;
-
+    _useHawksearch$store = _useHawksearch.store,
+    isLoading = _useHawksearch$store.isLoading,
+    searchResults = _useHawksearch$store.searchResults,
+    requestError = _useHawksearch$store.requestError;
   var _useTranslation = useTranslation(),
-      t = _useTranslation.t,
-      i18n = _useTranslation.i18n;
-
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
   if (requestError) {
     return /*#__PURE__*/React__default.createElement("span", null, "An error occurred while searching for your results. Please contact the site administrator.");
-  } // end of overrides
+  }
 
-
+  // end of overrides
   if ((!searchResults || searchResults.Results.length === 0) && !isLoading) {
     return /*#__PURE__*/React__default.createElement("span", null, t('No Results'));
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-results"
   }, /*#__PURE__*/React__default.createElement(SearchResultsLabel, null), /*#__PURE__*/React__default.createElement(Selections$1, null), /*#__PURE__*/React__default.createElement("div", {
@@ -17836,9 +17627,8 @@ function Results(_ref) {
 
 function AdjustedKeyword() {
   var _useHawksearch = useHawksearch(),
-      searchResults = _useHawksearch.store.searchResults,
-      actor = _useHawksearch.actor;
-
+    searchResults = _useHawksearch.store.searchResults,
+    actor = _useHawksearch.actor;
   if (searchResults && searchResults.AdjustedKeyword) {
     return /*#__PURE__*/React__default.createElement("div", {
       className: "hawk__adjusted-keyword"
@@ -17851,38 +17641,31 @@ function AdjustedKeyword() {
       }
     }, searchResults.Keyword), ".");
   }
-
   return null;
 }
 
 function LanguageSelector(_ref) {
   var title = _ref.title,
-      languages = _ref.languages,
-      facetName = _ref.facetName;
-
+    languages = _ref.languages,
+    facetName = _ref.facetName;
   var _useHawksearch = useHawksearch(),
-      pendingSearch = _useHawksearch.store.pendingSearch,
-      actor = _useHawksearch.actor;
-
+    pendingSearch = _useHawksearch.store.pendingSearch,
+    actor = _useHawksearch.actor;
   var _useState = useState('sl'),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      selectedValue = _useState2[0],
-      setValue = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    selectedValue = _useState2[0],
+    setValue = _useState2[1];
   useEffect(function () {
     var languageFacet = ((pendingSearch || {}).FacetSelections || {})[facetName];
-
     if (languageFacet) {
       setValue(languageFacet[0]);
     }
   }, [pendingSearch.FacetSelections]);
-
   function onChange(event) {
     actor.setSearch({
       FacetSelections: _defineProperty({}, facetName, [event.currentTarget.value])
     });
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-language"
   }, /*#__PURE__*/React__default.createElement("span", {
@@ -18005,7 +17788,9 @@ function invariant(condition, message) {
     if (isProduction$1) {
         throw new Error(prefix);
     }
-    throw new Error(prefix + ": " + (message || ''));
+    var provided = typeof message === 'function' ? message() : message;
+    var value = provided ? "".concat(prefix, ": ").concat(provided) : prefix;
+    throw new Error(value);
 }
 
 function addLeadingSlash(path) {
@@ -18479,50 +18264,34 @@ function createBrowserHistory(props) {
 
 var history = createBrowserHistory();
 
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
+function _objectWithoutPropertiesLoose(r, e) {
+  if (null == r) return {};
+  var t = {};
+  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
+    if (e.indexOf(n) >= 0) continue;
+    t[n] = r[n];
   }
-
-  return target;
+  return t;
 }
 
-function _objectWithoutProperties(source, excluded) {
-  if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose(source, excluded);
-  var key, i;
-
+function _objectWithoutProperties(e, t) {
+  if (null == e) return {};
+  var o,
+    r,
+    i = _objectWithoutPropertiesLoose(e, t);
   if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
+    var n = Object.getOwnPropertySymbols(e);
+    for (r = 0; r < n.length; r++) o = n[r], t.indexOf(o) >= 0 || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
   }
-
-  return target;
+  return i;
 }
 
-function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _createForOfIteratorHelper$2(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$3(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray$3(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$3(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$3(o, minLen); }
-
-function _arrayLikeToArray$3(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
+var _excluded = ["keyword", "sort", "pg", "mpp", "lp", "PageId", "lpurl", "searchWithin", "is100Coverage", "indexName", "ignoreSpellcheck"];
+function ownKeys$5(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread$6(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$5(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$5(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _createForOfIteratorHelper$2(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray$3(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray$3(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray$3(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray$3(r, a) : void 0; } }
+function _arrayLikeToArray$3(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 /** Represents parts of the browser query string that are fixed and are always single strings. */
 
 /**
@@ -18545,62 +18314,62 @@ function parseQueryStringToObject(search) {
       parsed[key] = encodeURIComponent(value);
     } else {
       // everything else should be turned into an array
+
       if (!value) {
         // no useful value for this query param, so skip it
         return;
-      } // multiple selections are split by commas, so split into an array
+      }
 
+      // multiple selections are split by commas, so split into an array
+      var multipleValues = value.split(',');
 
-      var multipleValues = value.split(','); // and now handle any comma escaping - any single value that contained a comma is escaped to '::'
-
+      // and now handle any comma escaping - any single value that contained a comma is escaped to '::'
       for (var x = 0; x < multipleValues.length; ++x) {
         multipleValues[x] = multipleValues[x].replace('::', ',');
       }
-
       parsed[key] = multipleValues;
     }
   });
   return parsed;
 }
+
 /**
  * Parses the abosulte url into a `HawkClient` client search request object.
  * @param location The input location
  */
-
-
 function parseLocation(location) {
   var searchUrl = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '/search';
-  var searchRequest = parseSearchQueryString(location.search); // customUrl have priority over keywords
+  var searchRequest = parseSearchQueryString(location.search);
 
+  // customUrl have priority over keywords
   if (checkIfUrlRefsLandingPage(location.pathname, searchUrl)) {
     searchRequest.Keyword = undefined;
     searchRequest.CustomUrl = location.pathname.replace(searchUrl, '');
   }
-
   return searchRequest;
 }
 /**
  * Parses the input query string into a `HawkClient` client search request object.
  * @param search The input query string.
  */
-
 function parseSearchQueryString(search) {
-  var queryObj = parseQueryStringToObject(search); // extract out components, including facet selections
+  var queryObj = parseQueryStringToObject(search);
 
+  // extract out components, including facet selections
   var keyword = queryObj.keyword,
-      sort = queryObj.sort,
-      pg = queryObj.pg,
-      mpp = queryObj.mpp,
-      lp = queryObj.lp,
-      PageId = queryObj.PageId,
-      lpurl = queryObj.lpurl,
-      searchWithin = queryObj.searchWithin,
-      is100Coverage = queryObj.is100Coverage,
-      indexName = queryObj.indexName,
-      ignoreSpellcheck = queryObj.ignoreSpellcheck,
-      facetSelections = _objectWithoutProperties(queryObj, ["keyword", "sort", "pg", "mpp", "lp", "PageId", "lpurl", "searchWithin", "is100Coverage", "indexName", "ignoreSpellcheck"]); // ignore landing pages if keyword is passed
+    sort = queryObj.sort,
+    pg = queryObj.pg,
+    mpp = queryObj.mpp,
+    lp = queryObj.lp,
+    PageId = queryObj.PageId,
+    lpurl = queryObj.lpurl,
+    searchWithin = queryObj.searchWithin,
+    is100Coverage = queryObj.is100Coverage,
+    indexName = queryObj.indexName,
+    ignoreSpellcheck = queryObj.ignoreSpellcheck,
+    facetSelections = _objectWithoutProperties(queryObj, _excluded);
 
-
+  // ignore landing pages if keyword is passed
   var pageId = lp || PageId;
   return {
     Keyword: lpurl || pageId ? '' : keyword,
@@ -18621,51 +18390,44 @@ function checkIfUrlRefsLandingPage(path, searchUrl) {
     // if there's no path, this request can't be for a landing page
     return false;
   }
-
   if (!path.endsWith('/')) {
     path = path + '/';
   }
-
   if (!searchUrl.endsWith('/')) {
     searchUrl = searchUrl + '/';
   }
-
   return path !== searchUrl;
 }
+
 /**
  * Converts a search query object (such as one returned from `parseSearchQueryString`) and converts
  * it into a browser query string
  * @param queryObj The query object to convert to a query string.
  */
-
 function convertObjectToQueryString(queryObj) {
   var queryStringValues = [];
-
   for (var _key in queryObj) {
     if (queryObj.hasOwnProperty(_key)) {
       if (_key === 'keyword' || _key === 'sort' || _key === 'pg' || _key === 'mpp' || _key === 'searchWithin' || _key === 'is100Coverage' || _key === 'indexName' || _key === 'ignoreSpellcheck') {
         var value = queryObj[_key];
-
         if (value === undefined || value === null) {
           // if any of the special keys just aren't defined or are null, don't include them in
           // the query string
           continue;
         }
-
         if (typeof value !== 'string') {
           throw new Error("".concat(_key, " must be a string"));
-        } // certain strings are special and are never arrays
+        }
 
-
+        // certain strings are special and are never arrays
         queryStringValues.push(_key + '=' + value);
       } else {
-        var values = queryObj[_key]; // handle comma escaping - if any of the values contains a comma, they need to be escaped first
+        var values = queryObj[_key];
 
+        // handle comma escaping - if any of the values contains a comma, they need to be escaped first
         var escapedValues = [];
-
         var _iterator = _createForOfIteratorHelper$2(values),
-            _step;
-
+          _step;
         try {
           for (_iterator.s(); !(_step = _iterator.n()).done;) {
             var unescapedValue = _step.value;
@@ -18676,20 +18438,17 @@ function convertObjectToQueryString(queryObj) {
         } finally {
           _iterator.f();
         }
-
         queryStringValues.push(_key + '=' + escapedValues.join(','));
       }
     }
   }
-
   return '?' + queryStringValues.join('&');
 }
+
 /**
  * Converts a partial search request object into a browser query string.
  * @param searchRequest The search request object to convert.
  */
-
-
 function getSearchQueryString(searchRequest) {
   var searchQuery = _objectSpread$6({
     keyword: searchRequest.Keyword,
@@ -18701,17 +18460,14 @@ function getSearchQueryString(searchRequest) {
     indexName: searchRequest.IndexName,
     ignoreSpellcheck: !searchRequest.IgnoreSpellcheck || !searchRequest.IgnoreSpellcheck ? undefined : String(searchRequest.IgnoreSpellcheck)
   }, searchRequest.FacetSelections);
-
   return convertObjectToQueryString(searchQuery);
 }
 
 var doSearch = true;
-
 function QueryStringListener() {
   var _useHawksearch = useHawksearch(),
-      store = _useHawksearch.store,
-      actor = _useHawksearch.actor;
-
+    store = _useHawksearch.store,
+    actor = _useHawksearch.actor;
   useEffect(function () {
     // listen to history so that when we navigate backward/forward, trigger a new search based off
     // the new query string
@@ -18721,11 +18477,10 @@ function QueryStringListener() {
         doSearch = true;
         return;
       }
-
       var searchRequest = parseSearchQueryString(location.search);
-      actor.setSearch(searchRequest, // explicitly flag this next search as not needing to push additional history, since this search
+      actor.setSearch(searchRequest,
+      // explicitly flag this next search as not needing to push additional history, since this search
       // _is_ the result of history.
-
       /*doHistory*/
       false);
     });
@@ -18736,6 +18491,7 @@ function QueryStringListener() {
   useEffect(function () {
     // listen to changes in the pending search so that history records can be pushed to the browser's
     // query string
+
     if (store.doHistory) {
       // if we're pushing history, we don't want to to trigger a search as a result of this history
       // change
@@ -18744,8 +18500,9 @@ function QueryStringListener() {
         search: getSearchQueryString(store.pendingSearch)
       });
     }
-  }, [store.pendingSearch]); // Extract access token and refresh token from query string on load
+  }, [store.pendingSearch]);
 
+  // Extract access token and refresh token from query string on load
   useEffect(function () {
     var params = new URLSearchParams(location.search);
     AuthToken$1.setTokens(params.get('token') || '', (params.get('refreshToken') || '').replace(/ /g, '+') || '');
@@ -18755,17 +18512,16 @@ function QueryStringListener() {
 
 function QueryStringListenerSF() {
   var _useHawksearch = useHawksearch(),
-      store = _useHawksearch.store,
-      actor = _useHawksearch.actor;
-
+    store = _useHawksearch.store,
+    actor = _useHawksearch.actor;
   useEffect(function () {
     // listen to history so that when we navigate backward/forward, trigger a new search based off
     // the new query string
     var unlisten = history.listen(function (location) {
       var searchRequest = parseSearchQueryString(location.search);
-      actor.setSearch(searchRequest, // explicitly flag this next search as not needing to push additional history, since this search
+      actor.setSearch(searchRequest,
+      // explicitly flag this next search as not needing to push additional history, since this search
       // _is_ the result of history.
-
       /*doHistory*/
       false);
     });
@@ -18776,6 +18532,7 @@ function QueryStringListenerSF() {
   useEffect(function () {
     // listen to changes in the pending search so that history records can be pushed to the browser's
     // query string
+
     if (store.doHistory) {
       history.push({
         search: getSearchQueryString(store.pendingSearch)
@@ -18787,70 +18544,62 @@ function QueryStringListenerSF() {
 
 function RedirectURLListener(_ref) {
   var RedirectAlertMessage = _ref.RedirectAlertMessage;
-
   var _useHawksearch = useHawksearch(),
-      store = _useHawksearch.store;
-
+    store = _useHawksearch.store;
   var _useState = useState(false),
-      _useState2 = _slicedToArray$1(_useState, 2),
-      showAlert = _useState2[0],
-      setAlert = _useState2[1];
-
+    _useState2 = _slicedToArray$1(_useState, 2),
+    showAlert = _useState2[0],
+    setAlert = _useState2[1];
   var _useState3 = useState(false),
-      _useState4 = _slicedToArray$1(_useState3, 2),
-      shouldRedirect = _useState4[0],
-      setRedirect = _useState4[1];
-
+    _useState4 = _slicedToArray$1(_useState3, 2),
+    shouldRedirect = _useState4[0],
+    setRedirect = _useState4[1];
   var _useState5 = useState(''),
-      _useState6 = _slicedToArray$1(_useState5, 2),
-      redirectURL = _useState6[0],
-      setRedirectURL = _useState6[1];
-
+    _useState6 = _slicedToArray$1(_useState5, 2),
+    redirectURL = _useState6[0],
+    setRedirectURL = _useState6[1];
   useEffect(function () {
     if (store.searchResults && store.searchResults.Redirect.Location) {
-      setRedirectURL(store.searchResults.Redirect.Location); // NOTE: This will set alert to show toast message
-
+      setRedirectURL(store.searchResults.Redirect.Location);
+      // NOTE: This will set alert to show toast message
       setAlert(true);
     }
-  }, [store.searchResults]); // NOTE: It will wait until the timeout is clear
+  }, [store.searchResults]);
 
+  // NOTE: It will wait until the timeout is clear
   useEffect(function () {
     if (shouldRedirect) {
-      setAlert(false); // NOTE: This will redirect the parent window to the given URL
-
-      window.top.location.href = redirectURL;
+      setAlert(false);
+      // NOTE: This will redirect the parent window to the given URL
+      if (window.top) {
+        window.top.location.href = redirectURL;
+      }
     }
-
     return function () {
       setRedirect(false);
     };
   }, [shouldRedirect]);
-
   if (!showAlert) {
     return null;
   }
-
   if (RedirectAlertMessage) {
     return /*#__PURE__*/React__default.createElement(RedirectAlertMessage, {
       message: redirectURL,
       setRedirect: setRedirect
     });
   }
-
   return /*#__PURE__*/React__default.createElement("div", null, "Alert message component is missing.");
 }
 
 function AutoCorrectSuggestion() {
   var _useHawksearch = useHawksearch(),
-      searchResults = _useHawksearch.store.searchResults,
-      hawkActor = _useHawksearch.actor;
-
+    searchResults = _useHawksearch.store.searchResults,
+    hawkActor = _useHawksearch.actor;
   function selectKeyword(keyword) {
     hawkActor.setSearch({
       Keyword: keyword
     });
   }
-
   return /*#__PURE__*/React__default.createElement("div", {
     className: "hawk-autocorrect-suggestion-container"
   }, searchResults && searchResults.DidYouMean && searchResults.DidYouMean.length ? /*#__PURE__*/React__default.createElement("div", {

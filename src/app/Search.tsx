@@ -12,7 +12,7 @@ import 'rheostat/initialize';
 
 import QueryStringListener from 'components/QueryStringListener';
 import App from 'app/App';
-import Hawksearch from 'components/Hawksearch';
+import Hawksearch from 'components/HawkSearch';
 import { parseLocation } from 'util/QueryString';
 import { HawksearchConfig } from 'types/HawksearchConfig';
 
