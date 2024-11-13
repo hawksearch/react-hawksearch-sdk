@@ -271,6 +271,10 @@
 	display: block
 }
 
+.hawk-result-rail__keyword-not-match {
+	color:#ff0000;
+}
+
 .hawk-facet-rail__facet-btn {
 	@include ButtonLink;
 
