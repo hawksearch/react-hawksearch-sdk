@@ -25,6 +25,7 @@ export { default as FacetList } from 'components/ui/Facets/FacetList';
 export { default as Facet } from 'components/ui/Facets/Facet';
 export { default as Selections } from 'components/ui/Facets/Selections';
 export { default as SearchResultsLabel } from 'components/ui/Facets/SearchResultsLabel';
+export { default as AllKeywordNotMatched } from 'components/ui/Results/AllKeywordNotMatched';
 export * from 'components/ui/Facets/FacetTypes';
 export { FacetType } from 'models/Facets/FacetType';
 export { FacetSelectionState } from 'store/Store';
