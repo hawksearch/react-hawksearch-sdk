@@ -12,7 +12,7 @@ function AllKeywordNotMatched() {
 	const { t, i18n } = useTranslation();
 	useEffect(() => {
 		if (searchResults && !searchResults.QueryUsedAllKeywords) {
-			setMessage('Sorry, No items contained all of the word in your query. These results below contains some of the words.');
+			setMessage('Sorry, no items contained all of the words in your query. These results below contain some of the words.');
 		} 
 	}, [searchResults]); 
 
